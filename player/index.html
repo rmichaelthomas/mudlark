@@ -86,6 +86,26 @@
       color: var(--muted);
       margin: 0 0 10px;
     }
+    #register-wrap { margin-bottom: 20px; }
+    #register-wrap label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    #register {
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
     #detail { margin-bottom: 24px; }
     .detail-meta {
       display: flex;
@@ -103,7 +123,17 @@
       font-size: 12px;
     }
     .detail-date, .detail-author { font-size: 12px; color: var(--muted); }
-    .detail-message { margin: 0; font-size: 14px; line-height: 1.5; }
+    .detail-message { margin: 0 0 10px; font-size: 14px; line-height: 1.5; }
+    .detail-offregister {
+      margin: 0;
+      padding: 8px 10px;
+      border-left: 2px solid var(--accent);
+      background: rgba(110, 168, 254, 0.08);
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+      border-radius: 0 4px 4px 0;
+    }
 
     fieldset {
       border: 1px solid var(--border);
@@ -195,6 +225,8 @@
       <div id="frame"><div id="stage"></div></div>
     </div>
     <aside>
+      <div id="register-wrap"></div>
+
       <h2>Detail</h2>
       <div id="detail"></div>
 

@@ -1,0 +1,83 @@
+{
+  "from": "0277d67",
+  "to": "513007c",
+  "stateId": "app",
+  "inserted": [
+    "/body:0/div:0/div:0/div:2/div:3/button:4",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:0",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:0",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:0/span:0",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:1",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:2",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:3",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:3/span:0",
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:4"
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": "/body:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "2532px",
+            "2813px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "2185px",
+            "2466px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "2185px",
+            "2466px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:2",
+      "layers": {
+        "frame": {
+          "height": [
+            "719px",
+            "1000px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:2/div:3",
+      "layers": {
+        "frame": {
+          "height": [
+            "567px",
+            "848px"
+          ],
+          "gridTemplateRows": [
+            "277px 276px",
+            "277px 276px 267px"
+          ]
+        }
+      }
+    }
+  ],
+  "lifeFileChanged": false,
+  "otherStatesChanged": []
+}

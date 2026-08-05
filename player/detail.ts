@@ -1,9 +1,22 @@
 import type { CommitMeta } from '../src/git/log';
+import type { Delta } from '../src/delta/types';
 
 // Bound to the playhead by a single caller (player/main.ts's entryAt),
 // so the pane can never show a commit other than the one the frame is
 // actually rendering — the record rule made operable (checkpoint §6).
-export function renderDetail(el: HTMLElement, commit: CommitMeta): void {
+//
+// `incomingDelta` is the delta that produced this commit's frame (null
+// for the film's first commit, which has no predecessor). When it is
+// empty in the current register but non-empty in others
+// (`otherStatesChanged`), the pane says so plainly — checkpoint v1.2
+// §6: the frame holds, and the pane explains rather than hides that.
+export function renderDetail(
+  el: HTMLElement,
+  commit: CommitMeta,
+  incomingDelta: Delta | null,
+  stateLabels: Map<string, string>,
+  currentStateId: string,
+): void {
   el.innerHTML = '';
 
   const meta = document.createElement('div');
@@ -28,4 +41,14 @@ export function renderDetail(el: HTMLElement, commit: CommitMeta): void {
   message.textContent = commit.message;
 
   el.append(meta, message);
+
+  if (incomingDelta && incomingDelta.otherStatesChanged.length > 0) {
+    const currentLabel = stateLabels.get(currentStateId) ?? currentStateId;
+    const otherLabels = incomingDelta.otherStatesChanged.map((id) => stateLabels.get(id) ?? id);
+
+    const note = document.createElement('p');
+    note.className = 'detail-offregister';
+    note.textContent = `No change in ${currentLabel} for this commit. It changed ${otherLabels.join(', ')}.`;
+    el.append(note);
+  }
 }

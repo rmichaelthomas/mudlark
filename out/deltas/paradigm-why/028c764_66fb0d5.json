@@ -1,0 +1,413 @@
+{
+  "from": "028c764",
+  "to": "66fb0d5",
+  "stateId": "paradigm-why",
+  "inserted": [
+    "/body:0/nav:0",
+    "/body:0/nav:0/div:0",
+    "/body:0/nav:0/div:0/button:0",
+    "/body:0/nav:0/div:0/button:1",
+    "/body:0/nav:0/div:0/button:2",
+    "/body:0/nav:0/div:0/button:3",
+    "/body:0/nav:0/div:0/button:4",
+    "/body:0/div:0/div:1/svg:0",
+    "/body:0/div:0/div:1/svg:0/path:0",
+    "/body:0/div:0/div:1/svg:0/path:1",
+    "/body:0/div:0/div:1/svg:0/path:2",
+    "/body:0/div:0/div:1/svg:0/path:3",
+    "/body:0/div:0/div:1/svg:0/circle:0",
+    "/body:0/div:0/div:1/div:0/h1:0",
+    "/body:0/div:0/div:1/div:0/p:0",
+    "/body:0/div:0/div:1/div:0/p:1",
+    "/body:0/div:0/div:1/div:1",
+    "/body:0/div:0/div:1/div:1/button:0",
+    "/body:0/div:0/div:1/div:1/button:1",
+    "/body:0/div:0/div:1/div:1/button:2",
+    "/body:0/div:0/div:1/div:2",
+    "/body:0/div:0/div:1/div:2/div:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:0/span:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:0/div:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:0/div:1",
+    "/body:0/div:0/div:1/div:2/div:0/button:1",
+    "/body:0/div:0/div:1/div:2/div:0/button:1/span:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:1/div:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:1/div:1",
+    "/body:0/div:0/div:1/div:2/div:0/button:2",
+    "/body:0/div:0/div:1/div:2/div:0/button:2/span:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:2/div:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:2/div:1",
+    "/body:0/div:0/div:1/div:2/div:0/button:3",
+    "/body:0/div:0/div:1/div:2/div:0/button:3/span:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:3/div:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:3/div:1",
+    "/body:0/div:0/div:1/div:2/div:0/button:4",
+    "/body:0/div:0/div:1/div:2/div:0/button:4/span:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:4/div:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:4/div:1",
+    "/body:0/div:0/div:1/div:2/div:0/button:5",
+    "/body:0/div:0/div:1/div:2/div:0/button:5/span:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:5/div:0",
+    "/body:0/div:0/div:1/div:2/div:0/button:5/div:1",
+    "/body:0/div:0/div:1/div:4",
+    "/body:0/div:0/div:1/div:4/span:0",
+    "/body:0/div:0/div:1/div:4/a:0",
+    "/body:0/div:0/div:1/div:4/a:0/span:0",
+    "/body:0/div:0/div:1/div:4/a:0/span:1",
+    "/body:0/footer:0",
+    "/body:0/footer:0/div:0",
+    "/body:0/footer:0/div:1"
+  ],
+  "removed": [
+    "/body:0/svg:0",
+    "/body:0/svg:0/path:0",
+    "/body:0/svg:0/path:1",
+    "/body:0/svg:0/path:2",
+    "/body:0/svg:0/path:3",
+    "/body:0/svg:0/circle:0",
+    "/body:0/div:0/header:0",
+    "/body:0/div:0/header:0/div:0",
+    "/body:0/div:0/header:0/div:1",
+    "/body:0/div:0/div:0",
+    "/body:0/div:0/div:1/div:0/div:0",
+    "/body:0/div:0/div:1/div:0/button:0",
+    "/body:0/div:0/div:1/div:0/button:1",
+    "/body:0/div:0/section:0",
+    "/body:0/div:0/section:0/div:0",
+    "/body:0/div:0/section:0/h2:0",
+    "/body:0/div:0/section:0/div:1",
+    "/body:0/div:0/section:0/div:1/div:0",
+    "/body:0/div:0/section:0/div:1/div:0/p:0",
+    "/body:0/div:0/section:0/div:1/div:0/p:1",
+    "/body:0/div:0/section:0/div:1/div:0/p:2",
+    "/body:0/div:0/section:0/div:1/div:1",
+    "/body:0/div:0/section:0/div:1/div:1/p:0",
+    "/body:0/div:0/section:0/div:1/div:1/p:0/strong:0",
+    "/body:0/div:0/section:0/div:1/div:1/p:1",
+    "/body:0/div:0/section:0/div:1/div:1/p:1/em:0",
+    "/body:0/div:0/section:0/div:1/div:1/p:1/em:1",
+    "/body:0/div:0/section:0/div:1/div:1/p:1/em:2",
+    "/body:0/div:0/section:0/div:1/div:1/p:1/em:3",
+    "/body:0/div:0/section:0/div:1/div:1/p:2",
+    "/body:0/div:0/section:0/div:1/div:1/p:2/strong:0",
+    "/body:0/div:0/section:0/div:1/div:1/p:2/em:0",
+    "/body:0/div:0/section:0/div:2",
+    "/body:0/div:0/section:0/div:2/div:0",
+    "/body:0/div:0/section:0/div:2/div:0/div:0",
+    "/body:0/div:0/section:0/div:2/div:0/div:1",
+    "/body:0/div:0/section:0/div:2/div:1",
+    "/body:0/div:0/section:0/div:2/div:1/div:0",
+    "/body:0/div:0/section:0/div:2/div:1/div:1",
+    "/body:0/div:0/section:0/div:2/div:2",
+    "/body:0/div:0/section:0/div:2/div:2/div:0",
+    "/body:0/div:0/section:0/div:2/div:2/div:1",
+    "/body:0/div:0/section:0/div:2/div:3",
+    "/body:0/div:0/section:0/div:2/div:3/div:0",
+    "/body:0/div:0/section:0/div:2/div:3/div:1",
+    "/body:0/div:0/section:1",
+    "/body:0/div:0/section:1/div:0",
+    "/body:0/div:0/section:1/div:1",
+    "/body:0/div:0/section:1/div:1/div:0",
+    "/body:0/div:0/section:1/div:1/div:1",
+    "/body:0/div:0/section:1/div:1/div:2",
+    "/body:0/div:0/section:1/div:1/div:2/p:0",
+    "/body:0/div:0/section:1/div:1/div:2/p:1",
+    "/body:0/div:0/section:1/div:1/div:2/p:1/em:0",
+    "/body:0/div:0/section:1/div:1/div:2/p:2",
+    "/body:0/div:0/section:1/div:1/div:3",
+    "/body:0/div:0/section:1/div:1/div:3/a:0",
+    "/body:0/div:0/section:1/div:1/div:3/a:1",
+    "/body:0/div:0/section:1/div:1/div:3/a:2",
+    "/body:0/div:0/section:1/div:1/div:3/a:3",
+    "/body:0/div:0/section:2",
+    "/body:0/div:0/section:2/div:0",
+    "/body:0/div:0/section:2/h2:0",
+    "/body:0/div:0/section:2/div:1",
+    "/body:0/div:0/section:2/div:1/div:0",
+    "/body:0/div:0/section:2/div:1/div:0/p:0",
+    "/body:0/div:0/section:2/div:1/div:0/p:0/em:0",
+    "/body:0/div:0/section:2/div:1/div:0/p:1",
+    "/body:0/div:0/section:2/div:1/div:1",
+    "/body:0/div:0/section:2/div:1/div:1/p:0",
+    "/body:0/div:0/section:2/div:1/div:1/p:1",
+    "/body:0/div:0/section:2/div:2",
+    "/body:0/div:0/section:2/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:0/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:0/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:0/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:0/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:0/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:0/div:2/div:1/p:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2/div:1/p:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2/div:1/p:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:3",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2/div:1/p:0",
+    "/body:0/div:0/section:2/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:1/div:0",
+    "/body:0/div:0/section:2/div:2/div:1/div:0/button:0",
+    "/body:0/div:0/section:2/div:2/div:1/div:0/button:1",
+    "/body:0/div:0/section:2/div:2/div:1/div:0/button:2",
+    "/body:0/div:0/section:2/div:2/div:1/div:0/button:3",
+    "/body:0/div:0/section:2/div:2/div:1/div:1",
+    "/body:0/div:0/section:2/div:2/div:1/div:1/button:0",
+    "/body:0/div:0/section:2/div:2/div:1/div:1/button:1",
+    "/body:0/div:0/section:3",
+    "/body:0/div:0/section:3/div:0",
+    "/body:0/div:0/section:3/div:1",
+    "/body:0/div:0/section:3/div:1/div:0",
+    "/body:0/div:0/section:3/div:1/div:0/span:0",
+    "/body:0/div:0/section:3/div:1/div:0/a:0",
+    "/body:0/div:0/section:3/div:1/div:0/a:0/span:0",
+    "/body:0/div:0/section:3/div:1/div:0/a:0/span:1",
+    "/body:0/div:0/section:3/div:1/div:1",
+    "/body:0/div:0/section:3/div:1/div:1/span:0",
+    "/body:0/div:0/section:3/div:1/div:1/a:0",
+    "/body:0/div:0/section:3/div:1/div:1/a:0/span:0",
+    "/body:0/div:0/section:3/div:1/div:1/a:0/span:0/span:0",
+    "/body:0/div:0/section:3/div:1/div:1/a:0/span:0/span:1",
+    "/body:0/div:0/section:3/div:1/div:1/a:0/span:1",
+    "/body:0/div:0/footer:0",
+    "/body:0/div:0/footer:0/div:0",
+    "/body:0/div:0/footer:0/div:1"
+  ],
+  "changed": [
+    {
+      "key": "/body:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "3943px",
+            "2000px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "3943px",
+            "753px"
+          ],
+          "paddingTop": [
+            "72px",
+            "0px"
+          ],
+          "paddingBottom": [
+            "96px",
+            "0px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:1",
+      "layers": {
+        "frame": {
+          "display": [
+            "flex",
+            "block"
+          ],
+          "position": [
+            "sticky",
+            "static"
+          ],
+          "top": [
+            "28px",
+            "auto"
+          ],
+          "height": [
+            "50px",
+            "753px"
+          ],
+          "marginBottom": [
+            "72px",
+            "0px"
+          ],
+          "paddingTop": [
+            "0px",
+            "56px"
+          ],
+          "paddingBottom": [
+            "0px",
+            "88px"
+          ],
+          "justifyContent": [
+            "flex-start",
+            "normal"
+          ]
+        },
+        "life": {
+          "animationName": [
+            "fade-up",
+            "none"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:1/div:0",
+      "layers": {
+        "frame": {
+          "display": [
+            "flex",
+            "block"
+          ],
+          "position": [
+            "relative",
+            "static"
+          ],
+          "top": [
+            "0px",
+            "auto"
+          ],
+          "right": [
+            "0px",
+            "auto"
+          ],
+          "bottom": [
+            "0px",
+            "auto"
+          ],
+          "left": [
+            "0px",
+            "auto"
+          ],
+          "width": [
+            "319px",
+            "560px"
+          ],
+          "height": [
+            "50px",
+            "200px"
+          ],
+          "marginBottom": [
+            "0px",
+            "32px"
+          ],
+          "paddingTop": [
+            "5px",
+            "0px"
+          ],
+          "paddingRight": [
+            "5px",
+            "0px"
+          ],
+          "paddingBottom": [
+            "5px",
+            "0px"
+          ],
+          "paddingLeft": [
+            "5px",
+            "0px"
+          ]
+        },
+        "skin": {
+          "backgroundColor": [
+            "rgba(41, 50, 65, 0.85)",
+            "rgba(0, 0, 0, 0)"
+          ],
+          "borderTopWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderRightWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderBottomWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderLeftWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderTopColor": [
+            "rgba(152, 193, 217, 0.22)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderRightColor": [
+            "rgba(152, 193, 217, 0.22)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderBottomColor": [
+            "rgba(152, 193, 217, 0.22)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderLeftColor": [
+            "rgba(152, 193, 217, 0.22)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderTopStyle": [
+            "solid",
+            "none"
+          ],
+          "borderRightStyle": [
+            "solid",
+            "none"
+          ],
+          "borderBottomStyle": [
+            "solid",
+            "none"
+          ],
+          "borderLeftStyle": [
+            "solid",
+            "none"
+          ],
+          "borderRadius": [
+            "999px",
+            "0px"
+          ]
+        },
+        "voice": {
+          "fontFamily": [
+            "Figtree, sans-serif",
+            "Figtree, -apple-system, \"system-ui\", sans-serif"
+          ],
+          "fontSize": [
+            "11px",
+            "16px"
+          ],
+          "fontWeight": [
+            "500",
+            "400"
+          ],
+          "lineHeight": [
+            "18px",
+            "26px"
+          ],
+          "letterSpacing": [
+            "2px",
+            "normal"
+          ],
+          "textTransform": [
+            "uppercase",
+            "none"
+          ]
+        }
+      }
+    }
+  ],
+  "lifeFileChanged": true,
+  "otherStatesChanged": []
+}

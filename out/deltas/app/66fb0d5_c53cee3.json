@@ -1,0 +1,1676 @@
+{
+  "from": "66fb0d5",
+  "to": "c53cee3",
+  "stateId": "app",
+  "inserted": [],
+  "removed": [],
+  "changed": [
+    {
+      "key": "/body:0/nav:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "58px",
+            "73px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "780px",
+            "960px"
+          ],
+          "height": [
+            "834px",
+            "1178px"
+          ],
+          "marginRight": [
+            "250px",
+            "160px"
+          ],
+          "marginLeft": [
+            "250px",
+            "160px"
+          ],
+          "paddingRight": [
+            "36px",
+            "48px"
+          ],
+          "paddingLeft": [
+            "36px",
+            "48px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/footer:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "780px",
+            "960px"
+          ],
+          "height": [
+            "152px",
+            "216px"
+          ],
+          "marginRight": [
+            "250px",
+            "160px"
+          ],
+          "marginLeft": [
+            "250px",
+            "160px"
+          ],
+          "paddingTop": [
+            "32px",
+            "44px"
+          ],
+          "paddingRight": [
+            "36px",
+            "48px"
+          ],
+          "paddingBottom": [
+            "56px",
+            "72px"
+          ],
+          "paddingLeft": [
+            "36px",
+            "48px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/nav:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "780px",
+            "960px"
+          ],
+          "height": [
+            "57px",
+            "72px"
+          ],
+          "marginRight": [
+            "250px",
+            "160px"
+          ],
+          "marginLeft": [
+            "250px",
+            "160px"
+          ],
+          "paddingRight": [
+            "36px",
+            "48px"
+          ],
+          "paddingLeft": [
+            "36px",
+            "48px"
+          ],
+          "gap": [
+            "4px",
+            "10px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "708px",
+            "864px"
+          ],
+          "height": [
+            "834px",
+            "1178px"
+          ],
+          "paddingTop": [
+            "56px",
+            "72px"
+          ],
+          "paddingBottom": [
+            "88px",
+            "101px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/footer:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "708px",
+            "864px"
+          ],
+          "height": [
+            "13px",
+            "20px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgba(61, 90, 128, 0.45)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgba(61, 90, 128, 0.45)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgba(61, 90, 128, 0.45)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderBottomColor": [
+            "rgba(61, 90, 128, 0.45)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgba(61, 90, 128, 0.45)",
+            "rgb(152, 193, 217)"
+          ],
+          "opacity": [
+            "1",
+            "0.7"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "8px",
+            "12px"
+          ],
+          "lineHeight": [
+            "13px",
+            "20px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/footer:0/div:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "560px",
+            "517px"
+          ],
+          "height": [
+            "37px",
+            "66px"
+          ],
+          "marginRight": [
+            "74px",
+            "174px"
+          ],
+          "marginLeft": [
+            "74px",
+            "174px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgba(61, 90, 128, 0.7)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgba(61, 90, 128, 0.7)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgba(61, 90, 128, 0.7)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderBottomColor": [
+            "rgba(61, 90, 128, 0.7)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgba(61, 90, 128, 0.7)",
+            "rgb(152, 193, 217)"
+          ],
+          "opacity": [
+            "1",
+            "0.85"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "11px",
+            "13px"
+          ],
+          "lineHeight": [
+            "19px",
+            "22px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/nav:0/div:0/button:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "56px",
+            "66px"
+          ],
+          "height": [
+            "44px",
+            "53px"
+          ],
+          "paddingTop": [
+            "14px",
+            "18px"
+          ],
+          "paddingRight": [
+            "16px",
+            "18px"
+          ],
+          "paddingBottom": [
+            "14px",
+            "18px"
+          ],
+          "paddingLeft": [
+            "16px",
+            "18px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "10px",
+            "13px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/nav:0/div:0/button:2",
+      "layers": {
+        "frame": {
+          "width": [
+            "99px",
+            "117px"
+          ],
+          "height": [
+            "44px",
+            "53px"
+          ],
+          "paddingTop": [
+            "14px",
+            "18px"
+          ],
+          "paddingRight": [
+            "16px",
+            "18px"
+          ],
+          "paddingBottom": [
+            "14px",
+            "18px"
+          ],
+          "paddingLeft": [
+            "16px",
+            "18px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "10px",
+            "13px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/nav:0/div:0/button:3",
+      "layers": {
+        "frame": {
+          "width": [
+            "64px",
+            "75px"
+          ],
+          "height": [
+            "44px",
+            "53px"
+          ],
+          "paddingTop": [
+            "14px",
+            "18px"
+          ],
+          "paddingRight": [
+            "16px",
+            "18px"
+          ],
+          "paddingBottom": [
+            "14px",
+            "18px"
+          ],
+          "paddingLeft": [
+            "16px",
+            "18px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "10px",
+            "13px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/nav:0/div:0/button:4",
+      "layers": {
+        "frame": {
+          "width": [
+            "85px",
+            "101px"
+          ],
+          "height": [
+            "44px",
+            "53px"
+          ],
+          "paddingTop": [
+            "14px",
+            "18px"
+          ],
+          "paddingRight": [
+            "16px",
+            "18px"
+          ],
+          "paddingBottom": [
+            "14px",
+            "18px"
+          ],
+          "paddingLeft": [
+            "16px",
+            "18px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "10px",
+            "13px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/nav:0/div:0/button:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "68px",
+            "82px"
+          ],
+          "height": [
+            "57px",
+            "72px"
+          ],
+          "marginRight": [
+            "320px",
+            "384px"
+          ],
+          "paddingTop": [
+            "14px",
+            "18px"
+          ],
+          "paddingBottom": [
+            "14px",
+            "18px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "18px",
+            "22px"
+          ],
+          "lineHeight": [
+            "29px",
+            "36px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "708px",
+            "864px"
+          ],
+          "height": [
+            "290px",
+            "367px"
+          ],
+          "marginBottom": [
+            "40px",
+            "72px"
+          ],
+          "gridTemplateColumns": [
+            "476px 200px",
+            "572px 220px"
+          ],
+          "gridTemplateRows": [
+            "290px",
+            "367px"
+          ],
+          "gap": [
+            "32px",
+            "72px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "708px",
+            "864px"
+          ],
+          "height": [
+            "148px",
+            "230px"
+          ],
+          "marginBottom": [
+            "32px",
+            "72px"
+          ],
+          "gridTemplateColumns": [
+            "234.656px 234.672px 234.672px",
+            "286.656px 286.672px 286.656px"
+          ],
+          "gridTemplateRows": [
+            "148px",
+            "228px"
+          ],
+          "gap": [
+            "2px",
+            "1px"
+          ]
+        },
+        "skin": {
+          "backgroundColor": [
+            "rgba(0, 0, 0, 0)",
+            "rgba(61, 90, 128, 0.2)"
+          ],
+          "borderTopWidth": [
+            "0px",
+            "1px"
+          ],
+          "borderRightWidth": [
+            "0px",
+            "1px"
+          ],
+          "borderBottomWidth": [
+            "0px",
+            "1px"
+          ],
+          "borderLeftWidth": [
+            "0px",
+            "1px"
+          ],
+          "borderTopColor": [
+            "rgb(224, 251, 252)",
+            "rgba(61, 90, 128, 0.2)"
+          ],
+          "borderRightColor": [
+            "rgb(224, 251, 252)",
+            "rgba(61, 90, 128, 0.2)"
+          ],
+          "borderBottomColor": [
+            "rgb(224, 251, 252)",
+            "rgba(61, 90, 128, 0.2)"
+          ],
+          "borderLeftColor": [
+            "rgb(224, 251, 252)",
+            "rgba(61, 90, 128, 0.2)"
+          ],
+          "borderTopStyle": [
+            "none",
+            "solid"
+          ],
+          "borderRightStyle": [
+            "none",
+            "solid"
+          ],
+          "borderBottomStyle": [
+            "none",
+            "solid"
+          ],
+          "borderLeftStyle": [
+            "none",
+            "solid"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/blockquote:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "708px",
+            "864px"
+          ],
+          "height": [
+            "114px",
+            "157px"
+          ],
+          "marginBottom": [
+            "20px",
+            "44px"
+          ],
+          "paddingTop": [
+            "20px",
+            "28px"
+          ],
+          "paddingRight": [
+            "24px",
+            "44px"
+          ],
+          "paddingBottom": [
+            "20px",
+            "28px"
+          ],
+          "paddingLeft": [
+            "24px",
+            "44px"
+          ]
+        },
+        "skin": {
+          "borderLeftWidth": [
+            "2px",
+            "3px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/button:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "708px",
+            "864px"
+          ],
+          "height": [
+            "46px",
+            "63px"
+          ],
+          "paddingTop": [
+            "14px",
+            "20px"
+          ],
+          "paddingBottom": [
+            "14px",
+            "20px"
+          ],
+          "gap": [
+            "12px",
+            "16px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "476px",
+            "572px"
+          ],
+          "height": [
+            "263px",
+            "367px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1",
+      "layers": {
+        "frame": {
+          "marginTop": [
+            "0px",
+            "8px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "235px",
+            "287px"
+          ],
+          "height": [
+            "148px",
+            "228px"
+          ],
+          "paddingTop": [
+            "18px",
+            "28px"
+          ],
+          "paddingRight": [
+            "14px",
+            "28px"
+          ],
+          "paddingBottom": [
+            "18px",
+            "28px"
+          ],
+          "paddingLeft": [
+            "14px",
+            "28px"
+          ]
+        },
+        "skin": {
+          "backgroundColor": [
+            "rgba(0, 0, 0, 0)",
+            "rgb(41, 50, 65)"
+          ],
+          "borderTopWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderRightWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderBottomWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderLeftWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderTopColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderRightColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderBottomColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderLeftColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderTopStyle": [
+            "solid",
+            "none"
+          ],
+          "borderRightStyle": [
+            "solid",
+            "none"
+          ],
+          "borderBottomStyle": [
+            "solid",
+            "none"
+          ],
+          "borderLeftStyle": [
+            "solid",
+            "none"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "235px",
+            "287px"
+          ],
+          "height": [
+            "148px",
+            "228px"
+          ],
+          "paddingTop": [
+            "18px",
+            "28px"
+          ],
+          "paddingRight": [
+            "14px",
+            "28px"
+          ],
+          "paddingBottom": [
+            "18px",
+            "28px"
+          ],
+          "paddingLeft": [
+            "14px",
+            "28px"
+          ]
+        },
+        "skin": {
+          "backgroundColor": [
+            "rgba(0, 0, 0, 0)",
+            "rgb(41, 50, 65)"
+          ],
+          "borderTopWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderRightWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderBottomWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderLeftWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderTopColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderRightColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderBottomColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderLeftColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderTopStyle": [
+            "solid",
+            "none"
+          ],
+          "borderRightStyle": [
+            "solid",
+            "none"
+          ],
+          "borderBottomStyle": [
+            "solid",
+            "none"
+          ],
+          "borderLeftStyle": [
+            "solid",
+            "none"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:2",
+      "layers": {
+        "frame": {
+          "width": [
+            "235px",
+            "287px"
+          ],
+          "height": [
+            "148px",
+            "228px"
+          ],
+          "paddingTop": [
+            "18px",
+            "28px"
+          ],
+          "paddingRight": [
+            "14px",
+            "28px"
+          ],
+          "paddingBottom": [
+            "18px",
+            "28px"
+          ],
+          "paddingLeft": [
+            "14px",
+            "28px"
+          ]
+        },
+        "skin": {
+          "backgroundColor": [
+            "rgba(0, 0, 0, 0)",
+            "rgb(41, 50, 65)"
+          ],
+          "borderTopWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderRightWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderBottomWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderLeftWidth": [
+            "1px",
+            "0px"
+          ],
+          "borderTopColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderRightColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderBottomColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderLeftColor": [
+            "rgba(61, 90, 128, 0.2)",
+            "rgb(224, 251, 252)"
+          ],
+          "borderTopStyle": [
+            "solid",
+            "none"
+          ],
+          "borderRightStyle": [
+            "solid",
+            "none"
+          ],
+          "borderBottomStyle": [
+            "solid",
+            "none"
+          ],
+          "borderLeftStyle": [
+            "solid",
+            "none"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/blockquote:0/p:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "658px",
+            "598px"
+          ],
+          "height": [
+            "50px",
+            "66px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "16px",
+            "22px"
+          ],
+          "lineHeight": [
+            "25px",
+            "33px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/blockquote:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "658px",
+            "773px"
+          ],
+          "height": [
+            "14px",
+            "21px"
+          ],
+          "marginTop": [
+            "10px",
+            "14px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderBottomColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "9px",
+            "13px"
+          ],
+          "lineHeight": [
+            "14px",
+            "21px"
+          ],
+          "letterSpacing": [
+            "1px",
+            "2px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/button:0/span:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "484px",
+            "595px"
+          ],
+          "height": [
+            "15px",
+            "19px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "13px",
+            "16px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/button:0/span:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "16px",
+            "20px"
+          ],
+          "height": [
+            "18px",
+            "23px"
+          ],
+          "marginLeft": [
+            "196px",
+            "233px"
+          ],
+          "flexShrink": [
+            "1",
+            "0"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "16px",
+            "20px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:0/h1:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "476px",
+            "571px"
+          ],
+          "height": [
+            "75px",
+            "120px"
+          ],
+          "marginBottom": [
+            "16px",
+            "28px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "30px",
+            "52px"
+          ],
+          "lineHeight": [
+            "38px",
+            "60px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:0/p:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "400px",
+            "501px"
+          ],
+          "height": [
+            "105px",
+            "119px"
+          ],
+          "marginBottom": [
+            "22px",
+            "44px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "15px",
+            "17px"
+          ],
+          "lineHeight": [
+            "26px",
+            "30px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:0/a:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "229px",
+            "280px"
+          ],
+          "height": [
+            "45px",
+            "56px"
+          ],
+          "paddingTop": [
+            "12px",
+            "15px"
+          ],
+          "paddingRight": [
+            "22px",
+            "28px"
+          ],
+          "paddingBottom": [
+            "12px",
+            "15px"
+          ],
+          "paddingLeft": [
+            "22px",
+            "28px"
+          ],
+          "gap": [
+            "8px",
+            "10px"
+          ]
+        },
+        "skin": {
+          "borderRadius": [
+            "8px",
+            "10px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "13px",
+            "16px"
+          ],
+          "lineHeight": [
+            "21px",
+            "26px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:0/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "205px",
+            "231px"
+          ],
+          "height": [
+            "22px",
+            "30px"
+          ],
+          "marginBottom": [
+            "8px",
+            "10px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "14px",
+            "18px"
+          ],
+          "lineHeight": [
+            "22px",
+            "30px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:0/div:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "205px",
+            "231px"
+          ],
+          "height": [
+            "79px",
+            "132px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "12px",
+            "16px"
+          ],
+          "lineHeight": [
+            "20px",
+            "26px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:1/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "205px",
+            "231px"
+          ],
+          "height": [
+            "22px",
+            "30px"
+          ],
+          "marginBottom": [
+            "8px",
+            "10px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "14px",
+            "18px"
+          ],
+          "lineHeight": [
+            "22px",
+            "30px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:1/div:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "205px",
+            "231px"
+          ],
+          "height": [
+            "79px",
+            "106px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "12px",
+            "16px"
+          ],
+          "lineHeight": [
+            "20px",
+            "26px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:2/div:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "205px",
+            "231px"
+          ],
+          "height": [
+            "22px",
+            "30px"
+          ],
+          "marginBottom": [
+            "8px",
+            "10px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "14px",
+            "18px"
+          ],
+          "lineHeight": [
+            "22px",
+            "30px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:1/div:2/div:1",
+      "layers": {
+        "frame": {
+          "width": [
+            "205px",
+            "231px"
+          ],
+          "height": [
+            "79px",
+            "132px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "12px",
+            "16px"
+          ],
+          "lineHeight": [
+            "20px",
+            "26px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/button:0/span:0/em:0",
+      "layers": {
+        "voice": {
+          "fontSize": [
+            "13px",
+            "16px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "51px",
+            "55px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:1",
+      "layers": {
+        "frame": {
+          "height": [
+            "51px",
+            "55px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:2",
+      "layers": {
+        "frame": {
+          "height": [
+            "51px",
+            "55px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:3",
+      "layers": {
+        "frame": {
+          "height": [
+            "51px",
+            "55px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:0/span:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "14px",
+            "17px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "9px",
+            "10px"
+          ],
+          "lineHeight": [
+            "14px",
+            "17px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:0/span:1",
+      "layers": {
+        "frame": {
+          "height": [
+            "9px",
+            "10px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderBottomColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "7px",
+            "8px"
+          ],
+          "lineHeight": [
+            "9px",
+            "10px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:1/span:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "14px",
+            "17px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "9px",
+            "10px"
+          ],
+          "lineHeight": [
+            "14px",
+            "17px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:1/span:1",
+      "layers": {
+        "frame": {
+          "height": [
+            "9px",
+            "10px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderBottomColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "7px",
+            "8px"
+          ],
+          "lineHeight": [
+            "9px",
+            "10px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:2/span:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "14px",
+            "17px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "9px",
+            "10px"
+          ],
+          "lineHeight": [
+            "14px",
+            "17px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:2/span:1",
+      "layers": {
+        "frame": {
+          "height": [
+            "9px",
+            "10px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderBottomColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "7px",
+            "8px"
+          ],
+          "lineHeight": [
+            "9px",
+            "10px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:3/span:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "14px",
+            "17px"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "9px",
+            "10px"
+          ],
+          "lineHeight": [
+            "14px",
+            "17px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:3/span:1",
+      "layers": {
+        "frame": {
+          "height": [
+            "9px",
+            "10px"
+          ]
+        },
+        "skin": {
+          "color": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderTopColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderRightColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderBottomColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ],
+          "borderLeftColor": [
+            "rgb(107, 142, 174)",
+            "rgb(152, 193, 217)"
+          ]
+        },
+        "voice": {
+          "fontSize": [
+            "7px",
+            "8px"
+          ],
+          "lineHeight": [
+            "9px",
+            "10px"
+          ]
+        }
+      }
+    }
+  ],
+  "lifeFileChanged": true,
+  "otherStatesChanged": []
+}

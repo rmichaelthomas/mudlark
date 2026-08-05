@@ -80,8 +80,13 @@ export const dwellOnStructure: PacingRule = {
 
 export const DEFAULT_RULES: PacingRule[] = [weightByChange, holdTheGaps, floorTheNoise, dwellOnStructure];
 
-function emptyDelta(toSha: string): Delta {
-  return { from: '', to: toSha, inserted: [], removed: [], changed: [], lifeFileChanged: false };
+// Minimal v1.2 compatibility fix: Delta gained required `stateId` and
+// `otherStatesChanged` fields (checkpoint v1.2 §5). This file is
+// otherwise read-only for that build — the genesis sentinel below just
+// needs to satisfy the new shape, not participate in the state
+// mechanism, so it borrows the state id of whatever it's standing in for.
+function emptyDelta(toSha: string, stateId: string): Delta {
+  return { from: '', to: toSha, stateId, inserted: [], removed: [], changed: [], lifeFileChanged: false, otherStatesChanged: [] };
 }
 
 export interface TimelineEntry {
@@ -100,9 +105,10 @@ export function computeTimeline(
   rules: PacingRule[],
   totalSeconds: number,
 ): TimelineEntry[] {
+  const genesisStateId = deltas[0]?.stateId ?? 'default';
   const perCommit = metas.map((meta, i) => {
     const prev = i > 0 ? metas[i - 1] : null;
-    const delta = i > 0 ? deltas[i - 1] : emptyDelta(meta.sha);
+    const delta = i > 0 ? deltas[i - 1] : emptyDelta(meta.sha, genesisStateId);
 
     let baseWeight = 0;
     let multiplier = 1;

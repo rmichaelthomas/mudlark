@@ -10,6 +10,11 @@ import { renderRail, updateRailPlayhead } from './rail';
 const FULL_FILM_SECONDS = 45;
 const SECONDS_PER_CUT_TRANSITION = 6;
 
+interface StateInfo {
+  id: string;
+  label: string;
+}
+
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`fetch ${url} failed: ${res.status}`);
@@ -32,33 +37,50 @@ function applyRangeParam(commits: CommitMeta[]): CommitMeta[] {
   return commits.slice(fromIndex, toIndex + 1);
 }
 
+// Invariant 7 (v1.2): zero-config capture is the single-element case of
+// the general path. When the manifest lists one state, this renders
+// nothing — not disabled, not a single-option dropdown. Absent.
+function renderRegisterControl(
+  wrap: HTMLElement,
+  states: StateInfo[],
+  currentStateId: string,
+  onChange: (stateId: string) => void,
+): void {
+  wrap.innerHTML = '';
+  if (states.length <= 1) return;
+
+  const label = document.createElement('label');
+  label.textContent = 'Register';
+  label.htmlFor = 'register';
+
+  const select = document.createElement('select');
+  select.id = 'register';
+  for (const state of states) {
+    const option = document.createElement('option');
+    option.value = state.id;
+    option.textContent = state.label;
+    option.selected = state.id === currentStateId;
+    select.appendChild(option);
+  }
+  select.addEventListener('change', () => onChange(select.value));
+
+  wrap.append(label, select);
+}
+
 async function boot(): Promise<void> {
-  const manifest = await fetchJson<{ commits: CommitMeta[] }>('/manifest.json');
+  const manifest = await fetchJson<{ commits: CommitMeta[]; states: StateInfo[] }>('/manifest.json');
+  const states = manifest.states;
+  const stateLabels = new Map(states.map((s) => [s.id, s.label]));
+
   const commits = applyRangeParam(manifest.commits);
   const isFullFilm = commits.length === manifest.commits.length;
-  const totalSecondsTarget = isFullFilm ? FULL_FILM_SECONDS : Math.max(2, (commits.length - 1)) * SECONDS_PER_CUT_TRANSITION;
-
-  const snapshotList = await Promise.all(commits.map((c) => fetchJson<Snapshot>(`/snapshots/${c.sha}.json`)));
-  const snapshots = new Map<string, Snapshot>(snapshotList.map((s) => [s.sha, s]));
-
-  const deltas: Delta[] = [];
-  for (let i = 0; i < commits.length - 1; i++) {
-    deltas.push(await fetchJson<Delta>(`/deltas/${commits[i].sha}_${commits[i + 1].sha}.json`));
-  }
-
-  const timeline = computeTimeline(deltas, commits, DEFAULT_RULES, totalSecondsTarget);
-  const totalSec = timeline[timeline.length - 1].startSec + timeline[timeline.length - 1].durationSec;
-
-  // Frame height computed once from the max docHeight across every
-  // snapshot in the film, and never touched again — the camera never
-  // rescales per commit (checkpoint §6, failure mode #5).
-  const frameHeight = Math.max(...snapshotList.map((s) => s.docHeight));
+  const totalSecondsTarget = isFullFilm ? FULL_FILM_SECONDS : Math.max(2, commits.length - 1) * SECONDS_PER_CUT_TRANSITION;
 
   const stage = document.getElementById('stage') as HTMLElement;
   const frame = document.getElementById('frame') as HTMLElement;
   frame.style.width = '1280px';
-  frame.style.height = `${frameHeight}px`;
 
+  const registerWrap = document.getElementById('register-wrap') as HTMLElement;
   const detailEl = document.getElementById('detail') as HTMLElement;
   const railEl = document.getElementById('rail') as HTMLElement;
   const scrubEl = document.getElementById('scrub') as HTMLInputElement;
@@ -66,10 +88,7 @@ async function boot(): Promise<void> {
   const toggleEls = Array.from(document.querySelectorAll<HTMLInputElement>('[data-layer-toggle]'));
 
   scrubEl.min = '0';
-  scrubEl.max = String(totalSec);
   scrubEl.step = '0.01';
-
-  renderRail(railEl, timeline, (sec) => seek(sec));
 
   const visibility: LayerVisibility = { ...DEFAULT_LAYER_VISIBILITY };
   for (const toggle of toggleEls) {
@@ -82,11 +101,43 @@ async function boot(): Promise<void> {
     });
   }
 
+  let currentStateId = states[0].id;
+  let snapshots = new Map<string, Snapshot>();
+  let deltas: Delta[] = [];
+  let timeline: TimelineEntry[] = [];
+  let totalSec = 0;
+
   let currentSec = 0;
   let currentLocalT = 0;
   let currentIndex = -1;
   let playing = false;
   let lastFrameTime: number | null = null;
+
+  async function loadState(stateId: string): Promise<void> {
+    const snapshotList = await Promise.all(commits.map((c) => fetchJson<Snapshot>(`/snapshots/${stateId}/${c.sha}.json`)));
+    snapshots = new Map(snapshotList.map((s) => [s.sha, s]));
+
+    deltas = [];
+    for (let i = 0; i < commits.length - 1; i++) {
+      deltas.push(await fetchJson<Delta>(`/deltas/${stateId}/${commits[i].sha}_${commits[i + 1].sha}.json`));
+    }
+
+    // Pacing runs per state (checkpoint v1.2 §6) — the same commit can
+    // draw different screen time in different registers.
+    timeline = computeTimeline(deltas, commits, DEFAULT_RULES, totalSecondsTarget);
+    totalSec = timeline[timeline.length - 1].startSec + timeline[timeline.length - 1].durationSec;
+
+    // Frame height computed once per state's own snapshots and never
+    // touched again within that state — the camera never rescales per
+    // commit (checkpoint §6, failure mode #5). Viewport width and
+    // capture height are shared across every state by construction
+    // (invariant 8); only the measured content height varies here.
+    frame.style.height = `${Math.max(...snapshotList.map((s) => s.docHeight))}px`;
+
+    scrubEl.max = String(totalSec);
+    renderRail(railEl, timeline, (sec) => seek(sec));
+    currentIndex = -1; // force the next renderAt to rebuild the stage from this state's data
+  }
 
   // The single function that decides "which commit is the playhead on."
   // Rendering and the detail pane both read its result — invariant 6:
@@ -107,7 +158,8 @@ async function boot(): Promise<void> {
       const toSnapshot = snapshots.get(entry.sha)!;
       const fromSnapshot = index > 0 ? (snapshots.get(timeline[index - 1].sha) ?? null) : null;
       enterSegment(stage, fromSnapshot, toSnapshot);
-      renderDetail(detailEl, commits[index]);
+      const incomingDelta = index > 0 ? deltas[index - 1] : null;
+      renderDetail(detailEl, commits[index], incomingDelta, stateLabels, currentStateId);
     }
 
     currentLocalT = localT;
@@ -120,6 +172,15 @@ async function boot(): Promise<void> {
     currentSec = Math.max(0, Math.min(sec, totalSec));
     renderAt(currentSec);
   }
+
+  renderRegisterControl(registerWrap, states, currentStateId, async (nextStateId) => {
+    currentStateId = nextStateId;
+    const holdSec = currentSec; // switching state holds the playhead at its current film time
+    playing = false;
+    playBtn.textContent = 'Play';
+    await loadState(currentStateId);
+    seek(Math.min(holdSec, totalSec));
+  });
 
   scrubEl.addEventListener('input', () => {
     playing = false;
@@ -150,6 +211,7 @@ async function boot(): Promise<void> {
     if (playing) requestAnimationFrame(tick);
   }
 
+  await loadState(currentStateId);
   renderAt(0);
 }
 

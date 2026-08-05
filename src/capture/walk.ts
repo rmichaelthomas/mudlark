@@ -51,16 +51,64 @@ function walkerSource(routedProperties: readonly string[]): string {
     return null;
   }
 
+  // A 3D-transform card flip (backface-visibility: hidden, rotated by an
+  // ancestor) stacks a front and back face at the identical box — only
+  // one is actually painted, but a naive walk captures both, and the
+  // player renders both, producing overlapping text. Ask the browser
+  // what it actually painted at this element's own center point rather
+  // than re-deriving the full 3D transform math ourselves: a
+  // backface-hidden element that isn't in that point's paint stack is
+  // facing away and isn't part of the rendered artifact right now.
+  function isFacingAway(el) {
+    if (getComputedStyle(el).backfaceVisibility !== 'hidden') return false;
+    const rect = el.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return false;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    if (cx < 0 || cy < 0 || cx > window.innerWidth || cy > window.innerHeight) return false;
+    return !document.elementsFromPoint(cx, cy).includes(el);
+  }
+
+  // Chromium's layout engine doesn't always land on the exact same
+  // sub-pixel value for the same content across separate loads (confirmed:
+  // recapturing the same commit landed on 2828px and 2827.765625px
+  // scrollHeight, a ~0.23px drift, with nothing else different) — real
+  // enough to break byte-identical determinism checks, too small to be a
+  // real content change or to matter visually. Rounding to the nearest
+  // whole pixel comfortably absorbs that noise (a genuine layout change
+  // is virtually never sub-pixel) everywhere geometry and pixel-valued
+  // computed properties are read, not just the one call site that
+  // happened to surface it.
+  function roundPx(n) {
+    return Math.round(n);
+  }
+
+  // Backslashes are doubled (\\\\d, not \\d) because this whole function
+  // is text inside walkerSource's outer template literal — the outer
+  // parser consumes one level of backslash-escaping before this string
+  // ever reaches the browser. A single \\d here silently becomes a
+  // literal "d" in the string the browser evaluates, and the regex
+  // would never match anything (confirmed: it didn't, silently).
+  function roundPxString(value) {
+    const m = /^(-?\\d*\\.?\\d+)px$/.exec(value);
+    return m ? roundPx(Number(m[1])) + 'px' : value;
+  }
+
   function geometryOf(el) {
     const rect = el.getBoundingClientRect();
-    return { x: rect.left + window.scrollX, y: rect.top + window.scrollY, w: rect.width, h: rect.height };
+    return {
+      x: roundPx(rect.left + window.scrollX),
+      y: roundPx(rect.top + window.scrollY),
+      w: roundPx(rect.width),
+      h: roundPx(rect.height),
+    };
   }
 
   function computedOf(el) {
     const style = getComputedStyle(el);
     const out = {};
     for (const prop of props) {
-      out[prop] = style[prop] || '';
+      out[prop] = roundPxString(style[prop] || '');
     }
     return out;
   }
@@ -71,6 +119,7 @@ function walkerSource(routedProperties: readonly string[]): string {
     const tag = el.tagName.toLowerCase();
     if (SKIP_TAGS.has(tag)) return;
     if (getComputedStyle(el).display === 'none') return; // prune: subtree is not part of the rendered artifact
+    if (isFacingAway(el)) return; // prune: 3D-rotated away (e.g. the back face of a flip card), not actually painted
 
     const siblingsOfTag = el.parentElement
       ? Array.from(el.parentElement.children).filter((c) => c.tagName.toLowerCase() === tag)

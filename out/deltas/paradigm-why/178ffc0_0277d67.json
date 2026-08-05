@@ -1,0 +1,29 @@
+{
+  "from": "178ffc0",
+  "to": "0277d67",
+  "stateId": "paradigm-why",
+  "inserted": [
+    "/body:0/footer:0/div:2",
+    "/body:0/footer:0/div:2/a:0",
+    "/body:0/footer:0/div:2/span:0",
+    "/body:0/footer:0/div:2/a:1",
+    "/body:0/footer:0/div:2/span:1",
+    "/body:0/footer:0/div:2/a:2"
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": "/body:0/footer:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "216px",
+            "274px"
+          ]
+        }
+      }
+    }
+  ],
+  "lifeFileChanged": false,
+  "otherStatesChanged": []
+}

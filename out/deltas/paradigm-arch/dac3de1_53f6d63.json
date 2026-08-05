@@ -1,0 +1,12 @@
+{
+  "from": "dac3de1",
+  "to": "53f6d63",
+  "stateId": "paradigm-arch",
+  "inserted": [],
+  "removed": [],
+  "changed": [],
+  "lifeFileChanged": false,
+  "otherStatesChanged": [
+    "app"
+  ]
+}
