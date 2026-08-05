@@ -1,0 +1,31 @@
+{
+  "from": "c53cee3",
+  "to": "dac3de1",
+  "stateId": "app",
+  "inserted": [
+    "/body:0/div:0/div:0/div:0/div:0/a:0/svg:0",
+    "/body:0/div:0/div:0/div:0/div:0/a:0/svg:0/path:0"
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": "/body:0/div:0/div:0/div:0/div:0/a:0",
+      "layers": {
+        "frame": {
+          "width": [
+            "279.594px",
+            "289.828px"
+          ]
+        },
+        "voice": {
+          "text": [
+            " Download on the App Store",
+            "Download on the App Store"
+          ]
+        }
+      }
+    }
+  ],
+  "lifeFileChanged": false,
+  "otherStatesChanged": []
+}

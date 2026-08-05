@@ -1,0 +1,534 @@
+{
+  "from": "5c338fa",
+  "to": "aee6d20",
+  "stateId": "paradigm-plain",
+  "inserted": [
+    "/body:0/svg:0",
+    "/body:0/svg:0/path:0",
+    "/body:0/svg:0/path:1",
+    "/body:0/svg:0/path:2",
+    "/body:0/svg:0/path:3",
+    "/body:0/svg:0/circle:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:1/div:2/div:1/p:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:2/div:2/div:1/p:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:3",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2/div:0",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2/div:1",
+    "/body:0/div:0/section:2/div:2/div:0/div:3/div:2/div:1/p:0"
+  ],
+  "removed": [
+    "/body:0/div:0/header:0/svg:0",
+    "/body:0/div:0/header:0/svg:0/path:0",
+    "/body:0/div:0/header:0/svg:0/path:1",
+    "/body:0/div:0/header:0/svg:0/path:2",
+    "/body:0/div:0/header:0/svg:0/path:3",
+    "/body:0/div:0/header:0/svg:0/circle:0"
+  ],
+  "changed": [
+    {
+      "key": "/body:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "4037.11px",
+            "3943.47px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0",
+      "layers": {
+        "frame": {
+          "position": [
+            "static",
+            "relative"
+          ],
+          "top": [
+            "auto",
+            "0px"
+          ],
+          "right": [
+            "auto",
+            "0px"
+          ],
+          "bottom": [
+            "auto",
+            "0px"
+          ],
+          "left": [
+            "auto",
+            "0px"
+          ],
+          "height": [
+            "4037.11px",
+            "3943.47px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:1",
+      "layers": {
+        "life": {
+          "animationName": [
+            "none",
+            "fade-up"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/header:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "212.734px",
+            "87.5938px"
+          ]
+        },
+        "life": {
+          "animationName": [
+            "none",
+            "fade-up"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:0",
+      "layers": {
+        "life": {
+          "animationName": [
+            "none",
+            "fade-up"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:2",
+      "layers": {
+        "frame": {
+          "height": [
+            "823.344px",
+            "854.844px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:0/div:0",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:1/div:0",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:2/div:2",
+      "layers": {
+        "frame": {
+          "height": [
+            "392.391px",
+            "423.891px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:2/div:0",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:0",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/footer:0/div:0",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/div:1/div:0/div:0",
+      "layers": {
+        "life": {
+          "transitionProperty": [
+            "transform, width",
+            "all"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:1/div:1/div:1",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:2/div:2/div:0",
+      "layers": {
+        "frame": {
+          "display": [
+            "block",
+            "grid"
+          ],
+          "height": [
+            "340.391px",
+            "371.891px"
+          ],
+          "gridTemplateColumns": [
+            "none",
+            "706px"
+          ],
+          "gridTemplateRows": [
+            "none",
+            "369.891px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:1/div:0",
+      "layers": {
+        "frame": {
+          "display": [
+            "block",
+            "flex"
+          ],
+          "flexDirection": [
+            "row",
+            "column"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:1/div:1",
+      "layers": {
+        "frame": {
+          "display": [
+            "block",
+            "flex"
+          ],
+          "flexDirection": [
+            "row",
+            "column"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:2/div:2/div:0/div:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "338.391px",
+            "369.891px"
+          ],
+          "gridColumn": [
+            "auto",
+            "1"
+          ],
+          "gridRow": [
+            "auto",
+            "1"
+          ]
+        },
+        "life": {
+          "transitionProperty": [
+            "all",
+            "opacity"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:2/div:1/div:1/p:1",
+      "layers": {
+        "voice": {
+          "text": [
+            "Each wish below corresponds to a particular architectural decision already built into the paradigm. Toggle to Plain English to read the quotes without the scaffolding.",
+            "Each wish below corresponds to a particular architectural decision already built into the paradigm."
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:1/div:0/span:0",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:1/div:0/a:0",
+      "layers": {
+        "frame": {
+          "display": [
+            "inline-flex",
+            "flex"
+          ],
+          "height": [
+            "91px",
+            "115px"
+          ],
+          "flexGrow": [
+            "0",
+            "1"
+          ],
+          "flexBasis": [
+            "auto",
+            "0%"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:1/div:1/span:0",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:1/div:1/a:0",
+      "layers": {
+        "frame": {
+          "display": [
+            "inline-flex",
+            "flex"
+          ],
+          "flexGrow": [
+            "0",
+            "1"
+          ],
+          "flexBasis": [
+            "auto",
+            "0%"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:2/div:2/div:0/div:0/div:1",
+      "layers": {
+        "skin": {
+          "color": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderTopColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderRightColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderBottomColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ],
+          "borderLeftColor": [
+            "rgb(61, 90, 128)",
+            "rgb(107, 142, 174)"
+          ]
+        }
+      }
+    }
+  ],
+  "lifeFileChanged": true,
+  "otherStatesChanged": []
+}

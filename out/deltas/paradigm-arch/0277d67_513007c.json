@@ -1,0 +1,12 @@
+{
+  "from": "0277d67",
+  "to": "513007c",
+  "stateId": "paradigm-arch",
+  "inserted": [],
+  "removed": [],
+  "changed": [],
+  "lifeFileChanged": false,
+  "otherStatesChanged": [
+    "app"
+  ]
+}

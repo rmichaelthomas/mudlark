@@ -1,0 +1,74 @@
+{
+  "from": "2690c01",
+  "to": "5c338fa",
+  "stateId": "paradigm-plain",
+  "inserted": [
+    "/body:0/div:0/section:1/div:1/div:3",
+    "/body:0/div:0/section:1/div:1/div:3/a:0",
+    "/body:0/div:0/section:1/div:1/div:3/a:1",
+    "/body:0/div:0/section:1/div:1/div:3/a:2",
+    "/body:0/div:0/section:1/div:1/div:3/a:3"
+  ],
+  "removed": [
+    "/body:0/div:0/section:1/div:1/a:0"
+  ],
+  "changed": [
+    {
+      "key": "/body:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "4034.52px",
+            "4037.11px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0",
+      "layers": {
+        "frame": {
+          "height": [
+            "4034.52px",
+            "4037.11px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:1",
+      "layers": {
+        "frame": {
+          "height": [
+            "646.594px",
+            "649.188px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:1/div:1",
+      "layers": {
+        "frame": {
+          "height": [
+            "534.594px",
+            "537.188px"
+          ]
+        }
+      }
+    },
+    {
+      "key": "/body:0/div:0/section:3/div:1/div:1/a:0",
+      "layers": {
+        "voice": {
+          "src": [
+            "https://rmichaelthomas.com/the-mobius-thesis",
+            "https://rmichaelthomas.com/writing/the-mobius-thesis"
+          ]
+        }
+      }
+    }
+  ],
+  "lifeFileChanged": false,
+  "otherStatesChanged": []
+}

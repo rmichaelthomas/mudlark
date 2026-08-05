@@ -1,0 +1,12 @@
+{
+  "from": "c53cee3",
+  "to": "dac3de1",
+  "stateId": "paradigm-plain",
+  "inserted": [],
+  "removed": [],
+  "changed": [],
+  "lifeFileChanged": false,
+  "otherStatesChanged": [
+    "app"
+  ]
+}

@@ -72,5 +72,23 @@
       "author": "rmichaelthomas",
       "message": "fix: bump STRANDS card font sizes for optical parity"
     }
+  ],
+  "states": [
+    {
+      "id": "app",
+      "label": "App"
+    },
+    {
+      "id": "paradigm-plain",
+      "label": "Paradigm — plain english"
+    },
+    {
+      "id": "paradigm-arch",
+      "label": "Paradigm — architecture"
+    },
+    {
+      "id": "paradigm-why",
+      "label": "Paradigm — why it matters"
+    }
   ]
 }
