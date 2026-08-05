@@ -8,16 +8,26 @@ The v1 proof captures `rmichaelthomas/one-surface`'s `index.html` across its twe
 
 The record rule: smoothing is permitted in presentation and forbidden in the record. Compress a dead fortnight; do not erase it. Never drop, reorder, or silently merge commits.
 
+## v1.2 — declared states
+
+A subject can present the same content in more than one register — a view switch, an audience toggle — selected by JS the page already ships. Capture used to see only whichever register loaded by default; a commit that changed only an unseen register produced a beat where visibly nothing happened, silently smoothing a real change out of existence.
+
+A subject now declares its states in `subjects/<name>.json`: an id, a label, and an optional script run after settle and before the walk (`src/states/`). Every state is captured, delta'd, and paced independently. When a delta is empty but another state's delta over the same commit pair isn't, the empty delta is annotated (`otherStatesChanged`) rather than left to read as nothing happened — the player's detail pane surfaces that explanation and holds the frame.
+
+**The hard constraint:** a subject that declares nothing captures exactly as it did in v1 — one implicit `default` state, no config required, no register control in the player. `normalizeStates` is called once at load; nothing downstream branches on whether states were declared.
+
 ## Pipeline
 
 ```
 src/git/       clone + extract trees at a SHA, read commit metadata
-src/capture/   headless-browser capture: serve → load → settle → walk → snapshot
+src/states/    declared-state config (types + zero-config-safe loader)
+src/capture/   headless-browser capture: serve → load → settle → state script → walk → snapshot
 src/layers/    the property routing table (frame/skin/voice/life) + per-layer extraction
 src/identity/  two-pass node matching across snapshots
-src/delta/     snapshot pair → Delta
-src/pacing/    named pacing rules over the (unaltered) commit surface
-player/        Vite-based player: DOM reconstruction, interpolation, transport, commit rail
+src/delta/     per-state deltas + cross-state annotation (two-pass build)
+src/pacing/    named pacing rules over the (unaltered) commit surface, run per state
+player/        Vite-based player: DOM reconstruction, interpolation, transport, commit rail, register control
+subjects/      declared-state configs, one JSON file per subject
 ```
 
 ## Running it
@@ -25,10 +35,12 @@ player/        Vite-based player: DOM reconstruction, interpolation, transport, 
 ```bash
 npm install
 npx playwright install chromium
-npm run capture   # extract, capture, and snapshot all 12 commits -> out/snapshots/
-npm run delta     # build deltas for every adjacent commit pair -> out/deltas/
+npm run capture   # extract, capture, and snapshot every declared state x commit -> out/snapshots/<stateId>/
+npm run delta     # build per-state deltas + cross-state annotation -> out/deltas/<stateId>/
 npm run dev        # start the player
 npm run verify     # run scripts/verify-capture-playback.ts
 ```
 
-Not in scope for v1: video encoding/export, Tailwind utility-class resolution, multi-view capture, per-node Life, provenance-on-element, Ptah records, or any repo that doesn't render from a static tree.
+`BUILDBACK_SUBJECT` selects which `subjects/<name>.json` config to use (default `one-surface`).
+
+Not in scope: video encoding/export, Tailwind utility-class resolution, multi-view capture in a single beat, per-node Life, provenance-on-element, Ptah records, theme/breakpoint/locale states (declare none), or any repo that doesn't render from a static tree.
