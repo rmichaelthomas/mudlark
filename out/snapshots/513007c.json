@@ -14161,7 +14161,7 @@
       "ordinal": 0,
       "parentPath": "/body:0/footer:0/div:2",
       "text": "Privacy",
-      "src": "http://127.0.0.1:58324/privacy.html",
+      "src": "/privacy.html",
       "geometry": {
         "x": 498.9375,
         "y": 2692.96875,
@@ -14313,7 +14313,7 @@
       "ordinal": 1,
       "parentPath": "/body:0/footer:0/div:2",
       "text": "Terms",
-      "src": "http://127.0.0.1:58324/terms.html",
+      "src": "/terms.html",
       "geometry": {
         "x": 600.25,
         "y": 2692.96875,
@@ -14465,7 +14465,7 @@
       "ordinal": 2,
       "parentPath": "/body:0/footer:0/div:2",
       "text": "Support",
-      "src": "http://127.0.0.1:58324/#help",
+      "src": "/#help",
       "geometry": {
         "x": 684.0625,
         "y": 2692.96875,

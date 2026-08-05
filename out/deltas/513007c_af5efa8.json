@@ -49,39 +49,6 @@
       }
     },
     {
-      "key": "/body:0/footer:0/div:2/a:0",
-      "layers": {
-        "voice": {
-          "src": [
-            "http://127.0.0.1:58324/privacy.html",
-            "http://127.0.0.1:58335/privacy.html"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/footer:0/div:2/a:1",
-      "layers": {
-        "voice": {
-          "src": [
-            "http://127.0.0.1:58324/terms.html",
-            "http://127.0.0.1:58335/terms.html"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/footer:0/div:2/a:2",
-      "layers": {
-        "voice": {
-          "src": [
-            "http://127.0.0.1:58324/#help",
-            "http://127.0.0.1:58335/#help"
-          ]
-        }
-      }
-    },
-    {
       "key": "/body:0/div:0/div:0/div:2/div:3",
       "layers": {
         "frame": {

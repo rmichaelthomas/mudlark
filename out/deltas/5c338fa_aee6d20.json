@@ -451,12 +451,6 @@
             "auto",
             "0%"
           ]
-        },
-        "voice": {
-          "src": [
-            "http://127.0.0.1:58253/what-mobius-actually-is.html",
-            "http://127.0.0.1:58260/what-mobius-actually-is.html"
-          ]
         }
       }
     },

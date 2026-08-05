@@ -24,13 +24,29 @@ function walkerSource(routedProperties: readonly string[]): string {
     return text.trim();
   }
 
+  // Same-origin URLs are relativized so the captured value doesn't bake
+  // in the capture server's ephemeral port — otherwise re-capturing the
+  // same commit is spuriously non-deterministic (checkpoint failure mode #2).
+  function relativizeIfSameOrigin(url) {
+    if (!url) return url;
+    try {
+      const parsed = new URL(url, window.location.href);
+      if (parsed.origin === window.location.origin) {
+        return parsed.pathname + parsed.search + parsed.hash;
+      }
+      return url;
+    } catch {
+      return url;
+    }
+  }
+
   function mediaSrc(el) {
     const tag = el.tagName.toLowerCase();
     if (tag === 'a' || tag === 'link') {
-      return el.href || null;
+      return relativizeIfSameOrigin(el.href) || null;
     }
     if ('src' in el) {
-      return el.src || null;
+      return relativizeIfSameOrigin(el.src) || null;
     }
     return null;
   }
