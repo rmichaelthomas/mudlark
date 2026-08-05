@@ -45,8 +45,8 @@
       "layers": {
         "frame": {
           "height": [
-            "4037.11px",
-            "3943.47px"
+            "4037px",
+            "3943px"
           ]
         }
       }
@@ -76,8 +76,8 @@
             "0px"
           ],
           "height": [
-            "4037.11px",
-            "3943.47px"
+            "4037px",
+            "3943px"
           ]
         }
       }
@@ -98,8 +98,8 @@
       "layers": {
         "frame": {
           "height": [
-            "212.734px",
-            "87.5938px"
+            "213px",
+            "88px"
           ]
         },
         "life": {
@@ -126,8 +126,8 @@
       "layers": {
         "frame": {
           "height": [
-            "823.344px",
-            "854.844px"
+            "823px",
+            "855px"
           ]
         }
       }
@@ -191,8 +191,8 @@
       "layers": {
         "frame": {
           "height": [
-            "392.391px",
-            "423.891px"
+            "392px",
+            "424px"
           ]
         }
       }
@@ -325,8 +325,8 @@
             "grid"
           ],
           "height": [
-            "340.391px",
-            "371.891px"
+            "340px",
+            "372px"
           ],
           "gridTemplateColumns": [
             "none",
@@ -334,7 +334,7 @@
           ],
           "gridTemplateRows": [
             "none",
-            "369.891px"
+            "370px"
           ]
         }
       }
@@ -374,8 +374,8 @@
       "layers": {
         "frame": {
           "height": [
-            "338.391px",
-            "369.891px"
+            "338px",
+            "370px"
           ],
           "gridColumn": [
             "auto",

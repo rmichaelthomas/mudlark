@@ -72,6 +72,29 @@ function windowFor(index: number): [number, number] {
   return [start, Math.min(1, start + span)];
 }
 
+// windowFor's four layer windows span [0, 0.7]. Rescaled into an
+// arbitrary [rangeStart, rangeEnd), so inserted/removed nodes keep a
+// genuine per-layer cascade (matching the forward/reverse grammar order
+// the spec calls for) while that whole cascade is compressed into one
+// half of the transition — see REMOVED_FADE_WINDOW / INSERTED_REVEAL_WINDOW.
+function windowForScaled(index: number, rangeStart: number, rangeEnd: number): [number, number] {
+  const [s, e] = windowFor(index);
+  const scale = (rangeEnd - rangeStart) / 0.7;
+  return [rangeStart + s * scale, rangeStart + e * scale];
+}
+
+// Removed and inserted nodes are sequenced, not simultaneous: the
+// checkpoint describes a wholesale replacement as "the old page coming
+// apart before the new one goes up" — before, not alongside. The
+// original per-layer stagger windows put removed's fade-out at [0, 0.5]
+// and inserted's reveal at [0.2, 0.7], overlapping for 0.3 of the
+// transition — old and new content visibly competing for the same
+// screen space. Splitting the transition in half (with a small gap as
+// a beat where the stage is briefly emptier) removes that collision and
+// gives the reveal a clearer "then" rather than an "at the same time."
+const REMOVED_FADE_WINDOW: [number, number] = [0, 0.45];
+const INSERTED_REVEAL_WINDOW: [number, number] = [0.5, 1];
+
 function windowProgress(t: number, [start, end]: [number, number]): number {
   if (end <= start) return t >= start ? 1 : 0;
   if (t <= start) return 0;
@@ -299,13 +322,15 @@ function updateInserted(node: TrackedNode, t: number, visibility: LayerVisibilit
   setStaticGeometry(node.el, node.toGeometry);
   applyBonesOutline(node.el, visibility.bones);
 
-  const revealWindow: [number, number] = [windowFor(forwardIndex('skin'))[0], windowFor(forwardIndex('life'))[1]];
+  const skinWindow = windowForScaled(forwardIndex('skin'), ...INSERTED_REVEAL_WINDOW);
+  const voiceWindow = windowForScaled(forwardIndex('voice'), ...INSERTED_REVEAL_WINDOW);
   const revealing = visibility.skin || visibility.voice || visibility.life;
-  const reveal = revealing ? windowProgress(t, revealWindow) : 1;
+  const skinReveal = revealing ? windowProgress(t, skinWindow) : 1;
+  const voiceReveal = revealing ? windowProgress(t, voiceWindow) : 1;
 
   if (visibility.skin) {
     applyStatic(node.el, node.toLayers?.skin ?? {}, true);
-    node.el.style.opacity = String(reveal * parseOpacity(node.toLayers?.skin.opacity));
+    node.el.style.opacity = String(skinReveal * parseOpacity(node.toLayers?.skin.opacity));
   } else {
     clearSkin(node.el);
     node.el.style.opacity = '1';
@@ -313,7 +338,7 @@ function updateInserted(node: TrackedNode, t: number, visibility: LayerVisibilit
 
   if (visibility.voice) {
     applyStatic(node.el, node.toLayers?.voice ?? {}, true);
-    node.el.textContent = reveal > 0.5 ? node.toText : '';
+    node.el.textContent = voiceReveal > 0.5 ? node.toText : '';
   } else {
     clearVoice(node.el);
   }
@@ -327,13 +352,19 @@ function updateRemoved(node: TrackedNode, t: number, visibility: LayerVisibility
   setStaticGeometry(node.el, node.fromGeometry);
   applyBonesOutline(node.el, visibility.bones);
 
-  const fadeWindow: [number, number] = [windowFor(reverseIndex('life'))[0], windowFor(reverseIndex('skin'))[1]];
+  // Reverse grammar order (Life -> Voice -> Skin -> Frame -> Bones):
+  // reverseIndex('life') < reverseIndex('voice') < reverseIndex('skin'),
+  // so within the compressed fade-out window, life goes first and skin
+  // lingers longest.
+  const skinWindow = windowForScaled(reverseIndex('skin'), ...REMOVED_FADE_WINDOW);
+  const voiceWindow = windowForScaled(reverseIndex('voice'), ...REMOVED_FADE_WINDOW);
   const fading = visibility.skin || visibility.voice || visibility.life;
-  const visible = fading ? 1 - windowProgress(t, fadeWindow) : 1;
+  const skinVisible = fading ? 1 - windowProgress(t, skinWindow) : 1;
+  const voiceVisible = fading ? 1 - windowProgress(t, voiceWindow) : 1;
 
   if (visibility.skin) {
     applyStatic(node.el, node.fromLayers?.skin ?? {}, true);
-    node.el.style.opacity = String(visible * parseOpacity(node.fromLayers?.skin.opacity));
+    node.el.style.opacity = String(skinVisible * parseOpacity(node.fromLayers?.skin.opacity));
   } else {
     clearSkin(node.el);
     node.el.style.opacity = '1';
@@ -341,7 +372,7 @@ function updateRemoved(node: TrackedNode, t: number, visibility: LayerVisibility
 
   if (visibility.voice) {
     applyStatic(node.el, node.fromLayers?.voice ?? {}, true);
-    node.el.textContent = visible > 0.5 ? node.fromText : '';
+    node.el.textContent = voiceVisible > 0.5 ? node.fromText : '';
   } else {
     clearVoice(node.el);
   }

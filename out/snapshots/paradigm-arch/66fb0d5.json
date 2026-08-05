@@ -73,7 +73,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -97,7 +97,7 @@
         "x": 0,
         "y": 0,
         "w": 1280,
-        "h": 57.796875
+        "h": 58
       },
       "computed": {
         "display": "block",
@@ -107,7 +107,7 @@
         "bottom": "0px",
         "left": "0px",
         "width": "1280px",
-        "height": "57.7969px",
+        "height": "58px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -150,7 +150,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -174,7 +174,7 @@
         "x": 250,
         "y": 0,
         "w": 780,
-        "h": 56.796875
+        "h": 57
       },
       "computed": {
         "display": "flex",
@@ -184,7 +184,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "780px",
-        "height": "56.7969px",
+        "height": "57px",
         "marginTop": "0px",
         "marginRight": "250px",
         "marginBottom": "0px",
@@ -227,7 +227,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -250,8 +250,8 @@
       "geometry": {
         "x": 286,
         "y": 0,
-        "w": 68.25,
-        "h": 56.796875
+        "w": 68,
+        "h": 57
       },
       "computed": {
         "display": "flex",
@@ -260,10 +260,10 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "68.25px",
-        "height": "56.7969px",
+        "width": "68px",
+        "height": "57px",
         "marginTop": "0px",
-        "marginRight": "319.953px",
+        "marginRight": "320px",
         "marginBottom": "0px",
         "marginLeft": "0px",
         "paddingTop": "14px",
@@ -304,8 +304,8 @@
         "fontSize": "18px",
         "fontWeight": "700",
         "fontStyle": "normal",
-        "lineHeight": "28.8px",
-        "letterSpacing": "0.36px",
+        "lineHeight": "29px",
+        "letterSpacing": "0px",
         "textTransform": "none",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -325,9 +325,9 @@
       "text": "App",
       "src": null,
       "geometry": {
-        "x": 678.203125,
-        "y": 6.390625,
-        "w": 56.28125,
+        "x": 678,
+        "y": 6,
+        "w": 56,
         "h": 44
       },
       "computed": {
@@ -337,7 +337,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "56.2812px",
+        "width": "56px",
         "height": "44px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -382,7 +382,7 @@
         "fontWeight": "600",
         "fontStyle": "normal",
         "lineHeight": "normal",
-        "letterSpacing": "1.8px",
+        "letterSpacing": "2px",
         "textTransform": "uppercase",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -403,9 +403,9 @@
       "text": "Paradigm",
       "src": null,
       "geometry": {
-        "x": 738.484375,
-        "y": 6.390625,
-        "w": 98.546875,
+        "x": 738,
+        "y": 6,
+        "w": 99,
         "h": 44
       },
       "computed": {
@@ -415,7 +415,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "98.5469px",
+        "width": "99px",
         "height": "44px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -460,7 +460,7 @@
         "fontWeight": "600",
         "fontStyle": "normal",
         "lineHeight": "normal",
-        "letterSpacing": "1.8px",
+        "letterSpacing": "2px",
         "textTransform": "uppercase",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -480,9 +480,9 @@
       "text": "Help",
       "src": null,
       "geometry": {
-        "x": 841.03125,
-        "y": 6.390625,
-        "w": 63.84375,
+        "x": 841,
+        "y": 6,
+        "w": 64,
         "h": 44
       },
       "computed": {
@@ -492,7 +492,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "63.8438px",
+        "width": "64px",
         "height": "44px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -537,7 +537,7 @@
         "fontWeight": "600",
         "fontStyle": "normal",
         "lineHeight": "normal",
-        "letterSpacing": "1.8px",
+        "letterSpacing": "2px",
         "textTransform": "uppercase",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -557,9 +557,9 @@
       "text": "Builder",
       "src": null,
       "geometry": {
-        "x": 908.875,
-        "y": 6.390625,
-        "w": 85.125,
+        "x": 909,
+        "y": 6,
+        "w": 85,
         "h": 44
       },
       "computed": {
@@ -569,7 +569,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "85.125px",
+        "width": "85px",
         "height": "44px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -614,7 +614,7 @@
         "fontWeight": "600",
         "fontStyle": "normal",
         "lineHeight": "normal",
-        "letterSpacing": "1.8px",
+        "letterSpacing": "2px",
         "textTransform": "uppercase",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -635,9 +635,9 @@
       "src": null,
       "geometry": {
         "x": 250,
-        "y": 57.796875,
+        "y": 58,
         "w": 780,
-        "h": 753.09375
+        "h": 753
       },
       "computed": {
         "display": "block",
@@ -647,7 +647,7 @@
         "bottom": "0px",
         "left": "0px",
         "width": "780px",
-        "height": "753.094px",
+        "height": "753px",
         "marginTop": "0px",
         "marginRight": "250px",
         "marginBottom": "0px",
@@ -690,7 +690,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -713,9 +713,9 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 57.796875,
+        "y": 58,
         "w": 708,
-        "h": 753.09375
+        "h": 753
       },
       "computed": {
         "display": "block",
@@ -725,7 +725,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "708px",
-        "height": "753.094px",
+        "height": "753px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -768,7 +768,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -789,19 +789,19 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": -430.5859375,
+        "x": -431,
         "y": 350,
-        "w": 2141.171875,
+        "w": 2141,
         "h": 1300
       },
       "computed": {
         "display": "block",
         "position": "fixed",
         "top": "1000px",
-        "right": "-1501.17px",
+        "right": "-1501px",
         "bottom": "-300px",
         "left": "640px",
-        "width": "2141.17px",
+        "width": "2141px",
         "height": "1300px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -845,7 +845,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -865,9 +865,9 @@
       "src": null,
       "geometry": {
         "x": 640,
-        "y": 620.4573364257812,
-        "w": 748.0106201171875,
-        "h": 564.0951538085938
+        "y": 620,
+        "w": 748,
+        "h": 564
       },
       "computed": {
         "display": "inline",
@@ -920,7 +920,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -939,10 +939,10 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": -108.0106201171875,
-        "y": 815.4475708007812,
-        "w": 748.0106201171875,
-        "h": 564.0951538085938
+        "x": -108,
+        "y": 815,
+        "w": 748,
+        "h": 564
       },
       "computed": {
         "display": "inline",
@@ -995,7 +995,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1014,10 +1014,10 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": -108.0106201171875,
-        "y": 620.4573364257812,
-        "w": 748.0106201171875,
-        "h": 564.0951538085938
+        "x": -108,
+        "y": 620,
+        "w": 748,
+        "h": 564
       },
       "computed": {
         "display": "inline",
@@ -1070,7 +1070,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1090,9 +1090,9 @@
       "src": null,
       "geometry": {
         "x": 640,
-        "y": 815.4475708007812,
-        "w": 748.0106201171875,
-        "h": 564.0951538085938
+        "y": 815,
+        "w": 748,
+        "h": 564
       },
       "computed": {
         "display": "inline",
@@ -1145,7 +1145,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1164,10 +1164,10 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": 609.411865234375,
-        "y": 969.4118041992188,
-        "w": 61.17626953125,
-        "h": 61.17633056640625
+        "x": 609,
+        "y": 969,
+        "w": 61,
+        "h": 61
       },
       "computed": {
         "display": "inline",
@@ -1220,7 +1220,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1242,9 +1242,9 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 113.796875,
+        "y": 114,
         "w": 560,
-        "h": 200.296875
+        "h": 200
       },
       "computed": {
         "display": "block",
@@ -1254,7 +1254,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "560px",
-        "height": "200.297px",
+        "height": "200px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "32px",
@@ -1297,7 +1297,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1317,9 +1317,9 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 113.796875,
+        "y": 114,
         "w": 560,
-        "h": 53.796875
+        "h": 54
       },
       "computed": {
         "display": "block",
@@ -1329,7 +1329,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "560px",
-        "height": "53.7969px",
+        "height": "54px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "14px",
@@ -1372,7 +1372,7 @@
         "fontSize": "26px",
         "fontWeight": "400",
         "fontStyle": "italic",
-        "lineHeight": "33.8px",
+        "lineHeight": "34px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1392,9 +1392,9 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 181.59375,
+        "y": 182,
         "w": 560,
-        "h": 73.5
+        "h": 74
       },
       "computed": {
         "display": "block",
@@ -1404,7 +1404,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "560px",
-        "height": "73.5px",
+        "height": "74px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "10px",
@@ -1447,7 +1447,7 @@
         "fontSize": "14px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "24.5px",
+        "lineHeight": "25px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1467,7 +1467,7 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 265.09375,
+        "y": 265,
         "w": 560,
         "h": 49
       },
@@ -1522,7 +1522,7 @@
         "fontSize": "14px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "24.5px",
+        "lineHeight": "25px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1544,7 +1544,7 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 346.09375,
+        "y": 346,
         "w": 708,
         "h": 44
       },
@@ -1599,7 +1599,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1621,8 +1621,8 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 346.09375,
-        "w": 109.375,
+        "y": 346,
+        "w": 109,
         "h": 44
       },
       "computed": {
@@ -1632,7 +1632,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "109.375px",
+        "width": "109px",
         "height": "44px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -1677,7 +1677,7 @@
         "fontWeight": "600",
         "fontStyle": "normal",
         "lineHeight": "normal",
-        "letterSpacing": "1.44px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -1698,9 +1698,9 @@
       "text": "Architecture",
       "src": null,
       "geometry": {
-        "x": 399.375,
-        "y": 346.09375,
-        "w": 108.625,
+        "x": 399,
+        "y": 346,
+        "w": 109,
         "h": 44
       },
       "computed": {
@@ -1710,7 +1710,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "108.625px",
+        "width": "109px",
         "height": "44px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -1755,7 +1755,7 @@
         "fontWeight": "600",
         "fontStyle": "normal",
         "lineHeight": "normal",
-        "letterSpacing": "1.44px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -1776,8 +1776,8 @@
       "src": null,
       "geometry": {
         "x": 512,
-        "y": 346.09375,
-        "w": 117.875,
+        "y": 346,
+        "w": 118,
         "h": 44
       },
       "computed": {
@@ -1787,7 +1787,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "117.875px",
+        "width": "118px",
         "height": "44px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -1832,7 +1832,7 @@
         "fontWeight": "600",
         "fontStyle": "normal",
         "lineHeight": "normal",
-        "letterSpacing": "1.44px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -1853,7 +1853,7 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 396.09375,
+        "y": 396,
         "w": 708,
         "h": 200
       },
@@ -1908,7 +1908,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -1930,7 +1930,7 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 396.09375,
+        "y": 396,
         "w": 708,
         "h": 200
       },
@@ -1985,7 +1985,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -2007,8 +2007,8 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 396.09375,
-        "w": 234.65625,
+        "y": 396,
+        "w": 235,
         "h": 99
       },
       "computed": {
@@ -2018,7 +2018,7 @@
         "right": "0px",
         "bottom": "0px",
         "left": "0px",
-        "width": "234.656px",
+        "width": "235px",
         "height": "99px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2062,7 +2062,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "border-color, background",
@@ -2083,20 +2083,20 @@
       "text": "foundation",
       "src": null,
       "geometry": {
-        "x": 454.171875,
-        "y": 405.09375,
-        "w": 55.484375,
-        "h": 11.1875
+        "x": 454,
+        "y": 405,
+        "w": 55,
+        "h": 11
       },
       "computed": {
         "display": "block",
         "position": "absolute",
         "top": "8px",
         "right": "10px",
-        "bottom": "77.8125px",
-        "left": "167.172px",
-        "width": "55.4844px",
-        "height": "11.1875px",
+        "bottom": "78px",
+        "left": "167px",
+        "width": "55px",
+        "height": "11px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -2139,8 +2139,8 @@
         "fontSize": "7px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "11.2px",
-        "letterSpacing": "0.98px",
+        "lineHeight": "11px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -2161,8 +2161,8 @@
       "src": null,
       "geometry": {
         "x": 301,
-        "y": 415.09375,
-        "w": 204.65625,
+        "y": 415,
+        "w": 205,
         "h": 24
       },
       "computed": {
@@ -2172,7 +2172,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.656px",
+        "width": "205px",
         "height": "24px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2238,8 +2238,8 @@
       "src": null,
       "geometry": {
         "x": 301,
-        "y": 445.09375,
-        "w": 204.65625,
+        "y": 445,
+        "w": 205,
         "h": 31
       },
       "computed": {
@@ -2249,7 +2249,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.656px",
+        "width": "205px",
         "height": "31px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2293,7 +2293,7 @@
         "fontSize": "10px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "15.5px",
+        "lineHeight": "16px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -2314,9 +2314,9 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": 522.65625,
-        "y": 396.09375,
-        "w": 234.671875,
+        "x": 523,
+        "y": 396,
+        "w": 235,
         "h": 99
       },
       "computed": {
@@ -2326,7 +2326,7 @@
         "right": "0px",
         "bottom": "0px",
         "left": "0px",
-        "width": "234.672px",
+        "width": "235px",
         "height": "99px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2370,7 +2370,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "border-color, background",
@@ -2391,20 +2391,20 @@
       "text": "texture",
       "src": null,
       "geometry": {
-        "x": 709.8125,
-        "y": 405.09375,
-        "w": 36.515625,
-        "h": 11.1875
+        "x": 710,
+        "y": 405,
+        "w": 37,
+        "h": 11
       },
       "computed": {
         "display": "block",
         "position": "absolute",
         "top": "8px",
         "right": "10px",
-        "bottom": "77.8125px",
-        "left": "186.156px",
-        "width": "36.5156px",
-        "height": "11.1875px",
+        "bottom": "78px",
+        "left": "186px",
+        "width": "37px",
+        "height": "11px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -2447,8 +2447,8 @@
         "fontSize": "7px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "11.2px",
-        "letterSpacing": "0.98px",
+        "lineHeight": "11px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -2468,9 +2468,9 @@
       "text": "Ring",
       "src": null,
       "geometry": {
-        "x": 537.65625,
-        "y": 415.09375,
-        "w": 204.671875,
+        "x": 538,
+        "y": 415,
+        "w": 205,
         "h": 24
       },
       "computed": {
@@ -2480,7 +2480,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "24px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2545,9 +2545,9 @@
       "text": "A domain-scoped surface within a Strip with its own richness gradient (text…",
       "src": null,
       "geometry": {
-        "x": 537.65625,
-        "y": 445.09375,
-        "w": 204.671875,
+        "x": 538,
+        "y": 445,
+        "w": 205,
         "h": 31
       },
       "computed": {
@@ -2557,7 +2557,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "31px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2601,7 +2601,7 @@
         "fontSize": "10px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "15.5px",
+        "lineHeight": "16px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -2622,9 +2622,9 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": 759.328125,
-        "y": 396.09375,
-        "w": 234.671875,
+        "x": 759,
+        "y": 396,
+        "w": 235,
         "h": 99
       },
       "computed": {
@@ -2634,7 +2634,7 @@
         "right": "0px",
         "bottom": "0px",
         "left": "0px",
-        "width": "234.672px",
+        "width": "235px",
         "height": "99px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2678,7 +2678,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "border-color, background",
@@ -2699,20 +2699,20 @@
       "text": "privacy",
       "src": null,
       "geometry": {
-        "x": 947.40625,
-        "y": 405.09375,
-        "w": 35.59375,
-        "h": 11.1875
+        "x": 947,
+        "y": 405,
+        "w": 36,
+        "h": 11
       },
       "computed": {
         "display": "block",
         "position": "absolute",
         "top": "8px",
         "right": "10px",
-        "bottom": "77.8125px",
-        "left": "187.078px",
-        "width": "35.5938px",
-        "height": "11.1875px",
+        "bottom": "78px",
+        "left": "187px",
+        "width": "36px",
+        "height": "11px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -2755,8 +2755,8 @@
         "fontSize": "7px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "11.2px",
-        "letterSpacing": "0.98px",
+        "lineHeight": "11px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -2776,9 +2776,9 @@
       "text": "Orbital",
       "src": null,
       "geometry": {
-        "x": 774.328125,
-        "y": 415.09375,
-        "w": 204.671875,
+        "x": 774,
+        "y": 415,
+        "w": 205,
         "h": 24
       },
       "computed": {
@@ -2788,7 +2788,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "24px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2853,9 +2853,9 @@
       "text": "Recognition over routing: contributions exist in the strip's shared log; pa…",
       "src": null,
       "geometry": {
-        "x": 774.328125,
-        "y": 445.09375,
-        "w": 204.671875,
+        "x": 774,
+        "y": 445,
+        "w": 205,
         "h": 31
       },
       "computed": {
@@ -2865,7 +2865,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "31px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2909,7 +2909,7 @@
         "fontSize": "10px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "15.5px",
+        "lineHeight": "16px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -2931,8 +2931,8 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 497.09375,
-        "w": 234.65625,
+        "y": 497,
+        "w": 235,
         "h": 99
       },
       "computed": {
@@ -2942,7 +2942,7 @@
         "right": "0px",
         "bottom": "0px",
         "left": "0px",
-        "width": "234.656px",
+        "width": "235px",
         "height": "99px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -2986,7 +2986,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "border-color, background",
@@ -3007,20 +3007,20 @@
       "text": "infrastructure",
       "src": null,
       "geometry": {
-        "x": 435.8125,
-        "y": 506.09375,
-        "w": 73.84375,
-        "h": 11.1875
+        "x": 436,
+        "y": 506,
+        "w": 74,
+        "h": 11
       },
       "computed": {
         "display": "block",
         "position": "absolute",
         "top": "8px",
         "right": "10px",
-        "bottom": "77.8125px",
-        "left": "148.812px",
-        "width": "73.8438px",
-        "height": "11.1875px",
+        "bottom": "78px",
+        "left": "149px",
+        "width": "74px",
+        "height": "11px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -3063,8 +3063,8 @@
         "fontSize": "7px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "11.2px",
-        "letterSpacing": "0.98px",
+        "lineHeight": "11px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -3085,8 +3085,8 @@
       "src": null,
       "geometry": {
         "x": 301,
-        "y": 516.09375,
-        "w": 204.65625,
+        "y": 516,
+        "w": 205,
         "h": 24
       },
       "computed": {
@@ -3096,7 +3096,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.656px",
+        "width": "205px",
         "height": "24px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3162,8 +3162,8 @@
       "src": null,
       "geometry": {
         "x": 301,
-        "y": 546.09375,
-        "w": 204.65625,
+        "y": 546,
+        "w": 205,
         "h": 31
       },
       "computed": {
@@ -3173,7 +3173,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.656px",
+        "width": "205px",
         "height": "31px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3217,7 +3217,7 @@
         "fontSize": "10px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "15.5px",
+        "lineHeight": "16px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -3238,9 +3238,9 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": 522.65625,
-        "y": 497.09375,
-        "w": 234.671875,
+        "x": 523,
+        "y": 497,
+        "w": 235,
         "h": 99
       },
       "computed": {
@@ -3250,7 +3250,7 @@
         "right": "0px",
         "bottom": "0px",
         "left": "0px",
-        "width": "234.672px",
+        "width": "235px",
         "height": "99px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3294,7 +3294,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "border-color, background",
@@ -3315,20 +3315,20 @@
       "text": "topology",
       "src": null,
       "geometry": {
-        "x": 701.203125,
-        "y": 506.09375,
-        "w": 45.125,
-        "h": 11.1875
+        "x": 701,
+        "y": 506,
+        "w": 45,
+        "h": 11
       },
       "computed": {
         "display": "block",
         "position": "absolute",
         "top": "8px",
         "right": "10px",
-        "bottom": "77.8125px",
-        "left": "177.547px",
-        "width": "45.125px",
-        "height": "11.1875px",
+        "bottom": "78px",
+        "left": "178px",
+        "width": "45px",
+        "height": "11px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -3371,8 +3371,8 @@
         "fontSize": "7px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "11.2px",
-        "letterSpacing": "0.98px",
+        "lineHeight": "11px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -3392,9 +3392,9 @@
       "text": "Five Invariants",
       "src": null,
       "geometry": {
-        "x": 537.65625,
-        "y": 516.09375,
-        "w": 204.671875,
+        "x": 538,
+        "y": 516,
+        "w": 205,
         "h": 24
       },
       "computed": {
@@ -3404,7 +3404,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "24px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3469,9 +3469,9 @@
       "text": "Four topological invariants describe the shape of the space: continuity, en…",
       "src": null,
       "geometry": {
-        "x": 537.65625,
-        "y": 546.09375,
-        "w": 204.671875,
+        "x": 538,
+        "y": 546,
+        "w": 205,
         "h": 31
       },
       "computed": {
@@ -3481,7 +3481,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "31px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3525,7 +3525,7 @@
         "fontSize": "10px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "15.5px",
+        "lineHeight": "16px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -3546,9 +3546,9 @@
       "text": "",
       "src": null,
       "geometry": {
-        "x": 759.328125,
-        "y": 497.09375,
-        "w": 234.671875,
+        "x": 759,
+        "y": 497,
+        "w": 235,
         "h": 99
       },
       "computed": {
@@ -3558,7 +3558,7 @@
         "right": "0px",
         "bottom": "0px",
         "left": "0px",
-        "width": "234.672px",
+        "width": "235px",
         "height": "99px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3602,7 +3602,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "border-color, background",
@@ -3623,20 +3623,20 @@
       "text": "entanglement",
       "src": null,
       "geometry": {
-        "x": 915.6875,
-        "y": 506.09375,
-        "w": 67.3125,
-        "h": 11.1875
+        "x": 916,
+        "y": 506,
+        "w": 67,
+        "h": 11
       },
       "computed": {
         "display": "block",
         "position": "absolute",
         "top": "8px",
         "right": "10px",
-        "bottom": "77.8125px",
-        "left": "155.359px",
-        "width": "67.3125px",
-        "height": "11.1875px",
+        "bottom": "78px",
+        "left": "155px",
+        "width": "67px",
+        "height": "11px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -3679,8 +3679,8 @@
         "fontSize": "7px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "11.2px",
-        "letterSpacing": "0.98px",
+        "lineHeight": "11px",
+        "letterSpacing": "1px",
         "textTransform": "uppercase",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -3700,9 +3700,9 @@
       "text": "Plait",
       "src": null,
       "geometry": {
-        "x": 774.328125,
-        "y": 516.09375,
-        "w": 204.671875,
+        "x": 774,
+        "y": 516,
+        "w": 205,
         "h": 24
       },
       "computed": {
@@ -3712,7 +3712,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "24px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3777,9 +3777,9 @@
       "text": "Entanglement across Rings, not Strips directly. Plait affinity is computabl…",
       "src": null,
       "geometry": {
-        "x": 774.328125,
-        "y": 546.09375,
-        "w": 204.671875,
+        "x": 774,
+        "y": 546,
+        "w": 205,
         "h": 31
       },
       "computed": {
@@ -3789,7 +3789,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "204.672px",
+        "width": "205px",
         "height": "31px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -3833,7 +3833,7 @@
         "fontSize": "10px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "15.5px",
+        "lineHeight": "16px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -3855,9 +3855,9 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 628.09375,
+        "y": 628,
         "w": 708,
-        "h": 94.796875
+        "h": 95
       },
       "computed": {
         "display": "block",
@@ -3867,7 +3867,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "708px",
-        "height": "94.7969px",
+        "height": "95px",
         "marginTop": "32px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -3910,7 +3910,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -3932,7 +3932,7 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 628.09375,
+        "y": 628,
         "w": 708,
         "h": 16
       },
@@ -4009,9 +4009,9 @@
       "src": "/thesis.html",
       "geometry": {
         "x": 286,
-        "y": 654.09375,
+        "y": 654,
         "w": 708,
-        "h": 68.796875
+        "h": 69
       },
       "computed": {
         "display": "flex",
@@ -4021,7 +4021,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "708px",
-        "height": "68.7969px",
+        "height": "69px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -4065,7 +4065,7 @@
         "fontWeight": "500",
         "fontStyle": "normal",
         "lineHeight": "24px",
-        "letterSpacing": "0.45px",
+        "letterSpacing": "0px",
         "textTransform": "none",
         "transitionProperty": "color, border-color",
         "transitionDuration": "1e-05s",
@@ -4084,8 +4084,8 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 678.09375,
-        "w": 555.703125,
+        "y": 678,
+        "w": 556,
         "h": 24
       },
       "computed": {
@@ -4095,7 +4095,7 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "555.703px",
+        "width": "556px",
         "height": "24px",
         "marginTop": "0px",
         "marginRight": "0px",
@@ -4140,7 +4140,7 @@
         "fontWeight": "500",
         "fontStyle": "normal",
         "lineHeight": "24px",
-        "letterSpacing": "0.45px",
+        "letterSpacing": "0px",
         "textTransform": "none",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -4160,10 +4160,10 @@
       "text": "→",
       "src": null,
       "geometry": {
-        "x": 975.546875,
-        "y": 675.09375,
-        "w": 18.453125,
-        "h": 28.796875
+        "x": 976,
+        "y": 675,
+        "w": 18,
+        "h": 29
       },
       "computed": {
         "display": "block",
@@ -4172,12 +4172,12 @@
         "right": "auto",
         "bottom": "auto",
         "left": "auto",
-        "width": "18.4531px",
-        "height": "28.7969px",
+        "width": "18px",
+        "height": "29px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
-        "marginLeft": "119.844px",
+        "marginLeft": "120px",
         "paddingTop": "0px",
         "paddingRight": "0px",
         "paddingBottom": "0px",
@@ -4216,8 +4216,8 @@
         "fontSize": "18px",
         "fontWeight": "500",
         "fontStyle": "normal",
-        "lineHeight": "28.8px",
-        "letterSpacing": "0.45px",
+        "lineHeight": "29px",
+        "letterSpacing": "0px",
         "textTransform": "none",
         "transitionProperty": "transform",
         "transitionDuration": "1e-05s",
@@ -4238,9 +4238,9 @@
       "src": null,
       "geometry": {
         "x": 250,
-        "y": 810.890625,
+        "y": 811,
         "w": 780,
-        "h": 152.171875
+        "h": 152
       },
       "computed": {
         "display": "block",
@@ -4250,7 +4250,7 @@
         "bottom": "0px",
         "left": "0px",
         "width": "780px",
-        "height": "152.172px",
+        "height": "152px",
         "marginTop": "0px",
         "marginRight": "250px",
         "marginBottom": "0px",
@@ -4293,7 +4293,7 @@
         "fontSize": "16px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "25.6px",
+        "lineHeight": "26px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",
@@ -4315,9 +4315,9 @@
       "src": null,
       "geometry": {
         "x": 286,
-        "y": 842.890625,
+        "y": 843,
         "w": 708,
-        "h": 12.796875
+        "h": 13
       },
       "computed": {
         "display": "block",
@@ -4327,7 +4327,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "708px",
-        "height": "12.7969px",
+        "height": "13px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -4370,8 +4370,8 @@
         "fontSize": "8px",
         "fontWeight": "500",
         "fontStyle": "normal",
-        "lineHeight": "12.8px",
-        "letterSpacing": "2.56px",
+        "lineHeight": "13px",
+        "letterSpacing": "3px",
         "textTransform": "uppercase",
         "transitionProperty": "all",
         "transitionDuration": "1e-05s",
@@ -4392,9 +4392,9 @@
       "src": null,
       "geometry": {
         "x": 360,
-        "y": 869.6875,
+        "y": 870,
         "w": 560,
-        "h": 37.375
+        "h": 37
       },
       "computed": {
         "display": "block",
@@ -4404,7 +4404,7 @@
         "bottom": "auto",
         "left": "auto",
         "width": "560px",
-        "height": "37.375px",
+        "height": "37px",
         "marginTop": "14px",
         "marginRight": "74px",
         "marginBottom": "0px",
@@ -4447,7 +4447,7 @@
         "fontSize": "11px",
         "fontWeight": "400",
         "fontStyle": "normal",
-        "lineHeight": "18.7px",
+        "lineHeight": "19px",
         "letterSpacing": "normal",
         "textTransform": "none",
         "transitionProperty": "all",

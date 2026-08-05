@@ -6,29 +6,12 @@
   "removed": [],
   "changed": [
     {
-      "key": "/body:0",
-      "layers": {
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
-          ]
-        }
-      }
-    },
-    {
       "key": "/body:0/nav:0",
       "layers": {
         "frame": {
           "height": [
-            "57.7969px",
-            "73.2969px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "58px",
+            "73px"
           ]
         }
       }
@@ -42,8 +25,8 @@
             "960px"
           ],
           "height": [
-            "833.562px",
-            "1177.86px"
+            "834px",
+            "1178px"
           ],
           "marginRight": [
             "250px",
@@ -61,12 +44,6 @@
             "36px",
             "48px"
           ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
-          ]
         }
       }
     },
@@ -79,8 +56,8 @@
             "960px"
           ],
           "height": [
-            "152.172px",
-            "216.078px"
+            "152px",
+            "216px"
           ],
           "marginRight": [
             "250px",
@@ -106,12 +83,6 @@
             "36px",
             "48px"
           ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
-          ]
         }
       }
     },
@@ -124,8 +95,8 @@
             "960px"
           ],
           "height": [
-            "56.7969px",
-            "72.2969px"
+            "57px",
+            "72px"
           ],
           "marginRight": [
             "250px",
@@ -147,12 +118,6 @@
             "4px",
             "10px"
           ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
-          ]
         }
       }
     },
@@ -165,8 +130,8 @@
             "864px"
           ],
           "height": [
-            "833.562px",
-            "1177.86px"
+            "834px",
+            "1178px"
           ],
           "paddingTop": [
             "56px",
@@ -174,13 +139,7 @@
           ],
           "paddingBottom": [
             "88px",
-            "100.8px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "101px"
           ]
         }
       }
@@ -194,8 +153,8 @@
             "864px"
           ],
           "height": [
-            "12.7969px",
-            "19.7969px"
+            "13px",
+            "20px"
           ]
         },
         "skin": {
@@ -230,12 +189,8 @@
             "12px"
           ],
           "lineHeight": [
-            "12.8px",
-            "19.8px"
-          ],
-          "letterSpacing": [
-            "2.56px",
-            "3.36px"
+            "13px",
+            "20px"
           ]
         }
       }
@@ -246,19 +201,19 @@
         "frame": {
           "width": [
             "560px",
-            "516.5px"
+            "517px"
           ],
           "height": [
-            "37.375px",
-            "66.2812px"
+            "37px",
+            "66px"
           ],
           "marginRight": [
             "74px",
-            "173.75px"
+            "174px"
           ],
           "marginLeft": [
             "74px",
-            "173.75px"
+            "174px"
           ]
         },
         "skin": {
@@ -293,8 +248,8 @@
             "13px"
           ],
           "lineHeight": [
-            "18.7px",
-            "22.1px"
+            "19px",
+            "22px"
           ]
         }
       }
@@ -304,8 +259,8 @@
       "layers": {
         "frame": {
           "width": [
-            "56.2812px",
-            "65.6094px"
+            "56px",
+            "66px"
           ],
           "height": [
             "44px",
@@ -332,10 +287,6 @@
           "fontSize": [
             "10px",
             "13px"
-          ],
-          "letterSpacing": [
-            "1.8px",
-            "1.69px"
           ]
         }
       }
@@ -345,8 +296,8 @@
       "layers": {
         "frame": {
           "width": [
-            "98.5469px",
-            "117.297px"
+            "99px",
+            "117px"
           ],
           "height": [
             "44px",
@@ -391,10 +342,6 @@
           "fontSize": [
             "10px",
             "13px"
-          ],
-          "letterSpacing": [
-            "1.8px",
-            "1.69px"
           ]
         }
       }
@@ -404,8 +351,8 @@
       "layers": {
         "frame": {
           "width": [
-            "63.8438px",
-            "74.7969px"
+            "64px",
+            "75px"
           ],
           "height": [
             "44px",
@@ -450,10 +397,6 @@
           "fontSize": [
             "10px",
             "13px"
-          ],
-          "letterSpacing": [
-            "1.8px",
-            "1.69px"
           ]
         }
       }
@@ -463,8 +406,8 @@
       "layers": {
         "frame": {
           "width": [
-            "85.125px",
-            "100.5px"
+            "85px",
+            "101px"
           ],
           "height": [
             "44px",
@@ -509,10 +452,6 @@
           "fontSize": [
             "10px",
             "13px"
-          ],
-          "letterSpacing": [
-            "1.8px",
-            "1.69px"
           ]
         }
       }
@@ -522,16 +461,16 @@
       "layers": {
         "frame": {
           "width": [
-            "68.25px",
-            "81.8281px"
+            "68px",
+            "82px"
           ],
           "height": [
-            "56.7969px",
-            "72.2969px"
+            "57px",
+            "72px"
           ],
           "marginRight": [
-            "319.953px",
-            "383.969px"
+            "320px",
+            "384px"
           ],
           "paddingTop": [
             "14px",
@@ -548,12 +487,8 @@
             "22px"
           ],
           "lineHeight": [
-            "28.8px",
-            "36.3px"
-          ],
-          "letterSpacing": [
-            "0.36px",
-            "0.22px"
+            "29px",
+            "36px"
           ]
         }
       }
@@ -568,7 +503,7 @@
           ],
           "height": [
             "290px",
-            "366.984px"
+            "367px"
           ],
           "marginBottom": [
             "40px",
@@ -580,17 +515,11 @@
           ],
           "gridTemplateRows": [
             "290px",
-            "366.984px"
+            "367px"
           ],
           "gap": [
             "32px",
             "72px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
           ]
         }
       }
@@ -604,8 +533,8 @@
             "864px"
           ],
           "height": [
-            "147.578px",
-            "229.641px"
+            "148px",
+            "230px"
           ],
           "marginBottom": [
             "32px",
@@ -616,8 +545,8 @@
             "286.656px 286.672px 286.656px"
           ],
           "gridTemplateRows": [
-            "147.578px",
-            "227.641px"
+            "148px",
+            "228px"
           ],
           "gap": [
             "2px",
@@ -677,12 +606,6 @@
             "none",
             "solid"
           ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
-          ]
         }
       }
     },
@@ -695,8 +618,8 @@
             "864px"
           ],
           "height": [
-            "113.984px",
-            "157.438px"
+            "114px",
+            "157px"
           ],
           "marginBottom": [
             "20px",
@@ -723,12 +646,6 @@
           "borderLeftWidth": [
             "2px",
             "3px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
           ]
         }
       }
@@ -769,14 +686,8 @@
             "572px"
           ],
           "height": [
-            "262.797px",
-            "366.984px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "263px",
+            "367px"
           ]
         }
       }
@@ -789,12 +700,6 @@
             "0px",
             "8px"
           ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
-          ]
         }
       }
     },
@@ -803,12 +708,12 @@
       "layers": {
         "frame": {
           "width": [
-            "234.656px",
-            "286.656px"
+            "235px",
+            "287px"
           ],
           "height": [
-            "147.578px",
-            "227.641px"
+            "148px",
+            "228px"
           ],
           "paddingTop": [
             "18px",
@@ -879,12 +784,6 @@
           "borderLeftStyle": [
             "solid",
             "none"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
           ]
         }
       }
@@ -894,12 +793,12 @@
       "layers": {
         "frame": {
           "width": [
-            "234.672px",
-            "286.672px"
+            "235px",
+            "287px"
           ],
           "height": [
-            "147.578px",
-            "227.641px"
+            "148px",
+            "228px"
           ],
           "paddingTop": [
             "18px",
@@ -970,12 +869,6 @@
           "borderLeftStyle": [
             "solid",
             "none"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
           ]
         }
       }
@@ -985,12 +878,12 @@
       "layers": {
         "frame": {
           "width": [
-            "234.672px",
-            "286.656px"
+            "235px",
+            "287px"
           ],
           "height": [
-            "147.578px",
-            "227.641px"
+            "148px",
+            "228px"
           ],
           "paddingTop": [
             "18px",
@@ -1061,12 +954,6 @@
           "borderLeftStyle": [
             "solid",
             "none"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
           ]
         }
       }
@@ -1077,10 +964,10 @@
         "frame": {
           "width": [
             "658px",
-            "597.531px"
+            "598px"
           ],
           "height": [
-            "49.5938px",
+            "50px",
             "66px"
           ]
         },
@@ -1090,7 +977,7 @@
             "22px"
           ],
           "lineHeight": [
-            "24.8px",
+            "25px",
             "33px"
           ]
         }
@@ -1105,8 +992,8 @@
             "773px"
           ],
           "height": [
-            "14.3906px",
-            "21.4375px"
+            "14px",
+            "21px"
           ],
           "marginTop": [
             "10px",
@@ -1141,12 +1028,12 @@
             "13px"
           ],
           "lineHeight": [
-            "14.4px",
-            "21.45px"
+            "14px",
+            "21px"
           ],
           "letterSpacing": [
-            "1.44px",
-            "1.56px"
+            "1px",
+            "2px"
           ]
         }
       }
@@ -1156,8 +1043,8 @@
       "layers": {
         "frame": {
           "width": [
-            "483.688px",
-            "595.297px"
+            "484px",
+            "595px"
           ],
           "height": [
             "15px",
@@ -1185,8 +1072,8 @@
             "23px"
           ],
           "marginLeft": [
-            "196.312px",
-            "232.703px"
+            "196px",
+            "233px"
           ],
           "flexShrink": [
             "1",
@@ -1207,11 +1094,11 @@
         "frame": {
           "width": [
             "476px",
-            "571.266px"
+            "571px"
           ],
           "height": [
             "75px",
-            "119.594px"
+            "120px"
           ],
           "marginBottom": [
             "16px",
@@ -1224,8 +1111,8 @@
             "52px"
           ],
           "lineHeight": [
-            "37.5px",
-            "59.8px"
+            "38px",
+            "60px"
           ]
         }
       }
@@ -1236,7 +1123,7 @@
         "frame": {
           "width": [
             "400px",
-            "501.125px"
+            "501px"
           ],
           "height": [
             "105px",
@@ -1253,8 +1140,8 @@
             "17px"
           ],
           "lineHeight": [
-            "26.25px",
-            "29.75px"
+            "26px",
+            "30px"
           ]
         }
       }
@@ -1264,12 +1151,12 @@
       "layers": {
         "frame": {
           "width": [
-            "229.188px",
-            "279.594px"
+            "229px",
+            "280px"
           ],
           "height": [
-            "44.7969px",
-            "56.3906px"
+            "45px",
+            "56px"
           ],
           "paddingTop": [
             "12px",
@@ -1304,34 +1191,8 @@
             "16px"
           ],
           "lineHeight": [
-            "20.8px",
-            "26.4px"
-          ],
-          "letterSpacing": [
-            "0.26px",
-            "0.16px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:0/div:1/div:0",
-      "layers": {
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:0/div:1/div:1",
-      "layers": {
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "21px",
+            "26px"
           ]
         }
       }
@@ -1341,12 +1202,12 @@
       "layers": {
         "frame": {
           "width": [
-            "204.656px",
-            "230.656px"
+            "205px",
+            "231px"
           ],
           "height": [
-            "22.3906px",
-            "29.6875px"
+            "22px",
+            "30px"
           ],
           "marginBottom": [
             "8px",
@@ -1359,8 +1220,8 @@
             "18px"
           ],
           "lineHeight": [
-            "22.4px",
-            "29.7px"
+            "22px",
+            "30px"
           ]
         }
       }
@@ -1370,12 +1231,12 @@
       "layers": {
         "frame": {
           "width": [
-            "204.656px",
-            "230.656px"
+            "205px",
+            "231px"
           ],
           "height": [
-            "79.1875px",
-            "131.953px"
+            "79px",
+            "132px"
           ]
         },
         "voice": {
@@ -1384,8 +1245,8 @@
             "16px"
           ],
           "lineHeight": [
-            "19.8px",
-            "26.4px"
+            "20px",
+            "26px"
           ]
         }
       }
@@ -1395,12 +1256,12 @@
       "layers": {
         "frame": {
           "width": [
-            "204.672px",
-            "230.672px"
+            "205px",
+            "231px"
           ],
           "height": [
-            "22.3906px",
-            "29.6875px"
+            "22px",
+            "30px"
           ],
           "marginBottom": [
             "8px",
@@ -1413,8 +1274,8 @@
             "18px"
           ],
           "lineHeight": [
-            "22.4px",
-            "29.7px"
+            "22px",
+            "30px"
           ]
         }
       }
@@ -1424,12 +1285,12 @@
       "layers": {
         "frame": {
           "width": [
-            "204.672px",
-            "230.672px"
+            "205px",
+            "231px"
           ],
           "height": [
-            "79.1875px",
-            "105.562px"
+            "79px",
+            "106px"
           ]
         },
         "voice": {
@@ -1438,8 +1299,8 @@
             "16px"
           ],
           "lineHeight": [
-            "19.8px",
-            "26.4px"
+            "20px",
+            "26px"
           ]
         }
       }
@@ -1449,12 +1310,12 @@
       "layers": {
         "frame": {
           "width": [
-            "204.672px",
-            "230.656px"
+            "205px",
+            "231px"
           ],
           "height": [
-            "22.3906px",
-            "29.6875px"
+            "22px",
+            "30px"
           ],
           "marginBottom": [
             "8px",
@@ -1467,8 +1328,8 @@
             "18px"
           ],
           "lineHeight": [
-            "22.4px",
-            "29.7px"
+            "22px",
+            "30px"
           ]
         }
       }
@@ -1478,12 +1339,12 @@
       "layers": {
         "frame": {
           "width": [
-            "204.672px",
-            "230.656px"
+            "205px",
+            "231px"
           ],
           "height": [
-            "79.1875px",
-            "131.953px"
+            "79px",
+            "132px"
           ]
         },
         "voice": {
@@ -1492,8 +1353,8 @@
             "16px"
           ],
           "lineHeight": [
-            "19.8px",
-            "26.4px"
+            "20px",
+            "26px"
           ]
         }
       }
@@ -1514,14 +1375,8 @@
       "layers": {
         "frame": {
           "height": [
-            "51.4844px",
-            "54.8906px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "51px",
+            "55px"
           ]
         }
       }
@@ -1531,14 +1386,8 @@
       "layers": {
         "frame": {
           "height": [
-            "51.4844px",
-            "54.8906px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "51px",
+            "55px"
           ]
         }
       }
@@ -1548,14 +1397,8 @@
       "layers": {
         "frame": {
           "height": [
-            "51.4844px",
-            "54.8906px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "51px",
+            "55px"
           ]
         }
       }
@@ -1565,14 +1408,8 @@
       "layers": {
         "frame": {
           "height": [
-            "51.4844px",
-            "54.8906px"
-          ]
-        },
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "51px",
+            "55px"
           ]
         }
       }
@@ -1582,8 +1419,8 @@
       "layers": {
         "frame": {
           "height": [
-            "14.3906px",
-            "16.5px"
+            "14px",
+            "17px"
           ]
         },
         "voice": {
@@ -1592,12 +1429,8 @@
             "10px"
           ],
           "lineHeight": [
-            "14.4px",
-            "16.5px"
-          ],
-          "letterSpacing": [
-            "0.36px",
-            "0.4px"
+            "14px",
+            "17px"
           ]
         }
       }
@@ -1607,8 +1440,8 @@
       "layers": {
         "frame": {
           "height": [
-            "9.09375px",
-            "10.3906px"
+            "9px",
+            "10px"
           ]
         },
         "skin": {
@@ -1639,19 +1472,8 @@
             "8px"
           ],
           "lineHeight": [
-            "9.1px",
-            "10.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:0/div:0",
-      "layers": {
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "9px",
+            "10px"
           ]
         }
       }
@@ -1661,8 +1483,8 @@
       "layers": {
         "frame": {
           "height": [
-            "14.3906px",
-            "16.5px"
+            "14px",
+            "17px"
           ]
         },
         "voice": {
@@ -1671,12 +1493,8 @@
             "10px"
           ],
           "lineHeight": [
-            "14.4px",
-            "16.5px"
-          ],
-          "letterSpacing": [
-            "0.36px",
-            "0.4px"
+            "14px",
+            "17px"
           ]
         }
       }
@@ -1686,8 +1504,8 @@
       "layers": {
         "frame": {
           "height": [
-            "9.09375px",
-            "10.3906px"
+            "9px",
+            "10px"
           ]
         },
         "skin": {
@@ -1718,19 +1536,8 @@
             "8px"
           ],
           "lineHeight": [
-            "9.1px",
-            "10.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:1/div:0",
-      "layers": {
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "9px",
+            "10px"
           ]
         }
       }
@@ -1740,8 +1547,8 @@
       "layers": {
         "frame": {
           "height": [
-            "14.3906px",
-            "16.5px"
+            "14px",
+            "17px"
           ]
         },
         "voice": {
@@ -1750,12 +1557,8 @@
             "10px"
           ],
           "lineHeight": [
-            "14.4px",
-            "16.5px"
-          ],
-          "letterSpacing": [
-            "0.36px",
-            "0.4px"
+            "14px",
+            "17px"
           ]
         }
       }
@@ -1765,8 +1568,8 @@
       "layers": {
         "frame": {
           "height": [
-            "9.09375px",
-            "10.3906px"
+            "9px",
+            "10px"
           ]
         },
         "skin": {
@@ -1797,19 +1600,8 @@
             "8px"
           ],
           "lineHeight": [
-            "9.1px",
-            "10.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:2/div:0",
-      "layers": {
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "9px",
+            "10px"
           ]
         }
       }
@@ -1819,8 +1611,8 @@
       "layers": {
         "frame": {
           "height": [
-            "14.3906px",
-            "16.5px"
+            "14px",
+            "17px"
           ]
         },
         "voice": {
@@ -1829,12 +1621,8 @@
             "10px"
           ],
           "lineHeight": [
-            "14.4px",
-            "16.5px"
-          ],
-          "letterSpacing": [
-            "0.36px",
-            "0.4px"
+            "14px",
+            "17px"
           ]
         }
       }
@@ -1844,8 +1632,8 @@
       "layers": {
         "frame": {
           "height": [
-            "9.09375px",
-            "10.3906px"
+            "9px",
+            "10px"
           ]
         },
         "skin": {
@@ -1876,19 +1664,8 @@
             "8px"
           ],
           "lineHeight": [
-            "9.1px",
-            "10.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:0/div:1/div:1/div:3/div:0",
-      "layers": {
-        "voice": {
-          "lineHeight": [
-            "25.6px",
-            "26.4px"
+            "9px",
+            "10px"
           ]
         }
       }

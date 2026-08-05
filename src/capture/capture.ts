@@ -10,14 +10,24 @@ import { extractTree } from '../git/extract';
 import { commitsForPath, type CommitMeta } from '../git/log';
 import { ROUTED_PROPERTIES } from '../layers/routing';
 import { serveTree } from './serve';
-import { settlePage } from './settle';
+import { settlePage, waitForLayoutStable } from './settle';
 import { walkPage } from './walk';
 import type { Snapshot } from './types';
 import { DEFAULT_STATE, type DeclaredState, type SubjectConfig } from '../states/types';
 import { loadSubjectConfig } from '../states/load';
 
 const VIEWPORT_WIDTH = 1280;
-const CAPTURE_HEIGHT = 2000; // tall enough to avoid clipping; the film's frame height is decided in Phase 4
+// The settle protocol's font-swap timing race (see settle.ts) was
+// empirically stable at this height and got measurably flakier when
+// this was raised to comfortably fit the whole page up front (confirmed:
+// recapture divergence rate went from ~1-in-12 to ~3-in-4) — a taller
+// viewport means more content to lay out during the same settle window,
+// widening the race. Settle happens at this height; the walker's
+// flip-card backface pruning needs the FULL page on-screen (see
+// isFacingAway's use of document.elementsFromPoint), so captureState
+// grows the viewport to fit only after settling, once layout is already
+// stable and there's nothing left to race against.
+const CAPTURE_HEIGHT = 2000;
 
 const FONT_CACHE_DIR = path.resolve('out/.fontcache');
 const FONT_HOST_PATTERN = /^https:\/\/fonts\.(googleapis|gstatic)\.com\//;
@@ -66,6 +76,18 @@ async function captureState(
 ): Promise<Snapshot> {
   await page.goto(servedUrl, { waitUntil: 'load' });
   await settlePage(page, state);
+
+  // Grow the viewport to fit the whole page only now, after layout has
+  // already settled — the walker's flip-card backface-visibility
+  // pruning needs every element on-screen to test paint visibility (see
+  // walk.ts's isFacingAway). Re-stabilize afterward: resizing can itself
+  // trigger a reflow (the subject listens for `resize`).
+  const settledHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+  const viewport = page.viewportSize();
+  if (viewport && settledHeight > viewport.height) {
+    await page.setViewportSize({ width: viewportWidth, height: Math.ceil(settledHeight) });
+    await waitForLayoutStable(page);
+  }
 
   const nodes = await walkPage(page, ROUTED_PROPERTIES);
   const docHeight = await page.evaluate(() => document.documentElement.scrollHeight);

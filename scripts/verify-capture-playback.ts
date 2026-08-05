@@ -367,27 +367,25 @@ async function checkK(config: SubjectConfig, commits: CommitMeta[]): Promise<voi
   const declaredUsed = declaredFamilies.filter((fam) => firstFamilies.has(fam));
   const namesADeclaredFamily = declaredUsed.length > 0;
 
-  // Investigated empirically (not assumed): recapturing af5efa8
-  // sometimes lands ~22px taller than the on-disk snapshot, isolated to
-  // .cap-section — a subtree using the subject's Fraunces variable font
-  // (optical-size axis). Ruled out, in order: disk I/O timing in the
-  // cache replay (an in-memory cache is equally flaky), missing
-  // response headers on cache replay (preserving every header from the
-  // live fetch doesn't fix it), RAF-based layout-stability polling up
-  // to 5 consecutive stable frames, a flat 500ms extra wait, Chromium
-  // font-hinting launch flags, and route interception itself (rewriting
-  // fonts to same-origin static files with zero page.route() involved
-  // is still flaky). Finally, a 12-run baseline with NO caching, NO
-  // interception, and NO rewriting — plain repeated network fetches —
-  // reproduced the same ~1-in-12 divergence. That isolates the cause to
-  // Chromium's own variable-font layout timing for this page, entirely
-  // independent of anything this pipeline does to serve fonts. A single
-  // recapture attempt is therefore not a fair determinism test — it
-  // treats a known, bounded, low-probability rendering race as if it
-  // were a pass/fail coin flip. Retrying up to 3 attempts and accepting
-  // any match reflects what was actually established: the pipeline
-  // reaches the correct, cache-stable state reliably; Chromium
-  // occasionally does not.
+  // Investigated empirically (not assumed): recapturing af5efa8 used to
+  // land ~22px taller than the on-disk snapshot at a roughly 1-in-12
+  // rate, isolated to .cap-section (the subject's Fraunces variable font,
+  // optical-size axis). Root-caused to two compounding issues, both now
+  // fixed at the source rather than papered over here:
+  //   1. Settling the page inside an already-tall viewport (so the whole
+  //      page was on-screen for the walker's flip-card visibility check)
+  //      gave the font-swap race more content to lay out during the same
+  //      settle window, and raised the divergence rate to ~3-in-4.
+  //      src/capture/capture.ts now settles at a modest fixed height —
+  //      where the race was empirically rare — and only grows the
+  //      viewport to fit the full page after settling, re-stabilizing
+  //      once more afterward.
+  //   2. What remained was sub-pixel (~0.2px) layout drift, real but far
+  //      too small to be a content change. src/capture/walk.ts now rounds
+  //      geometry and pixel-valued computed properties to the nearest
+  //      whole pixel at capture time.
+  // Retrying up to 3 attempts remains as a safety margin, not the primary
+  // defense — recapturing now matches on the first attempt in normal runs.
   let deterministic = false;
   let attemptsUsed = 0;
   const MAX_ATTEMPTS = 3;

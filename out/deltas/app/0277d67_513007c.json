@@ -14,16 +14,7 @@
     "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:2",
     "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:3",
     "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:3/span:0",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:4",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:0",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/div:0",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0/li:0",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0/li:1",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0/li:2",
-    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/div:1"
+    "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:0/div:1/div:4"
   ],
   "removed": [],
   "changed": [
@@ -32,8 +23,8 @@
       "layers": {
         "frame": {
           "height": [
-            "2531.77px",
-            "2792.77px"
+            "2532px",
+            "2813px"
           ]
         }
       }
@@ -43,8 +34,8 @@
       "layers": {
         "frame": {
           "height": [
-            "2184.59px",
-            "2445.59px"
+            "2185px",
+            "2466px"
           ]
         }
       }
@@ -54,8 +45,8 @@
       "layers": {
         "frame": {
           "height": [
-            "2184.59px",
-            "2445.59px"
+            "2185px",
+            "2466px"
           ]
         }
       }
@@ -65,8 +56,8 @@
       "layers": {
         "frame": {
           "height": [
-            "719.188px",
-            "980.188px"
+            "719px",
+            "1000px"
           ]
         }
       }
@@ -77,11 +68,11 @@
         "frame": {
           "height": [
             "567px",
-            "828px"
+            "848px"
           ],
           "gridTemplateRows": [
             "277px 276px",
-            "277px 276px 247px"
+            "277px 276px 267px"
           ]
         }
       }

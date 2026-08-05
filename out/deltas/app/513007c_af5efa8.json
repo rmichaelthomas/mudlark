@@ -10,8 +10,8 @@
       "layers": {
         "frame": {
           "height": [
-            "2792.77px",
-            "2827.77px"
+            "2813px",
+            "2828px"
           ]
         }
       }
@@ -21,8 +21,8 @@
       "layers": {
         "frame": {
           "height": [
-            "2445.59px",
-            "2480.59px"
+            "2466px",
+            "2481px"
           ]
         }
       }
@@ -32,8 +32,8 @@
       "layers": {
         "frame": {
           "height": [
-            "2445.59px",
-            "2480.59px"
+            "2466px",
+            "2481px"
           ]
         }
       }
@@ -43,8 +43,8 @@
       "layers": {
         "frame": {
           "height": [
-            "980.188px",
-            "1015.19px"
+            "1000px",
+            "1015px"
           ]
         }
       }
@@ -54,11 +54,11 @@
       "layers": {
         "frame": {
           "height": [
-            "828px",
+            "848px",
             "863px"
           ],
           "gridTemplateRows": [
-            "277px 276px 247px",
+            "277px 276px 267px",
             "277px 276px 282px"
           ]
         }
@@ -69,7 +69,7 @@
       "layers": {
         "frame": {
           "height": [
-            "247px",
+            "267px",
             "282px"
           ]
         }
@@ -80,7 +80,7 @@
       "layers": {
         "frame": {
           "height": [
-            "247px",
+            "267px",
             "282px"
           ]
         }
@@ -91,18 +91,7 @@
       "layers": {
         "frame": {
           "height": [
-            "267.375px",
-            "282.391px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1",
-      "layers": {
-        "frame": {
-          "height": [
-            "247px",
+            "267px",
             "282px"
           ]
         }
@@ -113,18 +102,7 @@
       "layers": {
         "frame": {
           "height": [
-            "261.375px",
-            "276.391px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1",
-      "layers": {
-        "frame": {
-          "height": [
-            "241px",
+            "261px",
             "276px"
           ]
         }
@@ -136,7 +114,7 @@
         "frame": {
           "height": [
             "33px",
-            "36.2969px"
+            "36px"
           ]
         }
       }
@@ -146,8 +124,8 @@
       "layers": {
         "frame": {
           "height": [
-            "24.75px",
-            "28.0469px"
+            "25px",
+            "28px"
           ]
         },
         "voice": {
@@ -156,8 +134,8 @@
             "17px"
           ],
           "lineHeight": [
-            "24.75px",
-            "28.05px"
+            "25px",
+            "28px"
           ]
         }
       }
@@ -167,12 +145,12 @@
       "layers": {
         "frame": {
           "width": [
-            "411.828px",
-            "443.516px"
+            "412px",
+            "444px"
           ],
           "height": [
-            "62.3906px",
-            "67.1719px"
+            "62px",
+            "67px"
           ]
         },
         "voice": {
@@ -181,8 +159,8 @@
             "14px"
           ],
           "lineHeight": [
-            "20.8px",
-            "22.4px"
+            "21px",
+            "22px"
           ]
         }
       }
@@ -192,8 +170,8 @@
       "layers": {
         "frame": {
           "height": [
-            "33.4375px",
-            "35.4375px"
+            "33px",
+            "35px"
           ]
         },
         "voice": {
@@ -202,8 +180,8 @@
             "14px"
           ],
           "lineHeight": [
-            "21.45px",
-            "23.1px"
+            "21px",
+            "23px"
           ]
         }
       }
@@ -213,8 +191,8 @@
       "layers": {
         "frame": {
           "height": [
-            "19.7969px",
-            "21.4375px"
+            "20px",
+            "21px"
           ]
         },
         "voice": {
@@ -223,87 +201,8 @@
             "13px"
           ],
           "lineHeight": [
-            "19.8px",
-            "21.45px"
-          ],
-          "letterSpacing": [
-            "1.2px",
-            "1.3px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/div:0",
-      "layers": {
-        "frame": {
-          "height": [
-            "19.7969px",
-            "21.4375px"
-          ]
-        },
-        "voice": {
-          "fontSize": [
-            "12px",
-            "13px"
-          ],
-          "lineHeight": [
-            "19.8px",
-            "21.45px"
-          ],
-          "letterSpacing": [
-            "1.92px",
-            "2.08px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0",
-      "layers": {
-        "frame": {
-          "width": [
-            "475.188px",
-            "506.875px"
-          ],
-          "height": [
-            "135.406px",
-            "167.125px"
-          ]
-        },
-        "voice": {
-          "fontSize": [
-            "15px",
-            "16px"
-          ],
-          "lineHeight": [
-            "28.5px",
-            "30.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/div:1",
-      "layers": {
-        "frame": {
-          "height": [
-            "19.7969px",
-            "21.4375px"
-          ]
-        },
-        "voice": {
-          "fontSize": [
-            "12px",
-            "13px"
-          ],
-          "lineHeight": [
-            "19.8px",
-            "21.45px"
-          ],
-          "letterSpacing": [
-            "1.2px",
-            "1.3px"
+            "20px",
+            "21px"
           ]
         }
       }
@@ -313,12 +212,12 @@
       "layers": {
         "frame": {
           "width": [
-            "81.7344px",
-            "86.8125px"
+            "82px",
+            "87px"
           ],
           "height": [
             "33px",
-            "36.2969px"
+            "36px"
           ]
         },
         "voice": {
@@ -328,11 +227,7 @@
           ],
           "lineHeight": [
             "33px",
-            "36.3px"
-          ],
-          "letterSpacing": [
-            "2px",
-            "1.76px"
+            "36px"
           ]
         }
       }
@@ -346,87 +241,8 @@
             "13px"
           ],
           "lineHeight": [
-            "19.8px",
-            "21.45px"
-          ],
-          "letterSpacing": [
-            "1.68px",
-            "1.82px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0/li:0",
-      "layers": {
-        "frame": {
-          "width": [
-            "475.188px",
-            "506.875px"
-          ],
-          "height": [
-            "28.5px",
-            "30.3906px"
-          ]
-        },
-        "voice": {
-          "fontSize": [
-            "15px",
-            "16px"
-          ],
-          "lineHeight": [
-            "28.5px",
-            "30.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0/li:1",
-      "layers": {
-        "frame": {
-          "width": [
-            "475.188px",
-            "506.875px"
-          ],
-          "height": [
-            "28.5px",
-            "30.3906px"
-          ]
-        },
-        "voice": {
-          "fontSize": [
-            "15px",
-            "16px"
-          ],
-          "lineHeight": [
-            "28.5px",
-            "30.4px"
-          ]
-        }
-      }
-    },
-    {
-      "key": "/body:0/div:0/div:0/div:2/div:3/button:4/div:0/div:1/div:1/ul:0/li:2",
-      "layers": {
-        "frame": {
-          "width": [
-            "475.188px",
-            "506.875px"
-          ],
-          "height": [
-            "28.5px",
-            "30.3906px"
-          ]
-        },
-        "voice": {
-          "fontSize": [
-            "15px",
-            "16px"
-          ],
-          "lineHeight": [
-            "28.5px",
-            "30.4px"
+            "20px",
+            "21px"
           ]
         }
       }

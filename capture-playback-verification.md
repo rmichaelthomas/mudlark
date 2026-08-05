@@ -64,7 +64,7 @@ first-cut matched=132/132 (100.0%); wholesale matched=5/54 (9.3%, expected to be
 Deltas/pacing (app state): timeline beat count equals commit count exactly; appliedRules non-empty for every commit; 028c764->66fb0d5 produces a held beat via [hold-the-gaps]
 
 ```
-beats=12 commits=12 allApplied=true 66fb0d5.appliedRules=[weight-by-change,hold-the-gaps,dwell-on-structure] durationSec=16.50
+beats=12 commits=12 allApplied=true 66fb0d5.appliedRules=[weight-by-change,hold-the-gaps,dwell-on-structure] durationSec=18.56
 ```
 
 ### F — PASS

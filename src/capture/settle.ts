@@ -8,7 +8,7 @@ import type { DeclaredState } from '../states/types';
 // reveal-forcing pass (step 4) and after a state script (step 5), so
 // every step below that can change layout calls this again — a fixed
 // wait anywhere in the middle isn't enough on its own.
-async function waitForLayoutStable(page: Page): Promise<void> {
+export async function waitForLayoutStable(page: Page): Promise<void> {
   await page
     .evaluate(async () => {
       // Google Fonts serves with font-display: swap — text renders in a

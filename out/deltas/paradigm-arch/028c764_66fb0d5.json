@@ -194,7 +194,7 @@
       "layers": {
         "frame": {
           "height": [
-            "3943.47px",
+            "3943px",
             "2000px"
           ]
         }
@@ -205,16 +205,8 @@
       "layers": {
         "frame": {
           "height": [
-            "3943.47px",
-            "753.094px"
-          ],
-          "marginRight": [
-            "0px",
-            "250px"
-          ],
-          "marginLeft": [
-            "0px",
-            "250px"
+            "3943px",
+            "753px"
           ],
           "paddingTop": [
             "72px",
@@ -244,8 +236,8 @@
             "auto"
           ],
           "height": [
-            "49.5938px",
-            "753.094px"
+            "50px",
+            "753px"
           ],
           "marginBottom": [
             "72px",
@@ -301,12 +293,12 @@
             "auto"
           ],
           "width": [
-            "319.344px",
+            "319px",
             "560px"
           ],
           "height": [
-            "49.5938px",
-            "200.297px"
+            "50px",
+            "200px"
           ],
           "marginBottom": [
             "0px",
@@ -401,11 +393,11 @@
             "400"
           ],
           "lineHeight": [
-            "17.6px",
-            "25.6px"
+            "18px",
+            "26px"
           ],
           "letterSpacing": [
-            "1.54px",
+            "2px",
             "normal"
           ],
           "textTransform": [
