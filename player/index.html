@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Buildback — capture and playback</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #14161c;
+      --panel: #1b1e27;
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #e7e9ee;
+      --muted: #9098a8;
+      --accent: #6ea8fe;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "system-ui", sans-serif;
+      overflow-x: hidden;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    header h1 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 0;
+      min-height: 0;
+    }
+    #viewport {
+      overflow: auto;
+      min-height: 0;
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 100% 24px,
+        var(--bg);
+    }
+    #frame {
+      position: relative;
+      background: #0c0d11;
+      box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5);
+      flex: none;
+    }
+    #stage {
+      position: absolute;
+      inset: 0;
+    }
+    aside {
+      border-left: 1px solid var(--border);
+      padding: 20px;
+      overflow-y: auto;
+      background: var(--panel);
+    }
+    aside h2 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+    #detail { margin-bottom: 24px; }
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .detail-sha {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      background: rgba(110, 168, 254, 0.15);
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .detail-date, .detail-author { font-size: 12px; color: var(--muted); }
+    .detail-message { margin: 0; font-size: 14px; line-height: 1.5; }
+
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 0 0 24px;
+    }
+    fieldset legend {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      padding: 0 4px;
+    }
+    fieldset label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      padding: 4px 0;
+      text-transform: capitalize;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .transport {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    #play {
+      background: var(--accent);
+      color: #0c0d11;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    #scrub { flex: 1; accent-color: var(--accent); }
+
+    #rail {
+      position: relative;
+      height: 28px;
+    }
+    .rail-track {
+      position: relative;
+      height: 100%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 4px;
+    }
+    .rail-mark {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      min-width: 3px;
+      background: rgba(110, 168, 254, 0.35);
+      border: none;
+      border-right: 1px solid var(--bg);
+      cursor: pointer;
+      padding: 0;
+    }
+    .rail-mark:hover { background: rgba(110, 168, 254, 0.6); }
+    .rail-mark.active { background: var(--accent); }
+    .rail-playhead {
+      position: absolute;
+      top: -3px;
+      width: 2px;
+      height: calc(100% + 6px);
+      background: #fff;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Buildback</h1>
+    <p>rmichaelthomas/one-surface — index.html</p>
+  </header>
+
+  <main>
+    <div id="viewport">
+      <div id="frame"><div id="stage"></div></div>
+    </div>
+    <aside>
+      <h2>Detail</h2>
+      <div id="detail"></div>
+
+      <fieldset>
+        <legend>Layers</legend>
+        <label><input type="checkbox" data-layer-toggle="bones" /> Bones</label>
+        <label><input type="checkbox" data-layer-toggle="frame" /> Frame</label>
+        <label><input type="checkbox" data-layer-toggle="skin" /> Skin</label>
+        <label><input type="checkbox" data-layer-toggle="voice" /> Voice</label>
+        <label><input type="checkbox" data-layer-toggle="life" /> Life</label>
+      </fieldset>
+    </aside>
+  </main>
+
+  <footer>
+    <div id="rail"></div>
+    <div class="transport">
+      <button type="button" id="play">Play</button>
+      <input type="range" id="scrub" value="0" />
+    </div>
+  </footer>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

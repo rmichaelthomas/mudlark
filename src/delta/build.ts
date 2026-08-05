@@ -79,7 +79,12 @@ if (isMain) {
   const snapshotsDir = path.resolve('out/snapshots');
   const outDir = path.resolve('out/deltas');
   buildAllDeltas(repoDir, 'index.html', snapshotsDir, outDir)
-    .then((deltas) => {
+    .then(async (deltas) => {
+      // A small manifest listing every commit in order, so the player
+      // (a static page with no directory-listing capability) knows what
+      // to fetch from /snapshots and /deltas without guessing filenames.
+      const commits = await commitsForPath(repoDir, 'index.html');
+      await writeFile(path.resolve('out/manifest.json'), JSON.stringify({ commits }, null, 2));
       console.log(`built ${deltas.length} deltas -> ${outDir}`);
     })
     .catch((err) => {
