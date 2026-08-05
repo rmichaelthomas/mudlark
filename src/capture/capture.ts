@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
-import type { Browser } from 'playwright';
-import { mkdir, writeFile, rm } from 'node:fs/promises';
+import type { Browser, BrowserContext, Page } from 'playwright';
+import { mkdir, writeFile, rm, readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import os from 'node:os';
@@ -12,26 +13,99 @@ import { serveTree } from './serve';
 import { settlePage } from './settle';
 import { walkPage } from './walk';
 import type { Snapshot } from './types';
+import { DEFAULT_STATE, type DeclaredState, type SubjectConfig } from '../states/types';
+import { loadSubjectConfig } from '../states/load';
 
 const VIEWPORT_WIDTH = 1280;
 const CAPTURE_HEIGHT = 2000; // tall enough to avoid clipping; the film's frame height is decided in Phase 4
+
+const FONT_CACHE_DIR = path.resolve('out/.fontcache');
+const FONT_HOST_PATTERN = /^https:\/\/fonts\.(googleapis|gstatic)\.com\//;
 
 export interface CaptureOptions {
   viewportWidth?: number;
   captureHeight?: number;
 }
 
+// The subject loads five Google Fonts families on every load — 48
+// round trips across a full multi-state run, and the only genuinely
+// flaky step in the pipeline (checkpoint v1.2 §4, failure mode #3). A
+// cold or stalled fetch resolves document.fonts.ready against fallback
+// metrics, which shows up as a spurious Voice+Frame delta on a commit
+// that changed nothing. Cached to disk, keyed by URL hash, so capture
+// is offline and byte-deterministic after the first run.
+async function setupFontCache(context: BrowserContext): Promise<void> {
+  await mkdir(FONT_CACHE_DIR, { recursive: true });
+  await context.route(FONT_HOST_PATTERN, async (route) => {
+    const url = route.request().url();
+    const key = createHash('sha256').update(url).digest('hex');
+    const bodyPath = path.join(FONT_CACHE_DIR, key);
+    const metaPath = `${bodyPath}.json`;
+
+    if (existsSync(bodyPath) && existsSync(metaPath)) {
+      const meta = JSON.parse(await readFile(metaPath, 'utf8')) as { contentType: string };
+      const body = await readFile(bodyPath);
+      await route.fulfill({ status: 200, contentType: meta.contentType, body });
+      return;
+    }
+
+    const response = await route.fetch();
+    const body = await response.body();
+    await writeFile(bodyPath, body);
+    await writeFile(metaPath, JSON.stringify({ contentType: response.headers()['content-type'] ?? 'application/octet-stream' }));
+    await route.fulfill({ response, body });
+  });
+}
+
+async function captureState(
+  page: Page,
+  servedUrl: string,
+  commit: CommitMeta,
+  state: DeclaredState,
+  viewportWidth: number,
+): Promise<Snapshot> {
+  await page.goto(servedUrl, { waitUntil: 'load' });
+  await settlePage(page, state);
+
+  const nodes = await walkPage(page, ROUTED_PROPERTIES);
+  const docHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+  const scriptText = await page.evaluate(() =>
+    Array.from(document.querySelectorAll('script'))
+      .map((s) => s.textContent ?? '')
+      .join('\n'),
+  );
+  const scriptHash = createHash('sha256').update(scriptText).digest('hex');
+
+  return {
+    sha: commit.sha,
+    date: commit.date,
+    author: commit.author,
+    message: commit.message,
+    stateId: state.id,
+    viewportWidth,
+    docHeight,
+    nodes,
+    scriptHash,
+  };
+}
+
+// Captures a single (commit, state) pair standalone — its own
+// extraction, serve, and context. Used where only one snapshot is
+// needed (e.g. the verification script's recapture-and-diff check);
+// captureAll below uses the shared-context path since it captures
+// every state of a commit together.
 export async function captureCommit(
   browser: Browser,
   repoDir: string,
   commit: CommitMeta,
+  state: DeclaredState = DEFAULT_STATE,
   opts: CaptureOptions = {},
 ): Promise<Snapshot> {
   const viewportWidth = opts.viewportWidth ?? VIEWPORT_WIDTH;
   const captureHeight = opts.captureHeight ?? CAPTURE_HEIGHT;
 
-  const destDir = path.join(os.tmpdir(), `buildback-extract-${commit.sha}-${process.pid}`);
-  await extractTree(repoDir, commit.sha, destDir); // extractTree creates destDir
+  const destDir = path.join(os.tmpdir(), `buildback-extract-${commit.sha}-${state.id}-${process.pid}`);
+  await extractTree(repoDir, commit.sha, destDir);
   const served = await serveTree(destDir);
 
   // Settle protocol step 1: use the page's own prefers-reduced-motion
@@ -40,31 +114,11 @@ export async function captureCommit(
     reducedMotion: 'reduce',
     viewport: { width: viewportWidth, height: captureHeight },
   });
+  await setupFontCache(context);
   const page = await context.newPage();
 
   try {
-    await page.goto(served.url, { waitUntil: 'load' });
-    await settlePage(page);
-
-    const nodes = await walkPage(page, ROUTED_PROPERTIES);
-    const docHeight = await page.evaluate(() => document.documentElement.scrollHeight);
-    const scriptText = await page.evaluate(() =>
-      Array.from(document.querySelectorAll('script'))
-        .map((s) => s.textContent ?? '')
-        .join('\n'),
-    );
-    const scriptHash = createHash('sha256').update(scriptText).digest('hex');
-
-    return {
-      sha: commit.sha,
-      date: commit.date,
-      author: commit.author,
-      message: commit.message,
-      viewportWidth,
-      docHeight,
-      nodes,
-      scriptHash,
-    };
+    return await captureState(page, served.url, commit, state, viewportWidth);
   } finally {
     await context.close();
     await served.close();
@@ -72,36 +126,92 @@ export async function captureCommit(
   }
 }
 
-export async function captureAll(repoDir: string, subjectPath: string, outDir: string): Promise<Snapshot[]> {
-  const commits = await commitsForPath(repoDir, subjectPath);
-  await mkdir(outDir, { recursive: true });
+// Captures every declared state of one commit, reusing one extracted
+// tree and one served instance across all of them (checkpoint v1.2
+// §4) — extraction is tens of milliseconds on a local repo, so this is
+// tidiness, not a performance measure. One context per commit, not per
+// state: camera and frame (viewport, reducedMotion) are set once here
+// and therefore identical across every state of this commit by
+// construction (invariant 8). A fresh page per state, since a state
+// script inherits whatever DOM state the previous script left behind.
+async function captureCommitStates(
+  browser: Browser,
+  repoDir: string,
+  commit: CommitMeta,
+  states: DeclaredState[],
+  opts: CaptureOptions = {},
+): Promise<Snapshot[]> {
+  const viewportWidth = opts.viewportWidth ?? VIEWPORT_WIDTH;
+  const captureHeight = opts.captureHeight ?? CAPTURE_HEIGHT;
 
+  const destDir = path.join(os.tmpdir(), `buildback-extract-${commit.sha}-${process.pid}`);
+  await extractTree(repoDir, commit.sha, destDir);
+  const served = await serveTree(destDir);
+
+  const context = await browser.newContext({
+    reducedMotion: 'reduce',
+    viewport: { width: viewportWidth, height: captureHeight },
+  });
+  await setupFontCache(context);
+
+  try {
+    const snapshots: Snapshot[] = [];
+    for (const state of states) {
+      const page = await context.newPage();
+      try {
+        snapshots.push(await captureState(page, served.url, commit, state, viewportWidth));
+      } finally {
+        await page.close();
+      }
+    }
+    return snapshots;
+  } finally {
+    await context.close();
+    await served.close();
+    await rm(destDir, { recursive: true, force: true });
+  }
+}
+
+// Writes to out/snapshots/<stateId>/<sha>.json. Commits drive the outer
+// loop, states the inner loop — invariant 1 (the commit set is never
+// reduced) governs the outer loop; invariant 9 (state parity) follows
+// from every state being captured for every commit here, unconditionally.
+export async function captureAll(config: SubjectConfig, outDir: string): Promise<Snapshot[]> {
+  const commits = await commitsForPath(config.repo, config.path);
   const browser = await chromium.launch();
-  const snapshots: Snapshot[] = [];
+  const allSnapshots: Snapshot[] = [];
 
   try {
     // Sequential, not parallel: capture must not run two commits through
-    // the same browser concurrently, and there is no benefit to racing a
-    // dozen local extractions against each other.
+    // the same browser concurrently, and there is no benefit to racing
+    // local extractions against each other.
     for (const commit of commits) {
-      const snapshot = await captureCommit(browser, repoDir, commit);
-      snapshots.push(snapshot);
-      await writeFile(path.join(outDir, `${commit.sha}.json`), JSON.stringify(snapshot, null, 2));
+      const snapshots = await captureCommitStates(browser, config.repo, commit, config.states, {
+        viewportWidth: VIEWPORT_WIDTH,
+        captureHeight: CAPTURE_HEIGHT,
+      });
+      for (const snapshot of snapshots) {
+        const stateDir = path.join(outDir, snapshot.stateId);
+        await mkdir(stateDir, { recursive: true });
+        await writeFile(path.join(stateDir, `${commit.sha}.json`), JSON.stringify(snapshot, null, 2));
+        allSnapshots.push(snapshot);
+      }
     }
   } finally {
     await browser.close();
   }
 
-  return snapshots;
+  return allSnapshots;
 }
 
 const isMain = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
 if (isMain) {
-  const repoDir = process.env.BUILDBACK_SUBJECT_REPO ?? '/Users/rmichaelthomas/Websites/one-surface';
+  const subjectName = process.env.BUILDBACK_SUBJECT ?? 'one-surface';
   const outDir = path.resolve('out/snapshots');
-  captureAll(repoDir, 'index.html', outDir)
+  loadSubjectConfig(subjectName)
+    .then((config) => captureAll(config, outDir))
     .then((snapshots) => {
-      console.log(`captured ${snapshots.length} commits -> ${outDir}`);
+      console.log(`captured ${snapshots.length} snapshots (${new Set(snapshots.map((s) => s.stateId)).size} states) -> ${outDir}`);
     })
     .catch((err) => {
       console.error(err);

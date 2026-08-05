@@ -20,6 +20,7 @@ export interface Snapshot {
   date: string;
   author: string;
   message: string;
+  stateId: string; // the declared state this snapshot was captured under
   viewportWidth: number; // 1280
   docHeight: number;
   nodes: NodeRecord[];
