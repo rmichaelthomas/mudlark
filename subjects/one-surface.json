@@ -1,0 +1,14 @@
+{
+  "name": "one-surface",
+  "repo": "/Users/rmichaelthomas/Websites/one-surface",
+  "path": "index.html",
+  "states": [
+    { "id": "app", "label": "App", "script": null },
+    { "id": "paradigm-plain", "label": "Paradigm — plain english",
+      "script": "switchView('paradigm'); setAudience('plain', document.querySelector('.audience-tab[data-audience=\"plain\"]'));" },
+    { "id": "paradigm-arch", "label": "Paradigm — architecture",
+      "script": "switchView('paradigm'); setAudience('arch', document.querySelector('.audience-tab[data-audience=\"arch\"]'));" },
+    { "id": "paradigm-why", "label": "Paradigm — why it matters",
+      "script": "switchView('paradigm'); setAudience('why', document.querySelector('.audience-tab[data-audience=\"why\"]'));" }
+  ]
+}
