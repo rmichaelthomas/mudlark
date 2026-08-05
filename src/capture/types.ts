@@ -23,4 +23,20 @@ export interface Snapshot {
   viewportWidth: number; // 1280
   docHeight: number;
   nodes: NodeRecord[];
+  // sha256 of the concatenated text of every <script> element at this
+  // commit. <script> is excluded from the node walk itself, so this is
+  // captured alongside it — the file-level Life signal src/delta/build.ts
+  // compares to produce Delta.lifeFileChanged (checkpoint §24).
+  scriptHash: string;
+}
+
+// A node's computed properties split by layer (src/layers/extract.ts).
+// voice additionally carries `text` and, for media elements, `src` —
+// neither is a getComputedStyle property, so neither lives in the
+// routing-table-only `computed` bag on NodeRecord.
+export interface LayerBag {
+  frame: Record<string, string>;
+  skin: Record<string, string>;
+  voice: Record<string, string>;
+  life: Record<string, string>;
 }

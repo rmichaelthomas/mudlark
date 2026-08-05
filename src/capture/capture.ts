@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import type { Browser } from 'playwright';
 import { mkdir, writeFile, rm } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import os from 'node:os';
 
@@ -47,6 +48,12 @@ export async function captureCommit(
 
     const nodes = await walkPage(page, ROUTED_PROPERTIES);
     const docHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+    const scriptText = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('script'))
+        .map((s) => s.textContent ?? '')
+        .join('\n'),
+    );
+    const scriptHash = createHash('sha256').update(scriptText).digest('hex');
 
     return {
       sha: commit.sha,
@@ -56,6 +63,7 @@ export async function captureCommit(
       viewportWidth,
       docHeight,
       nodes,
+      scriptHash,
     };
   } finally {
     await context.close();

@@ -12547,7 +12547,7 @@
       "ordinal": 0,
       "parentPath": "/body:0/footer:0/div:2",
       "text": "Privacy",
-      "src": "http://127.0.0.1:57503/privacy.html",
+      "src": "http://127.0.0.1:58315/privacy.html",
       "geometry": {
         "x": 498.9375,
         "y": 2411.96875,
@@ -12699,7 +12699,7 @@
       "ordinal": 1,
       "parentPath": "/body:0/footer:0/div:2",
       "text": "Terms",
-      "src": "http://127.0.0.1:57503/terms.html",
+      "src": "http://127.0.0.1:58315/terms.html",
       "geometry": {
         "x": 600.25,
         "y": 2411.96875,
@@ -12851,7 +12851,7 @@
       "ordinal": 2,
       "parentPath": "/body:0/footer:0/div:2",
       "text": "Support",
-      "src": "http://127.0.0.1:57503/#help",
+      "src": "http://127.0.0.1:58315/#help",
       "geometry": {
         "x": 684.0625,
         "y": 2411.96875,
@@ -12918,5 +12918,6 @@
         "animationDuration": "1e-05s"
       }
     }
-  ]
+  ],
+  "scriptHash": "e57865bb1a155173006abab6d04c7fd9921a221daed175f56b359a2d007a14c0"
 }
