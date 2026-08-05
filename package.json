@@ -1,12 +1,26 @@
 {
   "name": "buildback",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Buildback replays how a built artifact came to be, reconstructed from git commits.",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typecheck": "tsc --noEmit",
+    "capture": "tsx src/capture/capture.ts",
+    "delta": "tsx src/delta/build.ts",
+    "verify": "tsx scripts/verify-capture-playback.ts",
+    "dev": "vite"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.47.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.0"
+  }
 }
