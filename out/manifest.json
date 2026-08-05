@@ -1,0 +1,76 @@
+{
+  "commits": [
+    {
+      "sha": "2690c01",
+      "date": "2026-04-15T15:41:24-07:00",
+      "author": "rmichaelthomas",
+      "message": "Initial commit — onesurface.org placeholder site"
+    },
+    {
+      "sha": "5c338fa",
+      "date": "2026-04-15T16:13:50-07:00",
+      "author": "rmichaelthomas",
+      "message": "Update thesis link, add contact links to builder section"
+    },
+    {
+      "sha": "aee6d20",
+      "date": "2026-04-15T19:58:24-07:00",
+      "author": "rmichaelthomas",
+      "message": "Overdrive: scroll-driven atmosphere, spring physics, reading UX"
+    },
+    {
+      "sha": "028c764",
+      "date": "2026-04-15T20:18:33-07:00",
+      "author": "rmichaelthomas",
+      "message": "Add favicon, OG images, and social metadata for both pages"
+    },
+    {
+      "sha": "66fb0d5",
+      "date": "2026-07-12T14:49:38-07:00",
+      "author": "rmichaelthomas",
+      "message": "feat: add index.html, 404.html, and OG image changes for redesign"
+    },
+    {
+      "sha": "c53cee3",
+      "date": "2026-07-12T15:10:11-07:00",
+      "author": "rmichaelthomas",
+      "message": "fix: legibility, breathing room, and contrast pass across the site"
+    },
+    {
+      "sha": "dac3de1",
+      "date": "2026-07-12T15:28:41-07:00",
+      "author": "rmichaelthomas",
+      "message": "fix: mobile pass - tab wrapping, touch targets, cross-platform icon"
+    },
+    {
+      "sha": "53f6d63",
+      "date": "2026-07-12T15:50:05-07:00",
+      "author": "rmichaelthomas",
+      "message": "feat: point primary CTA at TestFlight beta instead of App Store"
+    },
+    {
+      "sha": "178ffc0",
+      "date": "2026-07-12T17:55:30-07:00",
+      "author": "rmichaelthomas",
+      "message": "feat: capability cards on app page, container hero, centered resonance quote"
+    },
+    {
+      "sha": "0277d67",
+      "date": "2026-07-12T18:41:54-07:00",
+      "author": "rmichaelthomas",
+      "message": "fix: privacy/terms linkage, footer legal links, robots + sitemap"
+    },
+    {
+      "sha": "513007c",
+      "date": "2026-07-14T10:40:23-07:00",
+      "author": "rmichaelthomas",
+      "message": "feat: add STRANDS to What's Inside capability cards"
+    },
+    {
+      "sha": "af5efa8",
+      "date": "2026-07-14T10:44:09-07:00",
+      "author": "rmichaelthomas",
+      "message": "fix: bump STRANDS card font sizes for optical parity"
+    }
+  ]
+}
