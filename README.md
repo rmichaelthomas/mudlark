@@ -114,7 +114,7 @@ frame and explains what changed in the detail pane.
 
 | Control | Action |
 |---|---|
-| **Play / Pause** | Start or stop playback (or press Space) |
+| **Play / Pause** | Start or stop playback. Space works from anywhere, including a focused dropdown |
 | **⏮ ⏭** | Step to the previous / next commit (or press ← →) |
 | **Timeline** | Click or drag anywhere to seek. Each segment is one commit, sized by how long it holds the screen; hover one for its message and date |
 | **Loop** | On: the film holds a beat on the last frame, then runs again. Off: it stops, and the button becomes Replay |

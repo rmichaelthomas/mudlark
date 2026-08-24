@@ -72,16 +72,27 @@ async function playState(page: Page): Promise<string> {
   return (await page.getAttribute('#play', 'data-state')) ?? '';
 }
 
+// Film time and wall-clock time sampled at the same instant, in the same
+// clock, inside the page. Reading film time over CDP and wall-clock from
+// Node puts round-trip latency into one term and not the other, which on
+// a loaded machine skews a short measurement badly enough to fail a
+// correct player.
+async function sample(page: Page): Promise<{ sec: number; t: number }> {
+  return page.evaluate(() => ({
+    sec: Number(document.getElementById('timeline')!.getAttribute('aria-valuenow')),
+    t: performance.now(),
+  }));
+}
+
 // Measures how much film time passes per second of wall-clock time.
 // `aria-valuenow` only advances on a rAF, so a read can lag reality by up
 // to one frame; the window is wide enough that one slow frame doesn't
 // dominate the result.
 async function measureRate(page: Page, overMs: number): Promise<number> {
-  const before = await filmSec(page);
-  const t0 = Date.now();
+  const before = await sample(page);
   await sleep(overMs);
-  const after = await filmSec(page);
-  return (after - before) / ((Date.now() - t0) / 1000);
+  const after = await sample(page);
+  return (after.sec - before.sec) / ((after.t - before.t) / 1000);
 }
 
 // --- checks ----------------------------------------------------------
@@ -377,6 +388,62 @@ async function checkControlSizing(page: Page): Promise<void> {
   );
 }
 
+// The reported nag: after picking a zoom or a speed with the mouse,
+// focus is left on that dropdown, and the next reach is for Space.
+async function checkKeyboardAfterDropdown(page: Page): Promise<void> {
+  await seekTo(page, 0);
+  await sleep(200);
+
+  const cases: Array<[string, string]> = [
+    ['#zoom', 'fit'],
+    ['#speed', '2'],
+  ];
+  const failures: string[] = [];
+
+  for (const [selector, value] of cases) {
+    await page.selectOption(selector, value);
+    await page.focus(selector); // exactly where a mouse pick leaves it
+    await page.keyboard.press('Space');
+    await sleep(350);
+    const started = (await playState(page)) === 'playing';
+    if (!started) failures.push(`${selector} -> Space did not start playback (state=${await playState(page)})`);
+    if (started) {
+      await page.keyboard.press('Space');
+      await sleep(200);
+    }
+  }
+
+  assert(
+    'K1',
+    true,
+    'Keyboard: Space starts the film with a dropdown still focused, instead of reopening the dropdown',
+    failures.length === 0,
+    failures.length === 0 ? 'zoom and speed both yield to Space' : failures.join('; '),
+  );
+
+  // Arrows are the other half of the bargain: a focused dropdown keeps
+  // them, so its values can still be cycled from the keyboard.
+  await seekTo(page, 0);
+  await sleep(200);
+  const before = ((await page.textContent('#commit-count')) ?? '').trim();
+  await page.focus('#zoom');
+  await page.keyboard.press('ArrowDown');
+  await sleep(250);
+  const after = ((await page.textContent('#commit-count')) ?? '').trim();
+  assert(
+    'K2',
+    true,
+    'Keyboard: a focused dropdown keeps its own arrow keys — arrowing inside it does not step the film',
+    before === after,
+    `commit counter ${before} -> ${after} while arrowing inside #zoom`,
+  );
+
+  await page.selectOption('#zoom', 'fit-width');
+  await page.selectOption('#speed', '1');
+  await page.click('#viewport', { position: { x: 5, y: 5 } });
+  await sleep(200);
+}
+
 async function checkSpeeds(page: Page): Promise<void> {
   const measured: Record<string, number> = {};
   const failures: string[] = [];
@@ -461,6 +528,7 @@ async function main(): Promise<void> {
     await checkFraming(page);
     await checkControlSizing(page);
     await checkTimeline(page);
+    await checkKeyboardAfterDropdown(page);
     await checkSpeeds(page);
     await checkLoop(page);
     await checkReplayAtEnd(page);

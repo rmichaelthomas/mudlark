@@ -409,16 +409,26 @@ async function boot(): Promise<void> {
   document.addEventListener('keydown', (event) => {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     const target = event.target as HTMLElement | null;
-    // A dropdown (register, speed, zoom) keeps its own arrow-key behavior.
-    if (target && (target.tagName === 'SELECT' || target.isContentEditable)) return;
+    if (target?.isContentEditable) return;
+
+    // A focused dropdown (register, speed, zoom) keeps its own arrow keys
+    // for cycling values. It does NOT keep Space. Picking a zoom or a
+    // speed with the mouse leaves focus sitting on that dropdown, and the
+    // very next thing anyone reaches for is Space to start the film —
+    // having it reopen the dropdown instead is wrong every single time.
+    // Opening a focused dropdown from the keyboard still works with Enter
+    // or Alt+Down.
+    const inDropdown = target?.tagName === 'SELECT';
 
     if (event.key === ' ' || event.key === 'Spacebar') {
       event.preventDefault(); // otherwise the page scrolls, and a focused button double-fires
       togglePlay();
     } else if (event.key === 'ArrowLeft') {
+      if (inDropdown) return;
       event.preventDefault();
       stepCommit(-1);
     } else if (event.key === 'ArrowRight') {
+      if (inDropdown) return;
       event.preventDefault();
       stepCommit(1);
     }
