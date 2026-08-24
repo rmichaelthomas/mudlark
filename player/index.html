@@ -227,7 +227,7 @@
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 10px 18px 13px;
+      padding: 11px 18px 15px;
       flex: none;
       background: var(--panel);
     }
@@ -304,23 +304,23 @@
     .transport {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-top: 6px;
+      gap: 16px;
+      margin-top: 8px;
     }
-    .transport-left, .transport-right { display: flex; align-items: center; gap: 7px; }
+    .transport-left, .transport-right { display: flex; align-items: center; gap: 8px; }
     .transport-right { margin-left: auto; }
 
     .tbtn {
       background: transparent;
       color: var(--text);
       border: 1px solid transparent;
-      border-radius: 6px;
-      width: 30px;
-      height: 30px;
+      border-radius: 7px;
+      width: 38px;
+      height: 38px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 16px;
       line-height: 1;
       cursor: pointer;
       padding: 0;
@@ -334,16 +334,17 @@
     .tbtn--play {
       background: var(--accent);
       color: var(--bg);
-      width: 38px;
-      height: 32px;
-      font-size: 14px;
+      width: 56px;
+      height: 42px;
+      border-radius: 8px;
+      font-size: 19px;
       font-weight: 700;
     }
     .tbtn--play:hover { background: #E8B173; }
 
     .clock, .commit-count {
       font-family: ui-monospace, "SF Mono", Menlo, monospace;
-      font-size: 12px;
+      font-size: 13px;
       font-variant-numeric: tabular-nums;
       color: var(--muted);
     }
@@ -363,9 +364,9 @@
       background: var(--well);
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 8px;
-      font-size: 12px;
+      border-radius: 7px;
+      padding: 8px 11px;
+      font-size: 13px;
       font-family: inherit;
       cursor: pointer;
     }
@@ -438,8 +439,8 @@
           <option value="8">8×</option>
         </select>
         <select id="zoom" class="tsel" aria-label="Zoom" title="Zoom">
-          <option value="fit" selected>Fit</option>
-          <option value="fit-width">Fit width</option>
+          <option value="fit">Fit</option>
+          <option value="fit-width" selected>Fit width</option>
           <option value="actual">100%</option>
         </select>
         <button type="button" id="fullscreen" class="tbtn" aria-label="Fullscreen" title="Fullscreen">⛶</button>

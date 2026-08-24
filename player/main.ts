@@ -161,7 +161,10 @@ async function boot(): Promise<void> {
   let holdRemaining = 0;
   let speed = Number(speedEl.value) || 1;
   let loop = true;
-  let zoom: ZoomMode = 'fit';
+  // Fit width by default: framing a 4000px page whole makes body text a
+  // suggestion of text. Width-fit keeps it legible and costs vertical
+  // scrolling, which Fit is one dropdown away from restoring.
+  let zoom: ZoomMode = 'fit-width';
 
   // --- framing --------------------------------------------------------
 

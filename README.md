@@ -119,7 +119,7 @@ frame and explains what changed in the detail pane.
 | **Timeline** | Click or drag anywhere to seek. Each segment is one commit, sized by how long it holds the screen; hover one for its message and date |
 | **Loop** | On: the film holds a beat on the last frame, then runs again. Off: it stops, and the button becomes Replay |
 | **Speed** | 0.5×, 1×, 2×, 4×, 8× |
-| **Zoom** | Fit (the whole artifact in frame), Fit width, or 100% |
+| **Zoom** | Fit width (default — the artifact legible at full width), Fit (the whole thing in frame at once), or 100% |
 | **Fullscreen** | Expand the player to fill the screen |
 | **Layer toggles** | Show or hide individual layers |
 | **Register** | Switch between declared states (if any) |

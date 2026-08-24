@@ -73,6 +73,9 @@ async function playState(page: Page): Promise<string> {
 }
 
 // Measures how much film time passes per second of wall-clock time.
+// `aria-valuenow` only advances on a rAF, so a read can lag reality by up
+// to one frame; the window is wide enough that one slow frame doesn't
+// dominate the result.
 async function measureRate(page: Page, overMs: number): Promise<number> {
   const before = await filmSec(page);
   const t0 = Date.now();
@@ -185,6 +188,53 @@ async function checkReplayAtEnd(page: Page): Promise<void> {
 }
 
 async function checkFraming(page: Page): Promise<void> {
+  // Fit width is the default: framing a 4000px page whole makes body
+  // text a suggestion of text rather than readable text.
+  assert(
+    'F0',
+    true,
+    'Framing: the player opens in Fit width — the artifact legible at full width — rather than shrunk to fit whole',
+    (await page.inputValue('#zoom')) === 'fit-width',
+    `#zoom=${await page.inputValue('#zoom')}`,
+  );
+
+  // The default overflows vertically, so the top of the film has to be
+  // both reachable and where you start. A flex container that centers an
+  // overflowing child can strand its top above the scroll origin.
+  const overflow = await page.evaluate(() => {
+    const viewport = document.getElementById('viewport')!;
+    const frame = document.getElementById('frame')!.getBoundingClientRect();
+    return {
+      scrollTop: viewport.scrollTop,
+      scrollable: viewport.scrollHeight > viewport.clientHeight,
+      frameTop: frame.top - viewport.getBoundingClientRect().top,
+    };
+  });
+  assert(
+    'F4',
+    true,
+    'Framing (Fit width): the film starts at its top and the top stays reachable when it overflows the pane',
+    overflow.scrollTop === 0 && overflow.frameTop >= 0,
+    `scrollTop=${overflow.scrollTop} frameTopRelativeToViewport=${overflow.frameTop.toFixed(1)} scrollable=${overflow.scrollable}`,
+  );
+
+  const widthMode = await page.evaluate(() => {
+    const viewport = document.getElementById('viewport')!.getBoundingClientRect();
+    const frame = document.getElementById('frame')!.getBoundingClientRect();
+    return { ratio: frame.width / viewport.width };
+  });
+  assert(
+    'F2',
+    false,
+    'Framing (Fit width): the artifact spans the viewport width (diagnostic — capped at 100%, so a wide pane can fall short)',
+    widthMode.ratio > 0.9,
+    `frameWidth/viewportWidth=${widthMode.ratio.toFixed(3)}`,
+  );
+
+  // Fit puts the whole artifact on screen at every window size.
+  await page.selectOption('#zoom', 'fit');
+  await sleep(300);
+
   const sizes = [
     { width: 1440, height: 900 },
     { width: 1920, height: 1200 },
@@ -220,24 +270,8 @@ async function checkFraming(page: Page): Promise<void> {
     failures.length === 0 ? `fits at ${sizes.map((s) => `${s.width}x${s.height}`).join(', ')}` : failures.join('; '),
   );
 
-  // Fit width fills the pane horizontally; 100% is unscaled.
   await page.setViewportSize({ width: 1440, height: 900 });
   await sleep(300);
-  await page.selectOption('#zoom', 'fit-width');
-  await sleep(300);
-  const widthMode = await page.evaluate(() => {
-    const viewport = document.getElementById('viewport')!.getBoundingClientRect();
-    const frame = document.getElementById('frame')!.getBoundingClientRect();
-    return { ratio: frame.width / viewport.width };
-  });
-  assert(
-    'F2',
-    false,
-    'Framing (Fit width): the artifact spans the viewport width (diagnostic — capped at 100%, so a narrow pane can fall short)',
-    widthMode.ratio > 0.9,
-    `frameWidth/viewportWidth=${widthMode.ratio.toFixed(3)}`,
-  );
-
   await page.selectOption('#zoom', 'actual');
   await sleep(300);
   const actual = await page.evaluate(() => document.getElementById('frame')!.getBoundingClientRect().width);
@@ -249,7 +283,7 @@ async function checkFraming(page: Page): Promise<void> {
     `frameWidth=${actual.toFixed(1)} expected 1280`,
   );
 
-  await page.selectOption('#zoom', 'fit');
+  await page.selectOption('#zoom', 'fit-width');
   await sleep(300);
 }
 
@@ -321,6 +355,28 @@ async function checkTimeline(page: Page): Promise<void> {
   );
 }
 
+async function checkControlSizing(page: Page): Promise<void> {
+  const MIN_EDGE = 34; // a control smaller than this reads as an afterthought
+  const boxes = await page.evaluate(() => {
+    const ids = ['prev-commit', 'play', 'next-commit', 'loop', 'fullscreen', 'speed', 'zoom'];
+    return ids.map((id) => {
+      const rect = document.getElementById(id)!.getBoundingClientRect();
+      return { id, w: Math.round(rect.width), h: Math.round(rect.height) };
+    });
+  });
+  const tooSmall = boxes.filter((b) => Math.min(b.w, b.h) < MIN_EDGE);
+  const play = boxes.find((b) => b.id === 'play')!;
+  const prev = boxes.find((b) => b.id === 'prev-commit')!;
+
+  assert(
+    'C1',
+    true,
+    `Transport sizing: every control's shorter edge is at least ${MIN_EDGE}px, and play is the largest — the controls read as a transport, not as afterthoughts`,
+    tooSmall.length === 0 && play.w > prev.w,
+    `${boxes.map((b) => `${b.id}=${b.w}x${b.h}`).join(' ')}${tooSmall.length ? ` | undersized: ${tooSmall.map((b) => b.id).join(', ')}` : ''}`,
+  );
+}
+
 async function checkSpeeds(page: Page): Promise<void> {
   const measured: Record<string, number> = {};
   const failures: string[] = [];
@@ -330,7 +386,7 @@ async function checkSpeeds(page: Page): Promise<void> {
     await page.selectOption('#speed', speed);
     await page.click('#play');
     await sleep(150); // let the first frame establish a baseline
-    const rate = await measureRate(page, 700);
+    const rate = await measureRate(page, 1200);
     await page.click('#play');
     measured[`${speed}x`] = Number(rate.toFixed(2));
     // Generous tolerance: this is a real rAF loop on a real machine.
@@ -403,6 +459,7 @@ async function main(): Promise<void> {
     await sleep(1200);
 
     await checkFraming(page);
+    await checkControlSizing(page);
     await checkTimeline(page);
     await checkSpeeds(page);
     await checkLoop(page);
