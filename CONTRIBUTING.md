@@ -1,6 +1,6 @@
 # Contributing
 
-Mudlark is a solo project by [R. Michael Thomas](https://onesurface.org).
+Mudlark is a solo project by [R. Michael Thomas](https://rmichaelthomas.com).
 Contributions are welcome — here's how to get involved:
 
 **Found a bug?** Open an issue describing what you expected, what happened, and

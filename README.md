@@ -192,7 +192,7 @@ is the primary v2 boundary.
 
 ## Attribution
 
-Built by [R. Michael Thomas](https://onesurface.org).
+Built by [R. Michael Thomas](https://rmichaelthomas.com).
 
 The name comes from the Victorian practice of mudlarking — scavenging the
 Thames riverbed at low tide for coins, pottery shards, and bones. Mudlark
