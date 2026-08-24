@@ -2,6 +2,12 @@
 
 *from bones to build*
 
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](tsconfig.json)
+[![Node >= 18](https://img.shields.io/badge/Node-%3E%3D%2018-green.svg)](package.json)
+
+![Mudlark replaying the construction of a web page, commit by commit](assets/demo.gif)
+
 Mudlark replays how a built artifact came to be, reconstructed from git commits.
 It captures each commit as a visual snapshot, extracts five layers
 (Structure, Layout, Surface, Content, Behavior), and plays them back as a
@@ -186,7 +192,7 @@ is the primary v2 boundary.
 
 ## Attribution
 
-Built by [R. Michael Thomas](https://onesurface.org).
+Built by [R. Michael Thomas](https://rmichaelthomas.com).
 
 The name comes from the Victorian practice of mudlarking — scavenging the
 Thames riverbed at low tide for coins, pottery shards, and bones. Mudlark
