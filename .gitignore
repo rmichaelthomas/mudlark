@@ -4,3 +4,4 @@ dist/
 *.log
 .DS_Store
 out/.fontcache/
+subjects/_quick.json

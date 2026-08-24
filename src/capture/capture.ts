@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 
 import { extractTree } from '../git/extract';
 import { commitsForPath, type CommitMeta } from '../git/log';
@@ -29,7 +30,10 @@ const VIEWPORT_WIDTH = 1280;
 // stable and there's nothing left to race against.
 const CAPTURE_HEIGHT = 2000;
 
-const FONT_CACHE_DIR = path.resolve('out/.fontcache');
+// Resolved against the mudlark checkout, not the caller's cwd, so
+// `npx mudlark` from an arbitrary directory shares one cache instead of
+// leaving an out/ behind wherever it was run.
+const FONT_CACHE_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../out/.fontcache');
 const FONT_HOST_PATTERN = /^https:\/\/fonts\.(googleapis|gstatic)\.com\//;
 
 export interface CaptureOptions {
@@ -41,7 +45,7 @@ export interface CaptureOptions {
 // round trips across a full multi-state run, and the only genuinely
 // flaky step in the pipeline (checkpoint v1.2 §4, failure mode #3). A
 // cold or stalled fetch resolves document.fonts.ready against fallback
-// metrics, which shows up as a spurious Voice+Frame delta on a commit
+// metrics, which shows up as a spurious Content+Layout delta on a commit
 // that changed nothing. Cached to disk, keyed by URL hash, so capture
 // is offline and byte-deterministic after the first run.
 async function setupFontCache(context: BrowserContext): Promise<void> {
@@ -126,7 +130,7 @@ export async function captureCommit(
   const viewportWidth = opts.viewportWidth ?? VIEWPORT_WIDTH;
   const captureHeight = opts.captureHeight ?? CAPTURE_HEIGHT;
 
-  const destDir = path.join(os.tmpdir(), `buildback-extract-${commit.sha}-${state.id}-${process.pid}`);
+  const destDir = path.join(os.tmpdir(), `mudlark-extract-${commit.sha}-${state.id}-${process.pid}`);
   await extractTree(repoDir, commit.sha, destDir);
   const served = await serveTree(destDir);
 
@@ -166,7 +170,7 @@ async function captureCommitStates(
   const viewportWidth = opts.viewportWidth ?? VIEWPORT_WIDTH;
   const captureHeight = opts.captureHeight ?? CAPTURE_HEIGHT;
 
-  const destDir = path.join(os.tmpdir(), `buildback-extract-${commit.sha}-${process.pid}`);
+  const destDir = path.join(os.tmpdir(), `mudlark-extract-${commit.sha}-${process.pid}`);
   await extractTree(repoDir, commit.sha, destDir);
   const served = await serveTree(destDir);
 
@@ -228,7 +232,10 @@ export async function captureAll(config: SubjectConfig, outDir: string): Promise
 
 const isMain = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
 if (isMain) {
-  const subjectName = process.env.BUILDBACK_SUBJECT ?? 'one-surface';
+  // MUDLARK_SUBJECT selects which subjects/<name>.json config to use.
+  // BUILDBACK_SUBJECT is the pre-rename name, kept as a fallback so an
+  // existing shell profile or script keeps working.
+  const subjectName = process.env.MUDLARK_SUBJECT ?? process.env.BUILDBACK_SUBJECT ?? 'one-surface';
   const outDir = path.resolve('out/snapshots');
   loadSubjectConfig(subjectName)
     .then((config) => captureAll(config, outDir))

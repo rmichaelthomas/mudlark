@@ -10,7 +10,7 @@
     {
       "key": "/body:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "1178px",
             "1264px"
@@ -21,7 +21,7 @@
     {
       "key": "/body:0/div:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "1178px",
             "1264px"
@@ -32,7 +32,7 @@
     {
       "key": "/body:0/div:0/div:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "367px",
             "453px"
@@ -47,7 +47,7 @@
     {
       "key": "/body:0/div:0/div:0/div:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "367px",
             "453px"
@@ -58,13 +58,13 @@
     {
       "key": "/body:0/div:0/div:0/div:0/div:0/a:0",
       "layers": {
-        "frame": {
+        "layout": {
           "width": [
             "290px",
             "261px"
           ]
         },
-        "voice": {
+        "content": {
           "text": [
             "Download on the App Store",
             "Join the TestFlight Beta"
@@ -77,6 +77,6 @@
       }
     }
   ],
-  "lifeFileChanged": false,
+  "behaviorFileChanged": false,
   "otherStatesChanged": []
 }

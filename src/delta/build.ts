@@ -7,12 +7,12 @@ import { matchTrees } from '../identity/match';
 import { nodeKey } from '../identity/signature';
 import { extractLayers } from '../layers/extract';
 import { LAYER_ORDER } from '../layers/routing';
-import { commitsForPath } from '../git/log';
+import { commitsForPath, repoSlug, type CommitMeta } from '../git/log';
 import type { SubjectConfig } from '../states/types';
 import { loadSubjectConfig } from '../states/load';
 
-type ChangeLayer = 'frame' | 'skin' | 'voice' | 'life';
-const CHANGE_LAYERS = LAYER_ORDER.filter((layer): layer is ChangeLayer => layer !== 'bones');
+type ChangeLayer = 'layout' | 'surface' | 'content' | 'behavior';
+const CHANGE_LAYERS = LAYER_ORDER.filter((layer): layer is ChangeLayer => layer !== 'structure');
 
 export function buildDelta(from: Snapshot, to: Snapshot): Delta {
   const { matched, inserted, removed } = matchTrees(from, to);
@@ -50,7 +50,7 @@ export function buildDelta(from: Snapshot, to: Snapshot): Delta {
     inserted: inserted.map(nodeKey),
     removed: removed.map(nodeKey),
     changed,
-    lifeFileChanged: from.scriptHash !== to.scriptHash,
+    behaviorFileChanged: from.scriptHash !== to.scriptHash,
     otherStatesChanged: [], // filled in by buildAllDeltas's second pass, if applicable
   };
 }
@@ -120,24 +120,44 @@ export async function buildAllDeltas(config: SubjectConfig, snapshotsDir: string
   return perState;
 }
 
+// The player is a static page with no directory-listing capability, so
+// it needs one file naming every commit and declared state up front.
+// `subject` carries the header line ("owner/repo — file"); it is the one
+// piece of the manifest that is presentational rather than structural.
+export interface Manifest {
+  commits: CommitMeta[];
+  states: Array<{ id: string; label: string }>;
+  subject: { repo: string; path: string; label: string };
+}
+
+export async function writeManifest(config: SubjectConfig, manifestPath: string): Promise<Manifest> {
+  const commits = await commitsForPath(config.repo, config.path);
+  const manifest: Manifest = {
+    commits,
+    states: config.states.map((s) => ({ id: s.id, label: s.label })),
+    subject: {
+      repo: config.repo,
+      path: config.path,
+      label: `${await repoSlug(config.repo)} — ${config.path}`,
+    },
+  };
+  await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
+  return manifest;
+}
+
 const isMain = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
 if (isMain) {
-  const subjectName = process.env.BUILDBACK_SUBJECT ?? 'one-surface';
+  // MUDLARK_SUBJECT selects which subjects/<name>.json config to use.
+  // BUILDBACK_SUBJECT is the pre-rename name, kept as a fallback so an
+  // existing shell profile or script keeps working.
+  const subjectName = process.env.MUDLARK_SUBJECT ?? process.env.BUILDBACK_SUBJECT ?? 'one-surface';
   const snapshotsDir = path.resolve('out/snapshots');
   const outDir = path.resolve('out/deltas');
 
   loadSubjectConfig(subjectName)
     .then(async (config) => {
       const perState = await buildAllDeltas(config, snapshotsDir, outDir);
-
-      // A small manifest listing every commit and declared state in
-      // order, so the player (a static page with no directory-listing
-      // capability) knows what to fetch without guessing filenames.
-      const commits = await commitsForPath(config.repo, config.path);
-      await writeFile(
-        path.resolve('out/manifest.json'),
-        JSON.stringify({ commits, states: config.states.map((s) => ({ id: s.id, label: s.label })) }, null, 2),
-      );
+      await writeManifest(config, path.resolve('out/manifest.json'));
 
       const total = Object.values(perState).reduce((sum, deltas) => sum + deltas.length, 0);
       console.log(`built ${total} deltas across ${config.states.length} state(s) -> ${outDir}`);

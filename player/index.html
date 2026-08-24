@@ -2,17 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Buildback — capture and playback</title>
+  <title>Mudlark — from bones to build</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <style>
     :root {
       color-scheme: dark;
-      --bg: #14161c;
-      --panel: #1b1e27;
-      --border: rgba(255, 255, 255, 0.1);
-      --text: #e7e9ee;
-      --muted: #9098a8;
-      --accent: #6ea8fe;
+      --bg: #283618;          /* Black Forest */
+      --panel: #1f2a12;       /* Black Forest, darkened for panel contrast */
+      --border: rgba(254, 250, 224, 0.12);  /* Cornsilk at low opacity */
+      --text: #FEFAE0;        /* Cornsilk */
+      /* Olive Leaf (#606C38) reads at 2.27:1 on Black Forest — below the
+         4.5:1 WCAG AA floor for small text. Lightened along the same hue
+         until it passes: 4.63:1 on --bg, 5.40:1 on --panel. */
+      --muted: #94A167;
+      --accent: #DDA15E;      /* Sunlit Clay */
+      --accent-secondary: #BC6C25;  /* Copperwood */
+      /* Copperwood on its own 15%-tint badge is 3.19:1; same treatment as
+         --muted, lightened toward Sunlit Clay until it clears AA (4.61:1). */
+      --accent-secondary-text: #D98A45;
+      --accent-tertiary: #902E47;   /* Vintage Berry */
     }
     * { box-sizing: border-box; }
     html, body {
@@ -33,6 +42,7 @@
       display: flex;
       align-items: baseline;
       gap: 10px;
+      flex-wrap: wrap;
     }
     header h1 {
       font-size: 15px;
@@ -44,6 +54,15 @@
       margin: 0;
       color: var(--muted);
       font-size: 12px;
+    }
+    header .tagline {
+      font-style: italic;
+      font-size: 12px;
+    }
+    header .subject {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      margin-left: auto;
     }
     main {
       flex: 1;
@@ -60,13 +79,13 @@
       justify-content: center;
       align-items: flex-start;
       background:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 100% 24px,
+        linear-gradient(rgba(254, 250, 224, 0.03) 1px, transparent 1px) 0 0 / 100% 24px,
         var(--bg);
     }
     #frame {
       position: relative;
-      background: #0c0d11;
-      box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5);
+      background: #16200c;
+      box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0, 0, 0, 0.5);
       flex: none;
     }
     #stage {
@@ -116,8 +135,8 @@
     }
     .detail-sha {
       font-family: ui-monospace, "SF Mono", Menlo, monospace;
-      background: rgba(110, 168, 254, 0.15);
-      color: var(--accent);
+      background: rgba(188, 108, 37, 0.15);
+      color: var(--accent-secondary-text);
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 12px;
@@ -128,7 +147,7 @@
       margin: 0;
       padding: 8px 10px;
       border-left: 2px solid var(--accent);
-      background: rgba(110, 168, 254, 0.08);
+      background: rgba(221, 161, 94, 0.08);
       color: var(--muted);
       font-size: 12.5px;
       line-height: 1.5;
@@ -150,11 +169,32 @@
     }
     fieldset label {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 8px;
       font-size: 13px;
       padding: 4px 0;
-      text-transform: capitalize;
+    }
+    fieldset input[type="checkbox"] { accent-color: var(--accent); }
+    .layer-desc {
+      color: var(--muted);
+      font-size: 11px;
+      font-style: italic;
+      margin-left: 4px;
+    }
+
+    .shortcuts {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .shortcuts kbd {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 4px;
+      color: var(--text);
     }
 
     footer {
@@ -171,15 +211,34 @@
     }
     #play {
       background: var(--accent);
-      color: #0c0d11;
+      color: var(--bg);
       border: none;
       border-radius: 6px;
       padding: 6px 16px;
       font-weight: 600;
       font-size: 13px;
       cursor: pointer;
+      min-width: 72px;
+    }
+    #speed {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
     }
     #scrub { flex: 1; accent-color: var(--accent); }
+    .commit-count {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 56px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
 
     #rail {
       position: relative;
@@ -188,7 +247,7 @@
     .rail-track {
       position: relative;
       height: 100%;
-      background: rgba(255,255,255,0.04);
+      background: rgba(254, 250, 224, 0.04);
       border-radius: 4px;
     }
     .rail-mark {
@@ -196,13 +255,13 @@
       top: 0;
       height: 100%;
       min-width: 3px;
-      background: rgba(110, 168, 254, 0.35);
+      background: rgba(221, 161, 94, 0.35);
       border: none;
       border-right: 1px solid var(--bg);
       cursor: pointer;
       padding: 0;
     }
-    .rail-mark:hover { background: rgba(110, 168, 254, 0.6); }
+    .rail-mark:hover { background: rgba(221, 161, 94, 0.6); }
     .rail-mark.active { background: var(--accent); }
     .rail-playhead {
       position: absolute;
@@ -216,8 +275,9 @@
 </head>
 <body>
   <header>
-    <h1>Buildback</h1>
-    <p>rmichaelthomas/one-surface — index.html</p>
+    <h1>Mudlark</h1>
+    <p class="tagline">from bones to build</p>
+    <p class="subject" id="subject-label"></p>
   </header>
 
   <main>
@@ -232,12 +292,18 @@
 
       <fieldset>
         <legend>Layers</legend>
-        <label><input type="checkbox" data-layer-toggle="bones" /> Bones</label>
-        <label><input type="checkbox" data-layer-toggle="frame" /> Frame</label>
-        <label><input type="checkbox" data-layer-toggle="skin" /> Skin</label>
-        <label><input type="checkbox" data-layer-toggle="voice" /> Voice</label>
-        <label><input type="checkbox" data-layer-toggle="life" /> Life</label>
+        <label><input type="checkbox" data-layer-toggle="structure" /> Structure <span class="layer-desc">elements and nesting</span></label>
+        <label><input type="checkbox" data-layer-toggle="layout" /> Layout <span class="layer-desc">position, size, spacing</span></label>
+        <label><input type="checkbox" data-layer-toggle="surface" /> Surface <span class="layer-desc">color, border, shadow</span></label>
+        <label><input type="checkbox" data-layer-toggle="content" /> Content <span class="layer-desc">text, type, images</span></label>
+        <label><input type="checkbox" data-layer-toggle="behavior" /> Behavior <span class="layer-desc">script, motion, interaction</span></label>
       </fieldset>
+
+      <h2>Shortcuts</h2>
+      <p class="shortcuts">
+        <kbd>Space</kbd> play / pause<br />
+        <kbd>←</kbd> <kbd>→</kbd> previous / next commit
+      </p>
     </aside>
   </main>
 
@@ -245,7 +311,13 @@
     <div id="rail"></div>
     <div class="transport">
       <button type="button" id="play">Play</button>
+      <select id="speed" aria-label="Playback speed">
+        <option value="0.5">0.5×</option>
+        <option value="1" selected>1×</option>
+        <option value="2">2×</option>
+      </select>
       <input type="range" id="scrub" value="0" />
+      <span id="commit-count" class="commit-count"></span>
     </div>
   </footer>
 

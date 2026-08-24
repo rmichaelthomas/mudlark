@@ -15,7 +15,7 @@
     {
       "key": "/body:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "2474px",
             "2532px"
@@ -26,7 +26,7 @@
     {
       "key": "/body:0/footer:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "216px",
             "274px"
@@ -35,6 +35,6 @@
       }
     }
   ],
-  "lifeFileChanged": false,
+  "behaviorFileChanged": false,
   "otherStatesChanged": []
 }

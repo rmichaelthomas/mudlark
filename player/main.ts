@@ -15,6 +15,15 @@ interface StateInfo {
   label: string;
 }
 
+// out/manifest.json, written by src/delta/build.ts's writeManifest.
+// `subject` is optional so a manifest built before v1.3 still loads —
+// the header simply shows no subject line.
+interface Manifest {
+  commits: CommitMeta[];
+  states: StateInfo[];
+  subject?: { repo: string; path: string; label: string };
+}
+
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`fetch ${url} failed: ${res.status}`);
@@ -68,9 +77,12 @@ function renderRegisterControl(
 }
 
 async function boot(): Promise<void> {
-  const manifest = await fetchJson<{ commits: CommitMeta[]; states: StateInfo[] }>('/manifest.json');
+  const manifest = await fetchJson<Manifest>('/manifest.json');
   const states = manifest.states;
   const stateLabels = new Map(states.map((s) => [s.id, s.label]));
+
+  const subjectLabel = document.getElementById('subject-label') as HTMLElement;
+  subjectLabel.textContent = manifest.subject?.label ?? '';
 
   const commits = applyRangeParam(manifest.commits);
   const isFullFilm = commits.length === manifest.commits.length;
@@ -85,6 +97,8 @@ async function boot(): Promise<void> {
   const railEl = document.getElementById('rail') as HTMLElement;
   const scrubEl = document.getElementById('scrub') as HTMLInputElement;
   const playBtn = document.getElementById('play') as HTMLButtonElement;
+  const speedEl = document.getElementById('speed') as HTMLSelectElement;
+  const commitCountEl = document.getElementById('commit-count') as HTMLElement;
   const toggleEls = Array.from(document.querySelectorAll<HTMLInputElement>('[data-layer-toggle]'));
 
   scrubEl.min = '0';
@@ -112,6 +126,7 @@ async function boot(): Promise<void> {
   let currentIndex = -1;
   let playing = false;
   let lastFrameTime: number | null = null;
+  let speed = Number(speedEl.value) || 1;
 
   async function loadState(stateId: string): Promise<void> {
     const snapshotList = await Promise.all(commits.map((c) => fetchJson<Snapshot>(`/snapshots/${stateId}/${c.sha}.json`)));
@@ -135,7 +150,7 @@ async function boot(): Promise<void> {
     frame.style.height = `${Math.max(...snapshotList.map((s) => s.docHeight))}px`;
 
     scrubEl.max = String(totalSec);
-    renderRail(railEl, timeline, (sec) => seek(sec));
+    renderRail(railEl, timeline, commits, (sec) => seek(sec));
     currentIndex = -1; // force the next renderAt to rebuild the stage from this state's data
   }
 
@@ -166,6 +181,7 @@ async function boot(): Promise<void> {
     updateProgress(localT, visibility);
     updateRailPlayhead(railEl, timeline, sec, entry.sha);
     scrubEl.value = String(sec);
+    commitCountEl.textContent = `${index + 1} / ${timeline.length}`;
   }
 
   function seek(sec: number): void {
@@ -176,34 +192,70 @@ async function boot(): Promise<void> {
   renderRegisterControl(registerWrap, states, currentStateId, async (nextStateId) => {
     currentStateId = nextStateId;
     const holdSec = currentSec; // switching state holds the playhead at its current film time
-    playing = false;
-    playBtn.textContent = 'Play';
+    setPlaying(false);
     await loadState(currentStateId);
     seek(Math.min(holdSec, totalSec));
   });
 
   scrubEl.addEventListener('input', () => {
-    playing = false;
-    playBtn.textContent = 'Play';
+    setPlaying(false);
     seek(Number(scrubEl.value));
   });
 
-  playBtn.addEventListener('click', () => {
-    playing = !playing;
+  function setPlaying(next: boolean): void {
+    playing = next;
     playBtn.textContent = playing ? 'Pause' : 'Play';
     lastFrameTime = null;
     if (playing) requestAnimationFrame(tick);
+  }
+
+  playBtn.addEventListener('click', () => setPlaying(!playing));
+
+  speedEl.addEventListener('change', () => {
+    speed = Number(speedEl.value) || 1;
+    lastFrameTime = null; // don't charge the new rate for time spent at the old one
+  });
+
+  // Left/right step to the START of the adjacent timeline entry — the
+  // same unit the rail marks and the commit counter use, so all three
+  // agree on what "a commit" is.
+  function stepCommit(direction: -1 | 1): void {
+    const { index } = entryAt(currentSec);
+    const next = Math.max(0, Math.min(index + direction, timeline.length - 1));
+    setPlaying(false);
+    seek(timeline[next].startSec);
+  }
+
+  // Bound to the document, not the transport, so the shortcuts work
+  // wherever focus happens to be. Arrow keys are claimed from the scrub
+  // slider deliberately: while watching a film, "next" means the next
+  // commit, not the next hundredth of a second.
+  document.addEventListener('keydown', (event) => {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    const target = event.target as HTMLElement | null;
+    // A dropdown (register, speed) keeps its own arrow-key behavior.
+    if (target && (target.tagName === 'SELECT' || target.isContentEditable)) return;
+
+    if (event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault(); // otherwise the page scrolls
+      setPlaying(!playing);
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      stepCommit(-1);
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      stepCommit(1);
+    }
   });
 
   function tick(now: number): void {
     if (!playing) return;
     if (lastFrameTime !== null) {
-      const deltaSec = (now - lastFrameTime) / 1000;
+      const deltaSec = ((now - lastFrameTime) / 1000) * speed;
       currentSec += deltaSec;
       if (currentSec >= totalSec) {
         currentSec = totalSec;
-        playing = false;
-        playBtn.textContent = 'Play';
+        setPlaying(false);
       }
       renderAt(currentSec);
     }

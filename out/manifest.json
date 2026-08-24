@@ -90,5 +90,10 @@
       "id": "paradigm-why",
       "label": "Paradigm — why it matters"
     }
-  ]
+  ],
+  "subject": {
+    "repo": "/Users/rmichaelthomas/Websites/one-surface",
+    "path": "index.html",
+    "label": "rmichaelthomas/one-surface — index.html"
+  }
 }

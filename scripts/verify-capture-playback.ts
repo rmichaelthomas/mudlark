@@ -433,7 +433,7 @@ async function main(): Promise<void> {
   const blockingIds = ['A', 'B', 'B2', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
 
   const lines: string[] = [];
-  lines.push('# Buildback v1.2 — declared-states capture/playback verification');
+  lines.push('# Mudlark v1.2 — declared-states capture/playback verification');
   lines.push('');
   lines.push(`Run against subject: \`${SUBJECT_NAME}\` (\`${config.repo}\`), states: ${config.states.map((s) => s.id).join(', ')}`);
   lines.push('');
