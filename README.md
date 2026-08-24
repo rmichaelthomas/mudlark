@@ -144,7 +144,25 @@ Two verification suites, both driving the real thing rather than mocks:
 ```bash
 npm run verify          # the record: git reader, capture, deltas, pacing, invariants
 npm run verify:player   # the watching: framing, timeline, speeds, looping
+npm run verify:grammar  # the grammar/ files against the code they describe
 ```
+
+## For agents
+
+The `grammar/` directory contains machine-readable descriptions of Mudlark's
+inputs, outputs, and structure:
+
+- **`grammar/mudlark.json`** — what Mudlark is, how to run it, and where to look
+- **`grammar/subject.schema.json`** — JSON Schema for subject configs (`subjects/*.json`)
+- **`grammar/output.json`** — vocabulary of the output data: snapshots, deltas, layers, pacing, identity matching
+
+An agent that reads these three files can generate a subject config, run the
+pipeline, and reason about the output data without reading source code.
+
+These files describe the code; they do not drive it. The TypeScript sources stay
+the authority, and `npm run verify:grammar` asserts the parts that can be checked
+mechanically — layer order, every per-layer property list, and that real subject
+configs validate against the schema.
 
 ## Current scope
 

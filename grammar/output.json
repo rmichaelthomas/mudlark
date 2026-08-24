@@ -1,0 +1,250 @@
+{
+  "format": 1,
+  "tool": "mudlark",
+  "description": "Mudlark's output artifacts — the data the player reads and an agent can inspect.",
+
+  "authority": {
+    "note": "The TypeScript sources are the runtime authority. This file documents what they produce so an agent can reason about the output without running the code. Where the two disagree, the code wins, and scripts/verify-grammar.ts fails the build.",
+    "sources": {
+      "snapshot": "src/capture/types.ts",
+      "delta": "src/delta/types.ts",
+      "layers": "src/layers/routing.ts",
+      "pacing": "src/pacing/plane.ts",
+      "identity": "src/identity/match.ts",
+      "manifest": "src/delta/build.ts (writeManifest)",
+      "commits": "src/git/log.ts"
+    }
+  },
+
+  "output_tree": {
+    "note": "All output lands in out/. The player serves this directory as its publicDir — every file here is fetchable as a static asset.",
+    "manifest": "out/manifest.json",
+    "snapshots": "out/snapshots/<stateId>/<sha>.json",
+    "deltas": "out/deltas/<stateId>/<from-sha>_<to-sha>.json"
+  },
+
+  "manifest": {
+    "description": "The index. Lists every commit and every declared state in order. The player reads this first to know what to fetch — it is a static page with no directory-listing ability, so nothing downstream guesses filenames.",
+    "fields": {
+      "commits": {
+        "type": "array of objects",
+        "description": "Every commit that touched the subject file, oldest first, read with `git log --reverse --follow`. The commit set is never filtered, reordered, or reduced.",
+        "fields": {
+          "sha": "Abbreviated commit SHA (git %h — typically 7 characters, not the full 40). This is the value used in snapshot and delta filenames.",
+          "date": "Author date, ISO 8601 (git %aI)",
+          "author": "Author name (git %an)",
+          "message": "Commit subject — the first line only (git %s), not the full message body"
+        }
+      },
+      "states": {
+        "type": "array of objects",
+        "description": "The declared states, in the order they appear in the subject config. A subject that declares none yields exactly one entry with id 'default'.",
+        "fields": {
+          "id": "State identifier (matches directory names in snapshots/ and deltas/)",
+          "label": "Human-readable label"
+        }
+      },
+      "subject": {
+        "type": "object",
+        "description": "What is being replayed. Presentational only — the player renders `label` under its header. Optional: a manifest written before this field existed still loads.",
+        "fields": {
+          "repo": "Absolute path to the subject repo, as given in the subject config",
+          "path": "Subject file path relative to the repo root",
+          "label": "'<owner>/<repo> — <path>', where owner/repo comes from the subject repo's origin remote, falling back to the repo directory name when there is no remote"
+        }
+      }
+    }
+  },
+
+  "snapshot": {
+    "description": "A complete visual record of one commit under one declared state. Contains every rendered DOM node's identity, geometry, routed computed styles, and own text.",
+    "path_pattern": "out/snapshots/<stateId>/<sha>.json",
+    "fields": {
+      "sha": "Abbreviated commit SHA",
+      "date": "Author date, ISO 8601",
+      "author": "Author name",
+      "message": "Commit subject line",
+      "stateId": "Which declared state this snapshot was captured under",
+      "viewportWidth": "Capture viewport width in pixels (1280). Identical across every snapshot of every state by construction — the camera never changes between commits.",
+      "docHeight": "Document height after settle, in pixels",
+      "scriptHash": "SHA-256 of the concatenated text of every <script> element — the file-level Behavior signal. <script> is excluded from the node walk, so this is captured alongside it.",
+      "nodes": {
+        "type": "array of NodeRecord",
+        "description": "Every rendered element, depth-first from document.body in document order.",
+        "walk_rules": [
+          "Starts at document.body. The body element itself is the first record, and its parentPath is the empty string.",
+          "Skips the script, style, and head tags entirely.",
+          "Prunes any element with computed display:none, along with its whole subtree — it is not part of the rendered artifact.",
+          "Prunes backface-hidden elements rotated away from the camera (the back face of a 3D flip card), which are stacked at the same box as the front face but never painted.",
+          "Pixel values in geometry and in computed styles are rounded to whole pixels, to absorb Chromium's sub-pixel layout drift between otherwise identical loads."
+        ],
+        "fields": {
+          "key": "Empty at capture time. Node identity is derived on demand by nodeKey() in src/identity/signature.ts as '<parentPath>/<tag>:<ordinal>' — the same function the delta builder and the player both call.",
+          "tag": "Lowercased tag name",
+          "id": "Element id attribute, or null",
+          "classes": "Array of class names, in document order",
+          "ordinal": "Index among same-tag siblings under the same parent",
+          "parentPath": "Path of the parent node, as '/<tag>:<ordinal>' segments. Empty string for the body element.",
+          "text": "Own text content only — direct text-node children, not descendants' — trimmed",
+          "src": "Resolved URL for elements that carry one: href for a and link, src for anything exposing it (img, video, audio, source, iframe, ...). Same-origin URLs are relativized to path+search+hash so the capture server's ephemeral port is not baked into the record. null when the element has none.",
+          "geometry": {
+            "note": "Document coordinates (viewport rect plus scroll offset), rounded to whole pixels.",
+            "x": "Left edge",
+            "y": "Top edge",
+            "w": "Width",
+            "h": "Height"
+          },
+          "computed": "Record of computed style values keyed by property name. Only the properties named in the routing table are captured — see layers below."
+        }
+      }
+    }
+  },
+
+  "delta": {
+    "description": "The visual difference between two adjacent commits under one declared state. What nodes were inserted, removed, or changed, and which layer each change belongs to.",
+    "path_pattern": "out/deltas/<stateId>/<from-sha>_<to-sha>.json",
+    "note": "One delta per adjacent commit pair per state — never skipping a pair, never merging two.",
+    "fields": {
+      "from": "Abbreviated SHA of the earlier commit",
+      "to": "Abbreviated SHA of the later commit",
+      "stateId": "Which declared state this delta was computed within",
+      "inserted": "Array of node keys present in the 'to' snapshot and unmatched in the 'from'",
+      "removed": "Array of node keys present in the 'from' snapshot and unmatched in the 'to'",
+      "changed": {
+        "type": "array of objects",
+        "description": "Nodes matched across both snapshots whose routed values differ. A node with no differing values is omitted entirely.",
+        "fields": {
+          "key": "Node identity key, from the 'to' snapshot",
+          "layers": "Partial record keyed by layer name (layout, surface, content, behavior — never structure, which carries no properties). Each value is a record of property name -> [before, after]. A layer with no differing properties is omitted."
+        }
+      },
+      "behaviorFileChanged": "Boolean: did the <script> content change between these commits, compared via scriptHash",
+      "otherStatesChanged": "Array of state IDs. Populated only when this delta's own inserted, removed, and changed are all empty — it explains an otherwise-empty beat by naming which other states did change over this same commit pair. Annotation only: it never alters pacing and never suppresses a beat."
+    }
+  },
+
+  "layers": {
+    "description": "The five-layer decomposition. Every captured CSS property belongs to exactly one layer. Structure carries no properties — a node's presence in the matched set is its only signal.",
+    "order": ["structure", "layout", "surface", "content", "behavior"],
+    "order_note": "Dependency chain: each layer is meaningless without the one before it. The player reveals forward in this order and fades out in reverse.",
+    "properties_note": "The property lists below are duplicated from the ROUTING constant in src/layers/routing.ts for agent readability. scripts/verify-grammar.ts asserts they match the code exactly, element for element and in order.",
+    "definitions": {
+      "structure": {
+        "label": "Structure",
+        "ui_description": "elements and nesting",
+        "properties": [],
+        "signal": "A node's presence or absence in the matched set between two snapshots."
+      },
+      "layout": {
+        "label": "Layout",
+        "ui_description": "position, size, spacing",
+        "properties_source": "ROUTING.layout in src/layers/routing.ts",
+        "properties": [
+          "display", "position", "top", "right", "bottom", "left",
+          "width", "height",
+          "marginTop", "marginRight", "marginBottom", "marginLeft",
+          "paddingTop", "paddingRight", "paddingBottom", "paddingLeft",
+          "flexDirection", "flexWrap", "flexGrow", "flexShrink", "flexBasis",
+          "alignItems", "justifyContent",
+          "gridTemplateColumns", "gridTemplateRows", "gridColumn", "gridRow", "gap"
+        ]
+      },
+      "surface": {
+        "label": "Surface",
+        "ui_description": "color, border, shadow",
+        "properties_source": "ROUTING.surface in src/layers/routing.ts",
+        "properties": [
+          "color", "backgroundColor", "backgroundImage",
+          "borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth",
+          "borderTopColor", "borderRightColor", "borderBottomColor", "borderLeftColor",
+          "borderTopStyle", "borderRightStyle", "borderBottomStyle", "borderLeftStyle",
+          "boxShadow", "borderRadius", "opacity"
+        ]
+      },
+      "content": {
+        "label": "Content",
+        "ui_description": "text, type, images",
+        "properties_source": "ROUTING.content in src/layers/routing.ts",
+        "properties_note": "Additionally carries text and src from NodeRecord, which are not getComputedStyle properties and so live outside the routed property union.",
+        "properties": [
+          "fontFamily", "fontSize", "fontWeight", "fontStyle", "lineHeight",
+          "letterSpacing", "textTransform"
+        ]
+      },
+      "behavior": {
+        "label": "Behavior",
+        "ui_description": "script, motion, interaction",
+        "properties_source": "ROUTING.behavior in src/layers/routing.ts",
+        "properties_note": "Additionally carries the file-level behaviorFileChanged flag on Delta, compared via scriptHash.",
+        "properties": [
+          "transitionProperty", "transitionDuration", "animationName", "animationDuration"
+        ]
+      }
+    }
+  },
+
+  "pacing": {
+    "description": "Four named rules that decide how much screen time each commit gets in the film. They operate on the unaltered commit surface: they compress and expand time, never drop, reorder, or merge a commit. Every commit gets exactly one beat.",
+    "composition": "weight-by-change and dwell-on-structure compose into a base weight; screen time is then allocated proportionally across the film's total duration. hold-the-gaps and floor-the-noise clamp the resulting per-commit duration afterward — cap first, then floor, so a qualifying gap wins over the noise cap. No beat is ever shorter than 0.05s.",
+    "delta_size": "Several rules key off delta size, defined as (number of changed properties summed across all layers) + (inserted + removed node count) * nodeEventWeight. An inserted or removed node is a whole element, not one property, so it is weighted as several property changes.",
+    "config": {
+      "gapThresholdDays": 14,
+      "gapHoldSeconds": 3,
+      "noiseChangeThreshold": 5,
+      "noiseMaxSeconds": 1.5,
+      "dwellMultiplier": 1.8,
+      "nodeEventWeight": 5
+    },
+    "config_note": "Provisional values, tuned by hand against the twelve-commit reference film. PACING_CONFIG in src/pacing/plane.ts is the authority.",
+    "rules": [
+      {
+        "name": "weight-by-change",
+        "effect": "base weight",
+        "description": "Commits with more visual change get proportionally more screen time. Contributes 1 + deltaSize to the base weight. Applies to every commit."
+      },
+      {
+        "name": "hold-the-gaps",
+        "effect": "duration floor",
+        "description": "When more than gapThresholdDays of wall-clock time separate a commit from its predecessor, that beat is held for at least gapHoldSeconds regardless of how little changed. The dead fortnight stays legible instead of being compressed away."
+      },
+      {
+        "name": "floor-the-noise",
+        "effect": "duration cap",
+        "description": "A commit whose deltaSize is below noiseChangeThreshold has its duration capped at noiseMaxSeconds. Despite the name this is a ceiling, not a minimum: it stops a trivial commit from drawing screen time out of proportion to what it changed. It never removes the beat — the commit is still shown."
+      },
+      {
+        "name": "dwell-on-structure",
+        "effect": "base weight multiplier",
+        "description": "Multiplies the base weight by dwellMultiplier when the delta touches structure (any inserted or removed node) or the layout layer. Structural and geometric change is the most visually significant, so it is given room to land."
+      }
+    ]
+  },
+
+  "identity": {
+    "description": "Node matching across two snapshots. Determines which node in the later snapshot corresponds to which node in the earlier one, so a delta can say 'this node changed' rather than 'one node vanished and an unrelated one appeared'.",
+    "traversal": "Tree-scoped, not global. The two root (body) nodes are paired first, then a work queue processes one matched parent pair at a time, matching only their direct children against each other. Every newly matched pair is enqueued, so each parent pair is processed exactly once.",
+    "passes": [
+      {
+        "name": "pass one — id",
+        "description": "Among the children of a matched parent pair, match any element whose id attribute is equal on both sides."
+      },
+      {
+        "name": "pass one — unique signature",
+        "description": "Of what remains, match by signature — '<tag>|<sorted classes>|<ordinal>' — but only when that signature is unique among the remaining siblings on BOTH sides. A signature is not globally unique, so ambiguity is deferred to pass two rather than guessed at."
+      },
+      {
+        "name": "pass two — scored greedy",
+        "description": "Everything still unmatched is scored pairwise and paired greedily from the highest score down. Equal tag is a hard requirement (a mismatch scores zero). Score is a weighted sum: class-set Jaccard overlap 0.5, text similarity (Levenshtein, normalized) 0.3, sibling index proximity 0.2. Pairs scoring below the threshold of 0.45 are left unmatched — they are a genuine insert and a genuine delete, not a weak match."
+      }
+    ],
+    "config": {
+      "weights": { "classJaccard": 0.5, "textSimilarity": 0.3, "indexProximity": 0.2 },
+      "threshold": 0.45
+    },
+    "config_note": "Provisional values, tuned by hand against the reference film's first cut. MATCH_CONFIG in src/identity/match.ts is the authority.",
+    "observed": {
+      "adjacent_commit": "132 of 132 nodes matched (100%) across the reference film's first cut — an ordinary edit keeps nearly every node.",
+      "wholesale_replacement": "5 of 54 nodes matched (9.3%) across the reference film's redesign jump. A low rate is correct here, not a failure: after a full redesign most nodes genuinely are new."
+    }
+  }
+}
