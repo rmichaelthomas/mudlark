@@ -115,10 +115,12 @@ frame and explains what changed in the detail pane.
 | Control | Action |
 |---|---|
 | **Play / Pause** | Start or stop playback (or press Space) |
-| **← →** | Jump to previous / next commit |
-| **Scrub bar** | Drag to any point in the film |
-| **Rail** | Click any commit segment to jump there |
-| **Speed** | 0.5×, 1×, or 2× playback speed |
+| **⏮ ⏭** | Step to the previous / next commit (or press ← →) |
+| **Timeline** | Click or drag anywhere to seek. Each segment is one commit, sized by how long it holds the screen; hover one for its message and date |
+| **Loop** | On: the film holds a beat on the last frame, then runs again. Off: it stops, and the button becomes Replay |
+| **Speed** | 0.5×, 1×, 2×, 4×, 8× |
+| **Zoom** | Fit (the whole artifact in frame), Fit width, or 100% |
+| **Fullscreen** | Expand the player to fill the screen |
 | **Layer toggles** | Show or hide individual layers |
 | **Register** | Switch between declared states (if any) |
 
@@ -133,12 +135,16 @@ src/layers/    property routing table + per-layer extraction
 src/identity/  two-pass node matching across snapshots
 src/delta/     per-state deltas + cross-state annotation
 src/pacing/    named pacing rules over the unaltered commit surface
-player/        Vite player: DOM reconstruction, interpolation, transport, rail, layer toggles
+player/        Vite player: DOM reconstruction, interpolation, framing, transport, timeline
 subjects/      subject configs (one JSON file per subject)
 ```
 
-`npm run verify` runs `scripts/verify-capture-playback.ts`, the capture and
-playback verification suite.
+Two verification suites, both driving the real thing rather than mocks:
+
+```bash
+npm run verify          # the record: git reader, capture, deltas, pacing, invariants
+npm run verify:player   # the watching: framing, timeline, speeds, looping
+```
 
 ## Current scope
 

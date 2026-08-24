@@ -34,6 +34,14 @@ interface TrackedNode {
 
 let tracked = new Map<string, TrackedNode>();
 
+// The document root's key for the current segment. CSS propagates the
+// body's background to the canvas — the whole viewport, not just the
+// body box — so the player's frame takes the same color. Without it, a
+// commit shorter than the film's tallest leaves the rest of the locked
+// frame as a void, and the artifact reads as a small picture in a black
+// box rather than as a page with empty space below the fold.
+let rootKey: string | null = null;
+
 function depthOf(node: NodeRecord): number {
   return node.parentPath.split('/').filter(Boolean).length;
 }
@@ -272,6 +280,9 @@ export function enterSegment(container: HTMLElement, fromSnapshot: Snapshot | nu
   container.innerHTML = '';
   tracked = new Map();
 
+  const root = toSnapshot.nodes.find((node) => node.parentPath === '');
+  rootKey = root ? nodeKey(root) : null;
+
   if (!fromSnapshot) {
     for (const toNode of toSnapshot.nodes) addTracked(container, 'inserted', null, toNode);
     return;
@@ -394,7 +405,30 @@ export function updateProgress(t: number, visibility: LayerVisibility): void {
   }
 }
 
+// The frame's background for progress `t` — the root node's background
+// on the same interpolation schedule as every other Surface property, so
+// the canvas and the body box never disagree mid-transition. Returns
+// null when Surface is hidden (the toggle strips color everywhere) or
+// when the root declares no background of its own.
+export function pageBackgroundAt(t: number, visibility: LayerVisibility): string | null {
+  if (!visibility.surface || rootKey === null) return null;
+  const node = tracked.get(rootKey);
+  if (!node) return null;
+
+  const from = node.fromLayers?.surface.backgroundColor;
+  const to = node.toLayers?.surface.backgroundColor;
+  if (from === undefined && to === undefined) return null;
+  if (from === undefined) return to ?? null;
+  if (to === undefined) return from;
+
+  // Inserted and removed roots have no second endpoint to travel toward,
+  // so they sit at their one color for the whole segment.
+  if (node.kind !== 'matched') return to;
+  return interpolateValue(from, to, windowProgress(t, windowFor(forwardIndex('surface'))));
+}
+
 export function clearStage(container: HTMLElement): void {
   container.innerHTML = '';
   tracked = new Map();
+  rootKey = null;
 }

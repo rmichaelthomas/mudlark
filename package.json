@@ -10,6 +10,7 @@
     "capture": "tsx src/capture/capture.ts",
     "delta": "tsx src/delta/build.ts",
     "verify": "tsx scripts/verify-capture-playback.ts",
+    "verify:player": "tsx scripts/verify-player.ts",
     "dev": "vite"
   },
   "keywords": [],
