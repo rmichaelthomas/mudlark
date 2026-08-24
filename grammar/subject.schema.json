@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rmichaelthomas/mudlark/grammar/subject.schema.json",
+  "title": "Mudlark Subject Config",
+  "description": "Declares what Mudlark captures: a file in a git repo, optionally with multiple declared states (views, registers, themes) captured independently at each commit. The runtime authority is src/states/types.ts and src/states/load.ts; this schema documents the same contract for agents. If the two diverge, the code wins.",
+  "type": "object",
+  "required": ["name", "repo", "path"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Filesystem-safe identifier for this subject. Selects the config: MUDLARK_SUBJECT=<name> resolves to subjects/<name>.json."
+    },
+    "repo": {
+      "type": "string",
+      "description": "Absolute path to the local git repository."
+    },
+    "path": {
+      "type": "string",
+      "description": "Path to the subject file, relative to the repo root (e.g. 'index.html', 'docs/guide.html'). Must be renderable by Chromium without a build step. History is read with `git log --follow`, so renames are tracked."
+    },
+    "states": {
+      "type": "array",
+      "description": "Declared states. Each is captured independently at every commit. An empty array or omission is normalized to a single implicit state with id 'default' (see normalizeStates in src/states/load.ts) — the page as-is, and no register control in the player.",
+      "default": [],
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "script"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Filesystem-safe identifier. Used in output paths: out/snapshots/<id>/, out/deltas/<id>/."
+          },
+          "label": {
+            "type": "string",
+            "description": "Human-readable label shown in the player's register control."
+          },
+          "script": {
+            "type": ["string", "null"],
+            "description": "JavaScript evaluated in the page context after settle and before the DOM walk. null means no script (capture the page as loaded). Used to switch views, toggle themes, activate tabs, etc."
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "name": "my-site",
+      "repo": "/Users/me/projects/my-site",
+      "path": "index.html",
+      "states": []
+    },
+    {
+      "name": "one-surface",
+      "repo": "/Users/me/Websites/one-surface",
+      "path": "index.html",
+      "states": [
+        { "id": "app", "label": "App", "script": null },
+        { "id": "dark-mode", "label": "Dark mode", "script": "document.body.classList.add('dark');" }
+      ]
+    }
+  ]
+}

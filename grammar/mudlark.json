@@ -1,0 +1,97 @@
+{
+  "format": 1,
+  "name": "mudlark",
+  "tagline": "from bones to build",
+  "description": "Replays how a built artifact came to be, reconstructed from git commits. Captures each commit as a visual snapshot, extracts five layers (Structure, Layout, Surface, Content, Behavior), and plays them back as a continuous, scrubbable film.",
+  "author": "R. Michael Thomas",
+  "repo": "https://github.com/rmichaelthomas/mudlark",
+
+  "commands": {
+    "one_command": {
+      "run": "npm run mudlark -- <path-to-html-file>",
+      "description": "Point at any HTML file in a git repo. Mudlark walks up to the repo root, writes an ephemeral subjects/_quick.json, captures every commit, builds the film, and starts the player. Zero config; single state.",
+      "example": "npm run mudlark -- ~/my-project/index.html"
+    },
+    "capture": {
+      "run": "npm run capture",
+      "description": "Snapshot every commit x every declared state. Reads MUDLARK_SUBJECT (falling back to BUILDBACK_SUBJECT) for the subject config name. Default: one-surface.",
+      "output": "out/snapshots/<stateId>/<sha>.json"
+    },
+    "delta": {
+      "run": "npm run delta",
+      "description": "Build per-state deltas and cross-state annotation from existing snapshots, then write the manifest. Reads the same subject env var as capture. Does not launch a browser.",
+      "output": "out/deltas/<stateId>/<from>_<to>.json and out/manifest.json"
+    },
+    "dev": {
+      "run": "npm run dev",
+      "description": "Start the Vite dev server for the player. Opens at http://localhost:5173.",
+      "root": "player/",
+      "public_dir": "out/"
+    },
+    "verify": {
+      "run": "npm run verify",
+      "description": "Record verification: git reader, capture, snapshot hygiene, identity, deltas, pacing, invariants, zero-config, state parity, camera invariance, font determinism. Launches a browser and re-captures."
+    },
+    "verify_player": {
+      "run": "npm run verify:player",
+      "description": "Player verification: framing and zoom modes, transport sizing, timeline seek and scrub, keyboard shortcuts, every speed rung, looping and end-of-film. Starts its own dev server."
+    },
+    "verify_grammar": {
+      "run": "npm run verify:grammar",
+      "description": "Grammar verification: asserts the layer order and per-layer property lists in grammar/output.json match src/layers/routing.ts exactly, and that subjects/*.json validate against grammar/subject.schema.json."
+    },
+    "typecheck": {
+      "run": "npm run typecheck",
+      "description": "tsc --noEmit over src/, player/, and scripts/."
+    }
+  },
+
+  "env": {
+    "MUDLARK_SUBJECT": "Name of the subject config to use, resolved to subjects/<name>.json. Read by capture and delta. Defaults to 'one-surface'.",
+    "BUILDBACK_SUBJECT": "Pre-rename name for the same variable, honored as a fallback when MUDLARK_SUBJECT is unset."
+  },
+
+  "prerequisites": {
+    "node": ">=18",
+    "install": ["npm install", "npx playwright install chromium"],
+    "note": "Playwright's Chromium is used for headless capture. No other browser is needed."
+  },
+
+  "scope": {
+    "captures": "Anything a browser can render from a static file tree — HTML, SVG, or any page that works by opening the file directly.",
+    "does_not_capture": "Repos requiring compilation, bundling, or a dev server to render. Build-step support (a 'build adapter') is the primary v2 boundary.",
+    "subject_file_types": ["html", "svg"],
+    "subject_file_note": "Any file Chromium can render via file:// or a local HTTP server, not limited to index.html.",
+    "also_out_of_scope": [
+      "Tailwind or utility-class resolution",
+      "Video or image export",
+      "Multi-file capture in a single beat",
+      "Per-element provenance tracking"
+    ]
+  },
+
+  "record_rule": "Smoothing is permitted in presentation and forbidden in the record. Compress a dead fortnight; do not erase it. Never drop, reorder, or silently merge commits.",
+
+  "grammar_files": {
+    "subject_schema": "grammar/subject.schema.json",
+    "output_vocabulary": "grammar/output.json",
+    "project_manifest": "grammar/mudlark.json"
+  },
+
+  "source_tree": {
+    "src/cli.ts": "One-command wrapper: resolve repo -> capture -> delta -> serve",
+    "src/git/": "Extract trees at a SHA, read commit metadata",
+    "src/states/": "Declared-state config types and zero-config-safe loader",
+    "src/capture/": "Headless capture: serve -> load -> settle -> state script -> walk -> snapshot",
+    "src/layers/": "Property routing table and per-layer extraction",
+    "src/identity/": "Two-pass node matching across snapshots",
+    "src/delta/": "Per-state deltas, cross-state annotation, manifest",
+    "src/pacing/": "Named pacing rules over the unaltered commit surface",
+    "player/": "Vite player: DOM reconstruction, interpolation, framing, transport, timeline",
+    "subjects/": "Subject configs, one JSON file per subject",
+    "grammar/": "Machine-readable descriptions of input, output, and project",
+    "scripts/": "Verification suites"
+  },
+
+  "etymology": "The Victorian practice of mudlarking — scavenging the Thames riverbed at low tide for coins, pottery shards, and bones. Mudlark does the same thing with git history."
+}
