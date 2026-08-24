@@ -21,7 +21,7 @@
     {
       "key": "/body:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "2532px",
             "2813px"
@@ -32,7 +32,7 @@
     {
       "key": "/body:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "2185px",
             "2466px"
@@ -43,7 +43,7 @@
     {
       "key": "/body:0/div:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "2185px",
             "2466px"
@@ -54,7 +54,7 @@
     {
       "key": "/body:0/div:0/div:0/div:2",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "719px",
             "1000px"
@@ -65,7 +65,7 @@
     {
       "key": "/body:0/div:0/div:0/div:2/div:3",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "567px",
             "848px"
@@ -78,6 +78,6 @@
       }
     }
   ],
-  "lifeFileChanged": false,
+  "behaviorFileChanged": false,
   "otherStatesChanged": []
 }

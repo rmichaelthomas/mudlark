@@ -17,9 +17,9 @@ export const PACING_CONFIG = {
   gapHoldSeconds: 3, // hold-the-gaps: minimum seconds for a qualifying gap
   noiseChangeThreshold: 5, // floor-the-noise: "small" means fewer changed properties than this
   noiseMaxSeconds: 1.5, // floor-the-noise: duration cap for small commits
-  dwellMultiplier: 1.8, // dwell-on-structure: multiplier when a delta touches Bones or Frame
-  // weight-by-change: an inserted/removed node is a whole element (Bones
-  // through Life), not one property — it's weighted as roughly this many
+  dwellMultiplier: 1.8, // dwell-on-structure: multiplier when a delta touches Structure or Layout
+  // weight-by-change: an inserted/removed node is a whole element (Structure
+  // through Behavior), not one property — it's weighted as roughly this many
   // single-property changes so a wholesale replacement isn't outweighed
   // by a broad but shallow property-only pass across many nodes.
   nodeEventWeight: 5,
@@ -67,13 +67,13 @@ export const floorTheNoise: PacingRule = {
   },
 };
 
-// [dwell-on-structure] Commits whose delta touches Bones (inserts/removes)
-// or Frame get a multiplier on the base weight.
+// [dwell-on-structure] Commits whose delta touches Structure (inserts/removes)
+// or Layout get a multiplier on the base weight.
 export const dwellOnStructure: PacingRule = {
   name: 'dwell-on-structure',
   weight(delta) {
     const touchesStructure =
-      delta.inserted.length > 0 || delta.removed.length > 0 || delta.changed.some((c) => Boolean(c.layers.frame));
+      delta.inserted.length > 0 || delta.removed.length > 0 || delta.changed.some((c) => Boolean(c.layers.layout));
     return touchesStructure ? PACING_CONFIG.dwellMultiplier : null;
   },
 };
@@ -86,7 +86,7 @@ export const DEFAULT_RULES: PacingRule[] = [weightByChange, holdTheGaps, floorTh
 // needs to satisfy the new shape, not participate in the state
 // mechanism, so it borrows the state id of whatever it's standing in for.
 function emptyDelta(toSha: string, stateId: string): Delta {
-  return { from: '', to: toSha, stateId, inserted: [], removed: [], changed: [], lifeFileChanged: false, otherStatesChanged: [] };
+  return { from: '', to: toSha, stateId, inserted: [], removed: [], changed: [], behaviorFileChanged: false, otherStatesChanged: [] };
 }
 
 export interface TimelineEntry {

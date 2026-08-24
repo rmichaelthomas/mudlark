@@ -7,11 +7,11 @@ import { LAYER_ORDER, type LayerName } from '../src/layers/routing';
 export type LayerVisibility = Record<LayerName, boolean>;
 
 export const DEFAULT_LAYER_VISIBILITY: LayerVisibility = {
-  bones: true,
-  frame: true,
-  skin: true,
-  voice: true,
-  life: true,
+  structure: true,
+  layout: true,
+  surface: true,
+  content: true,
+  behavior: true,
 };
 
 interface Geometry {
@@ -34,6 +34,14 @@ interface TrackedNode {
 
 let tracked = new Map<string, TrackedNode>();
 
+// The document root's key for the current segment. CSS propagates the
+// body's background to the canvas — the whole viewport, not just the
+// body box — so the player's frame takes the same color. Without it, a
+// commit shorter than the film's tallest leaves the rest of the locked
+// frame as a void, and the artifact reads as a small picture in a black
+// box rather than as a page with empty space below the fold.
+let rootKey: string | null = null;
+
 function depthOf(node: NodeRecord): number {
   return node.parentPath.split('/').filter(Boolean).length;
 }
@@ -50,18 +58,18 @@ function makeElement(node: NodeRecord, depth: number): HTMLDivElement {
   return el;
 }
 
-// Forward-layer stagger windows (Bones, Frame, Skin, Voice, Life), each
-// spanning a fifth of the transition with 50% overlap into the next, so
-// the reveal cascades rather than snapping layer by layer. Both indices
-// are derived from LAYER_ORDER (invariant 3: layer order is declared
-// once; reverse iteration reverses that same constant rather than
-// hand-writing a second array).
+// Forward-layer stagger windows (Structure, Layout, Surface, Content,
+// Behavior), each spanning a fifth of the transition with 50% overlap
+// into the next, so the reveal cascades rather than snapping layer by
+// layer. Both indices are derived from LAYER_ORDER (invariant 3: layer
+// order is declared once; reverse iteration reverses that same constant
+// rather than hand-writing a second array).
 const REVERSED_LAYER_ORDER = [...LAYER_ORDER].reverse();
 
-function forwardIndex(layer: Exclude<LayerName, 'bones'>): number {
+function forwardIndex(layer: Exclude<LayerName, 'structure'>): number {
   return LAYER_ORDER.indexOf(layer);
 }
-function reverseIndex(layer: Exclude<LayerName, 'bones'>): number {
+function reverseIndex(layer: Exclude<LayerName, 'structure'>): number {
   return REVERSED_LAYER_ORDER.indexOf(layer);
 }
 
@@ -180,7 +188,7 @@ function interpolateValue(from: string, to: string, t: number): string {
 // Copying their raw computed-style values (frequently "auto" for a
 // statically-positioned source element, or a `position` other than
 // `absolute`) would clobber that placement, so they're never applied
-// from a layer bag even though they're part of ROUTING.frame.
+// from a layer bag even though they're part of ROUTING.layout.
 const GEOMETRY_OWNED = new Set(['display', 'position', 'top', 'right', 'bottom', 'left', 'width', 'height']);
 
 function applyBag(
@@ -211,12 +219,12 @@ function parseOpacity(v: string | undefined): number {
   return Number.isFinite(n) ? n : 1;
 }
 
-function applyBonesOutline(el: HTMLElement, on: boolean): void {
+function applyStructureOutline(el: HTMLElement, on: boolean): void {
   el.style.outline = on ? '1px solid rgba(120, 140, 170, 0.35)' : 'none';
   el.style.outlineOffset = '-1px';
 }
 
-function clearSkin(el: HTMLElement): void {
+function clearSurface(el: HTMLElement): void {
   el.style.backgroundColor = 'transparent';
   el.style.backgroundImage = 'none';
   el.style.borderTopWidth = '0px';
@@ -227,7 +235,7 @@ function clearSkin(el: HTMLElement): void {
   el.style.borderRadius = '0px';
 }
 
-function clearVoice(el: HTMLElement): void {
+function clearContent(el: HTMLElement): void {
   el.style.color = 'transparent';
   el.textContent = '';
 }
@@ -272,6 +280,9 @@ export function enterSegment(container: HTMLElement, fromSnapshot: Snapshot | nu
   container.innerHTML = '';
   tracked = new Map();
 
+  const root = toSnapshot.nodes.find((node) => node.parentPath === '');
+  rootKey = root ? nodeKey(root) : null;
+
   if (!fromSnapshot) {
     for (const toNode of toSnapshot.nodes) addTracked(container, 'inserted', null, toNode);
     return;
@@ -284,101 +295,101 @@ export function enterSegment(container: HTMLElement, fromSnapshot: Snapshot | nu
 }
 
 function updateMatched(node: TrackedNode, t: number, visibility: LayerVisibility): void {
-  const frameT = windowProgress(t, windowFor(forwardIndex('frame')));
-  if (visibility.frame) {
-    setGeometry(node.el, node.fromGeometry, node.toGeometry, frameT);
-    applyBag(node.el, node.fromLayers?.frame ?? {}, node.toLayers?.frame ?? {}, frameT, false);
+  const layoutT = windowProgress(t, windowFor(forwardIndex('layout')));
+  if (visibility.layout) {
+    setGeometry(node.el, node.fromGeometry, node.toGeometry, layoutT);
+    applyBag(node.el, node.fromLayers?.layout ?? {}, node.toLayers?.layout ?? {}, layoutT, false);
   } else {
     setStaticGeometry(node.el, node.toGeometry);
   }
-  applyBonesOutline(node.el, visibility.bones);
+  applyStructureOutline(node.el, visibility.structure);
 
-  if (visibility.skin) {
-    const skinT = windowProgress(t, windowFor(forwardIndex('skin')));
-    applyBag(node.el, node.fromLayers?.skin ?? {}, node.toLayers?.skin ?? {}, skinT, true);
-    const fromOpacity = parseOpacity(node.fromLayers?.skin.opacity);
-    const toOpacity = parseOpacity(node.toLayers?.skin.opacity);
-    node.el.style.opacity = String(fromOpacity + (toOpacity - fromOpacity) * skinT);
+  if (visibility.surface) {
+    const surfaceT = windowProgress(t, windowFor(forwardIndex('surface')));
+    applyBag(node.el, node.fromLayers?.surface ?? {}, node.toLayers?.surface ?? {}, surfaceT, true);
+    const fromOpacity = parseOpacity(node.fromLayers?.surface.opacity);
+    const toOpacity = parseOpacity(node.toLayers?.surface.opacity);
+    node.el.style.opacity = String(fromOpacity + (toOpacity - fromOpacity) * surfaceT);
   } else {
-    clearSkin(node.el);
+    clearSurface(node.el);
     node.el.style.opacity = '1';
   }
 
-  if (visibility.voice) {
-    const voiceT = windowProgress(t, windowFor(forwardIndex('voice')));
-    applyBag(node.el, node.fromLayers?.voice ?? {}, node.toLayers?.voice ?? {}, voiceT, true);
-    node.el.textContent = voiceT < 0.5 ? node.fromText : node.toText;
+  if (visibility.content) {
+    const contentT = windowProgress(t, windowFor(forwardIndex('content')));
+    applyBag(node.el, node.fromLayers?.content ?? {}, node.toLayers?.content ?? {}, contentT, true);
+    node.el.textContent = contentT < 0.5 ? node.fromText : node.toText;
   } else {
-    clearVoice(node.el);
+    clearContent(node.el);
   }
 
-  if (visibility.life) {
-    const lifeT = windowProgress(t, windowFor(forwardIndex('life')));
-    applyBag(node.el, node.fromLayers?.life ?? {}, node.toLayers?.life ?? {}, lifeT, true);
+  if (visibility.behavior) {
+    const behaviorT = windowProgress(t, windowFor(forwardIndex('behavior')));
+    applyBag(node.el, node.fromLayers?.behavior ?? {}, node.toLayers?.behavior ?? {}, behaviorT, true);
   }
 }
 
 function updateInserted(node: TrackedNode, t: number, visibility: LayerVisibility): void {
   setStaticGeometry(node.el, node.toGeometry);
-  applyBonesOutline(node.el, visibility.bones);
+  applyStructureOutline(node.el, visibility.structure);
 
-  const skinWindow = windowForScaled(forwardIndex('skin'), ...INSERTED_REVEAL_WINDOW);
-  const voiceWindow = windowForScaled(forwardIndex('voice'), ...INSERTED_REVEAL_WINDOW);
-  const revealing = visibility.skin || visibility.voice || visibility.life;
-  const skinReveal = revealing ? windowProgress(t, skinWindow) : 1;
-  const voiceReveal = revealing ? windowProgress(t, voiceWindow) : 1;
+  const surfaceWindow = windowForScaled(forwardIndex('surface'), ...INSERTED_REVEAL_WINDOW);
+  const contentWindow = windowForScaled(forwardIndex('content'), ...INSERTED_REVEAL_WINDOW);
+  const revealing = visibility.surface || visibility.content || visibility.behavior;
+  const surfaceReveal = revealing ? windowProgress(t, surfaceWindow) : 1;
+  const contentReveal = revealing ? windowProgress(t, contentWindow) : 1;
 
-  if (visibility.skin) {
-    applyStatic(node.el, node.toLayers?.skin ?? {}, true);
-    node.el.style.opacity = String(skinReveal * parseOpacity(node.toLayers?.skin.opacity));
+  if (visibility.surface) {
+    applyStatic(node.el, node.toLayers?.surface ?? {}, true);
+    node.el.style.opacity = String(surfaceReveal * parseOpacity(node.toLayers?.surface.opacity));
   } else {
-    clearSkin(node.el);
+    clearSurface(node.el);
     node.el.style.opacity = '1';
   }
 
-  if (visibility.voice) {
-    applyStatic(node.el, node.toLayers?.voice ?? {}, true);
-    node.el.textContent = voiceReveal > 0.5 ? node.toText : '';
+  if (visibility.content) {
+    applyStatic(node.el, node.toLayers?.content ?? {}, true);
+    node.el.textContent = contentReveal > 0.5 ? node.toText : '';
   } else {
-    clearVoice(node.el);
+    clearContent(node.el);
   }
 
-  if (visibility.life) {
-    applyStatic(node.el, node.toLayers?.life ?? {}, true);
+  if (visibility.behavior) {
+    applyStatic(node.el, node.toLayers?.behavior ?? {}, true);
   }
 }
 
 function updateRemoved(node: TrackedNode, t: number, visibility: LayerVisibility): void {
   setStaticGeometry(node.el, node.fromGeometry);
-  applyBonesOutline(node.el, visibility.bones);
+  applyStructureOutline(node.el, visibility.structure);
 
-  // Reverse grammar order (Life -> Voice -> Skin -> Frame -> Bones):
-  // reverseIndex('life') < reverseIndex('voice') < reverseIndex('skin'),
-  // so within the compressed fade-out window, life goes first and skin
-  // lingers longest.
-  const skinWindow = windowForScaled(reverseIndex('skin'), ...REMOVED_FADE_WINDOW);
-  const voiceWindow = windowForScaled(reverseIndex('voice'), ...REMOVED_FADE_WINDOW);
-  const fading = visibility.skin || visibility.voice || visibility.life;
-  const skinVisible = fading ? 1 - windowProgress(t, skinWindow) : 1;
-  const voiceVisible = fading ? 1 - windowProgress(t, voiceWindow) : 1;
+  // Reverse grammar order (Behavior -> Content -> Surface -> Layout ->
+  // Structure): reverseIndex('behavior') < reverseIndex('content') <
+  // reverseIndex('surface'), so within the compressed fade-out window,
+  // behavior goes first and surface lingers longest.
+  const surfaceWindow = windowForScaled(reverseIndex('surface'), ...REMOVED_FADE_WINDOW);
+  const contentWindow = windowForScaled(reverseIndex('content'), ...REMOVED_FADE_WINDOW);
+  const fading = visibility.surface || visibility.content || visibility.behavior;
+  const surfaceVisible = fading ? 1 - windowProgress(t, surfaceWindow) : 1;
+  const contentVisible = fading ? 1 - windowProgress(t, contentWindow) : 1;
 
-  if (visibility.skin) {
-    applyStatic(node.el, node.fromLayers?.skin ?? {}, true);
-    node.el.style.opacity = String(skinVisible * parseOpacity(node.fromLayers?.skin.opacity));
+  if (visibility.surface) {
+    applyStatic(node.el, node.fromLayers?.surface ?? {}, true);
+    node.el.style.opacity = String(surfaceVisible * parseOpacity(node.fromLayers?.surface.opacity));
   } else {
-    clearSkin(node.el);
+    clearSurface(node.el);
     node.el.style.opacity = '1';
   }
 
-  if (visibility.voice) {
-    applyStatic(node.el, node.fromLayers?.voice ?? {}, true);
-    node.el.textContent = voiceVisible > 0.5 ? node.fromText : '';
+  if (visibility.content) {
+    applyStatic(node.el, node.fromLayers?.content ?? {}, true);
+    node.el.textContent = contentVisible > 0.5 ? node.fromText : '';
   } else {
-    clearVoice(node.el);
+    clearContent(node.el);
   }
 
-  if (visibility.life) {
-    applyStatic(node.el, node.fromLayers?.life ?? {}, true);
+  if (visibility.behavior) {
+    applyStatic(node.el, node.fromLayers?.behavior ?? {}, true);
   }
 }
 
@@ -394,7 +405,30 @@ export function updateProgress(t: number, visibility: LayerVisibility): void {
   }
 }
 
+// The frame's background for progress `t` — the root node's background
+// on the same interpolation schedule as every other Surface property, so
+// the canvas and the body box never disagree mid-transition. Returns
+// null when Surface is hidden (the toggle strips color everywhere) or
+// when the root declares no background of its own.
+export function pageBackgroundAt(t: number, visibility: LayerVisibility): string | null {
+  if (!visibility.surface || rootKey === null) return null;
+  const node = tracked.get(rootKey);
+  if (!node) return null;
+
+  const from = node.fromLayers?.surface.backgroundColor;
+  const to = node.toLayers?.surface.backgroundColor;
+  if (from === undefined && to === undefined) return null;
+  if (from === undefined) return to ?? null;
+  if (to === undefined) return from;
+
+  // Inserted and removed roots have no second endpoint to travel toward,
+  // so they sit at their one color for the whole segment.
+  if (node.kind !== 'matched') return to;
+  return interpolateValue(from, to, windowProgress(t, windowFor(forwardIndex('surface'))));
+}
+
 export function clearStage(container: HTMLElement): void {
   container.innerHTML = '';
   tracked = new Map();
+  rootKey = null;
 }

@@ -192,7 +192,7 @@
     {
       "key": "/body:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "3943px",
             "2000px"
@@ -203,7 +203,7 @@
     {
       "key": "/body:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "3943px",
             "753px"
@@ -222,7 +222,7 @@
     {
       "key": "/body:0/div:0/div:1",
       "layers": {
-        "frame": {
+        "layout": {
           "display": [
             "flex",
             "block"
@@ -256,7 +256,7 @@
             "normal"
           ]
         },
-        "life": {
+        "behavior": {
           "animationName": [
             "fade-up",
             "none"
@@ -267,7 +267,7 @@
     {
       "key": "/body:0/div:0/div:1/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "display": [
             "flex",
             "block"
@@ -321,7 +321,7 @@
             "0px"
           ]
         },
-        "skin": {
+        "surface": {
           "backgroundColor": [
             "rgba(41, 50, 65, 0.85)",
             "rgba(0, 0, 0, 0)"
@@ -379,7 +379,7 @@
             "0px"
           ]
         },
-        "voice": {
+        "content": {
           "fontFamily": [
             "Figtree, sans-serif",
             "Figtree, -apple-system, \"system-ui\", sans-serif"
@@ -408,6 +408,6 @@
       }
     }
   ],
-  "lifeFileChanged": true,
+  "behaviorFileChanged": true,
   "otherStatesChanged": []
 }

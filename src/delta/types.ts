@@ -7,10 +7,10 @@ export interface Delta {
   changed: Array<{
     key: string;
     layers: Partial<
-      Record<'frame' | 'skin' | 'voice' | 'life', Record<string, [string, string]>>
+      Record<'layout' | 'surface' | 'content' | 'behavior', Record<string, [string, string]>>
     >; // property -> [before, after]
   }>;
-  lifeFileChanged: boolean; // did the <script> block change between these commits
+  behaviorFileChanged: boolean; // did the <script> block change between these commits
   // Populated only when this delta's own inserted/removed/changed are
   // all empty (checkpoint v1.2 invariant 10): the ids of every other
   // declared state whose delta over this same commit pair was

@@ -2,17 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Buildback — capture and playback</title>
+  <title>Mudlark — from bones to build</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <style>
     :root {
       color-scheme: dark;
-      --bg: #14161c;
-      --panel: #1b1e27;
-      --border: rgba(255, 255, 255, 0.1);
-      --text: #e7e9ee;
-      --muted: #9098a8;
-      --accent: #6ea8fe;
+      --bg: #283618;          /* Black Forest */
+      --panel: #1f2a12;       /* Black Forest, darkened for panel contrast */
+      --well: #16200c;        /* deeper still — the mat the film sits on */
+      --border: rgba(254, 250, 224, 0.12);  /* Cornsilk at low opacity */
+      --text: #FEFAE0;        /* Cornsilk */
+      /* Olive Leaf (#606C38) reads at 2.27:1 on Black Forest — below the
+         4.5:1 WCAG AA floor for small text. Lightened along the same hue
+         until it passes: 4.63:1 on --bg, 5.40:1 on --panel. */
+      --muted: #94A167;
+      --accent: #DDA15E;      /* Sunlit Clay */
+      --accent-secondary: #BC6C25;  /* Copperwood */
+      /* Copperwood on its own 15%-tint badge is 3.19:1; same treatment as
+         --muted, lightened toward Sunlit Clay until it clears AA (4.61:1). */
+      --accent-secondary-text: #D98A45;
+      --accent-tertiary: #902E47;   /* Vintage Berry */
+      --radius: 8px;
     }
     * { box-sizing: border-box; }
     html, body {
@@ -20,19 +31,27 @@
       background: var(--bg);
       color: var(--text);
       font-family: -apple-system, "system-ui", sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     body {
       display: flex;
       flex-direction: column;
       height: 100vh;
     }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---------- header ---------- */
+
     header {
-      padding: 12px 20px;
+      padding: 11px 18px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: baseline;
       gap: 10px;
+      flex: none;
     }
     header h1 {
       font-size: 15px;
@@ -40,64 +59,80 @@
       margin: 0;
       letter-spacing: 0.02em;
     }
-    header p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
+    header p { margin: 0; color: var(--muted); font-size: 12px; }
+    header .tagline { font-style: italic; }
+    header .subject {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      margin-left: auto;
     }
+
+    /* ---------- stage ---------- */
+
     main {
       flex: 1;
       display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 0;
+      grid-template-columns: 1fr 308px;
       min-height: 0;
     }
+    /* The mat. The film is scaled to sit inside this, whole, rather than
+       being a 4000px page you scroll while it rearranges itself. */
     #viewport {
+      position: relative;
       overflow: auto;
       min-height: 0;
-      padding: 32px;
+      padding: 26px;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
       background:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 100% 24px,
-        var(--bg);
+        radial-gradient(ellipse at 50% 0%, rgba(254, 250, 224, 0.045), transparent 62%),
+        var(--well);
     }
-    #frame {
-      position: relative;
-      background: #0c0d11;
-      box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5);
-      flex: none;
-    }
-    #stage {
+    #viewport::after {
+      content: "";
       position: absolute;
       inset: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 90px 18px rgba(0, 0, 0, 0.42);
     }
+    /* Sized in JS to the SCALED dimensions — a CSS transform doesn't
+       occupy layout space, so this is what centering and scrolling see. */
+    #frame-wrap {
+      position: relative;
+      margin: auto;
+      flex: none;
+    }
+    #frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      background: #0f1608;
+      box-shadow:
+        0 0 0 1px rgba(254, 250, 224, 0.14),
+        0 24px 70px rgba(0, 0, 0, 0.55);
+    }
+    #stage { position: absolute; inset: 0; }
+
+    /* ---------- sidebar ---------- */
+
     aside {
       border-left: 1px solid var(--border);
-      padding: 20px;
+      padding: 18px;
       overflow-y: auto;
       background: var(--panel);
     }
     aside h2 {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       color: var(--muted);
-      margin: 0 0 10px;
+      margin: 0 0 9px;
     }
-    #register-wrap { margin-bottom: 20px; }
-    #register-wrap label {
-      display: block;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
+    aside section + section { margin-top: 20px; }
+
     #register {
       width: 100%;
-      background: var(--bg);
+      background: var(--well);
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -105,147 +140,311 @@
       font-size: 13px;
       font-family: inherit;
     }
+    #register-wrap label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
 
-    #detail { margin-bottom: 24px; }
+    /* The caption block — how you know which commit is on screen. */
+    #detail {
+      background: var(--well);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 13px;
+    }
     .detail-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
       align-items: baseline;
       margin-bottom: 8px;
     }
     .detail-sha {
       font-family: ui-monospace, "SF Mono", Menlo, monospace;
-      background: rgba(110, 168, 254, 0.15);
-      color: var(--accent);
+      background: rgba(188, 108, 37, 0.15);
+      color: var(--accent-secondary-text);
       padding: 2px 6px;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 11.5px;
     }
-    .detail-date, .detail-author { font-size: 12px; color: var(--muted); }
-    .detail-message { margin: 0 0 10px; font-size: 14px; line-height: 1.5; }
-    .detail-offregister {
+    .detail-date, .detail-author { font-size: 11.5px; color: var(--muted); }
+    .detail-message {
       margin: 0;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+    .detail-offregister {
+      margin: 10px 0 0;
       padding: 8px 10px;
       border-left: 2px solid var(--accent);
-      background: rgba(110, 168, 254, 0.08);
+      background: rgba(221, 161, 94, 0.08);
       color: var(--muted);
-      font-size: 12.5px;
+      font-size: 12px;
       line-height: 1.5;
       border-radius: 0 4px 4px 0;
     }
 
     fieldset {
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin: 0 0 24px;
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      margin: 0;
     }
     fieldset legend {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       color: var(--muted);
       padding: 0 4px;
     }
     fieldset label {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 8px;
       font-size: 13px;
-      padding: 4px 0;
-      text-transform: capitalize;
+      padding: 3px 0;
+      cursor: pointer;
     }
+    fieldset input[type="checkbox"] { accent-color: var(--accent); }
+    .layer-desc { color: var(--muted); font-size: 11px; font-style: italic; }
+
+    .shortcuts { margin: 0; font-size: 11px; line-height: 1.9; color: var(--muted); }
+    .shortcuts kbd {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 5px;
+      color: var(--text);
+      background: rgba(254, 250, 224, 0.04);
+    }
+
+    /* ---------- transport ---------- */
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 14px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      padding: 11px 18px 15px;
+      flex: none;
+      background: var(--panel);
     }
-    .transport {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    #play {
-      background: var(--accent);
-      color: #0c0d11;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 16px;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-    }
-    #scrub { flex: 1; accent-color: var(--accent); }
 
-    #rail {
+    #timeline {
       position: relative;
-      height: 28px;
+      padding: 9px 0;
+      cursor: pointer;
+      touch-action: none;
     }
-    .rail-track {
+    .tl-track {
       position: relative;
-      height: 100%;
-      background: rgba(255,255,255,0.04);
-      border-radius: 4px;
+      height: 16px;
+      border-radius: 3px;
+      background: rgba(254, 250, 224, 0.05);
+      overflow: hidden;
     }
-    .rail-mark {
+    .tl-segs { position: absolute; inset: 0; }
+    .tl-seg {
       position: absolute;
       top: 0;
       height: 100%;
-      min-width: 3px;
-      background: rgba(110, 168, 254, 0.35);
-      border: none;
-      border-right: 1px solid var(--bg);
-      cursor: pointer;
-      padding: 0;
+      min-width: 2px;
+      border-right: 1px solid var(--panel);
     }
-    .rail-mark:hover { background: rgba(110, 168, 254, 0.6); }
-    .rail-mark.active { background: var(--accent); }
-    .rail-playhead {
+    .tl-segs--base .tl-seg { background: rgba(221, 161, 94, 0.20); }
+    .tl-segs--base .tl-seg.is-active { background: rgba(221, 161, 94, 0.34); }
+    .tl-segs--fill { pointer-events: none; }
+    .tl-segs--fill .tl-seg { background: var(--accent); }
+    #timeline:hover .tl-segs--base .tl-seg { background: rgba(221, 161, 94, 0.28); }
+    #timeline:hover .tl-segs--base .tl-seg.is-active { background: rgba(221, 161, 94, 0.42); }
+
+    .tl-playhead {
       position: absolute;
       top: -3px;
       width: 2px;
       height: calc(100% + 6px);
       background: #fff;
+      border-radius: 1px;
       pointer-events: none;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
     }
+
+    .tl-tip {
+      position: absolute;
+      bottom: calc(100% + 4px);
+      transform: translateX(-50%);
+      background: var(--well);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      max-width: 340px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 90ms ease-out;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+      z-index: 5;
+    }
+    .tl-tip.is-visible { opacity: 1; }
+    .tl-tip-msg {
+      display: block;
+      font-size: 12.5px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .tl-tip-meta {
+      display: block;
+      margin-top: 3px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10.5px;
+      color: var(--muted);
+    }
+
+    .transport {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .transport-left, .transport-right { display: flex; align-items: center; gap: 8px; }
+    .transport-right { margin-left: auto; }
+
+    .tbtn {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid transparent;
+      border-radius: 7px;
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+    .tbtn:hover { background: rgba(254, 250, 224, 0.07); }
+    .tbtn[aria-pressed="true"] {
+      color: var(--accent);
+      border-color: rgba(221, 161, 94, 0.4);
+      background: rgba(221, 161, 94, 0.12);
+    }
+    .tbtn--play {
+      background: var(--accent);
+      color: var(--bg);
+      width: 56px;
+      height: 42px;
+      border-radius: 8px;
+      font-size: 19px;
+      font-weight: 700;
+    }
+    .tbtn--play:hover { background: #E8B173; }
+
+    .clock, .commit-count {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+    }
+    .clock { margin-left: 5px; }
+    .clock #clock-now { color: var(--text); }
+    .commit-count::before {
+      content: "";
+      display: inline-block;
+      width: 1px;
+      height: 11px;
+      background: var(--border);
+      margin-right: 9px;
+      vertical-align: -1px;
+    }
+
+    .tsel {
+      background: var(--well);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 11px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* In fullscreen the sidebar stays — knowing which commit you're on
+       is the point of the tool, not an accessory to it. */
+    :fullscreen #viewport { padding: 40px; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Buildback</h1>
-    <p>rmichaelthomas/one-surface — index.html</p>
+    <h1>Mudlark</h1>
+    <p class="tagline">from bones to build</p>
+    <p class="subject" id="subject-label"></p>
   </header>
 
   <main>
     <div id="viewport">
-      <div id="frame"><div id="stage"></div></div>
+      <div id="frame-wrap">
+        <div id="frame"><div id="stage"></div></div>
+      </div>
     </div>
+
     <aside>
-      <div id="register-wrap"></div>
+      <section id="register-wrap"></section>
 
-      <h2>Detail</h2>
-      <div id="detail"></div>
+      <section>
+        <h2>Detail</h2>
+        <div id="detail"></div>
+      </section>
 
-      <fieldset>
-        <legend>Layers</legend>
-        <label><input type="checkbox" data-layer-toggle="bones" /> Bones</label>
-        <label><input type="checkbox" data-layer-toggle="frame" /> Frame</label>
-        <label><input type="checkbox" data-layer-toggle="skin" /> Skin</label>
-        <label><input type="checkbox" data-layer-toggle="voice" /> Voice</label>
-        <label><input type="checkbox" data-layer-toggle="life" /> Life</label>
-      </fieldset>
+      <section>
+        <fieldset>
+          <legend>Layers</legend>
+          <label><input type="checkbox" data-layer-toggle="structure" /> Structure <span class="layer-desc">elements and nesting</span></label>
+          <label><input type="checkbox" data-layer-toggle="layout" /> Layout <span class="layer-desc">position, size, spacing</span></label>
+          <label><input type="checkbox" data-layer-toggle="surface" /> Surface <span class="layer-desc">color, border, shadow</span></label>
+          <label><input type="checkbox" data-layer-toggle="content" /> Content <span class="layer-desc">text, type, images</span></label>
+          <label><input type="checkbox" data-layer-toggle="behavior" /> Behavior <span class="layer-desc">script, motion, interaction</span></label>
+        </fieldset>
+      </section>
+
+      <section>
+        <h2>Shortcuts</h2>
+        <p class="shortcuts">
+          <kbd>Space</kbd> play / pause<br />
+          <kbd>←</kbd> <kbd>→</kbd> previous / next commit
+        </p>
+      </section>
     </aside>
   </main>
 
   <footer>
-    <div id="rail"></div>
+    <div id="timeline"></div>
     <div class="transport">
-      <button type="button" id="play">Play</button>
-      <input type="range" id="scrub" value="0" />
+      <div class="transport-left">
+        <button type="button" id="prev-commit" class="tbtn" aria-label="Previous commit" title="Previous commit">⏮</button>
+        <button type="button" id="play" class="tbtn tbtn--play" data-state="idle" aria-label="Play" title="Play (Space)">⏵</button>
+        <button type="button" id="next-commit" class="tbtn" aria-label="Next commit" title="Next commit">⏭</button>
+        <span class="clock"><span id="clock-now">0:00</span> / <span id="clock-total">0:00</span></span>
+        <span id="commit-count" class="commit-count"></span>
+      </div>
+      <div class="transport-right">
+        <button type="button" id="loop" class="tbtn" aria-pressed="true" aria-label="Loop" title="Loop">⟲</button>
+        <select id="speed" class="tsel" aria-label="Playback speed" title="Playback speed">
+          <option value="0.5">0.5×</option>
+          <option value="1" selected>1×</option>
+          <option value="2">2×</option>
+          <option value="4">4×</option>
+          <option value="8">8×</option>
+        </select>
+        <select id="zoom" class="tsel" aria-label="Zoom" title="Zoom">
+          <option value="fit">Fit</option>
+          <option value="fit-width" selected>Fit width</option>
+          <option value="actual">100%</option>
+        </select>
+        <button type="button" id="fullscreen" class="tbtn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+      </div>
     </div>
   </footer>
 

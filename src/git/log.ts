@@ -1,5 +1,6 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+import nodePath from 'node:path';
 
 const execFileAsync = promisify(execFile);
 
@@ -34,4 +35,21 @@ export async function commitsForPath(repoDir: string, path: string): Promise<Com
       const [sha, date, author, message] = record.split(FIELD_SEP);
       return { sha, date, author, message };
     });
+}
+
+// A human label for the subject repo — `owner/repo` when an origin
+// remote names one, otherwise the repo directory's own name. Used only
+// for the line under the player's header, so a repo with no remote (or
+// no git at all) degrades to something readable rather than erroring.
+export async function repoSlug(repoDir: string): Promise<string> {
+  try {
+    const { stdout } = await execFileAsync('git', ['remote', 'get-url', 'origin'], { cwd: repoDir });
+    const url = stdout.trim();
+    // Both forms: git@host:owner/repo.git and https://host/owner/repo.git
+    const match = url.match(/[:/]([^/:]+)\/([^/]+?)(?:\.git)?\/?$/);
+    if (match) return `${match[1]}/${match[2]}`;
+  } catch {
+    // no remote, or not a repo — fall through to the directory name
+  }
+  return nodePath.basename(nodePath.resolve(repoDir));
 }

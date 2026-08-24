@@ -3,16 +3,46 @@ import type { Delta } from '../src/delta/types';
 import type { CommitMeta } from '../src/git/log';
 import { computeTimeline, DEFAULT_RULES, type TimelineEntry } from '../src/pacing/plane';
 import { LAYER_ORDER, type LayerName } from '../src/layers/routing';
-import { enterSegment, updateProgress, DEFAULT_LAYER_VISIBILITY, type LayerVisibility } from './render';
+import { enterSegment, updateProgress, pageBackgroundAt, DEFAULT_LAYER_VISIBILITY, type LayerVisibility } from './render';
 import { renderDetail } from './detail';
-import { renderRail, updateRailPlayhead } from './rail';
+import { renderTimeline, formatClock, type TimelineHandle } from './timeline';
 
 const FULL_FILM_SECONDS = 45;
 const SECONDS_PER_CUT_TRANSITION = 6;
 
+// The capture width every snapshot was taken at (src/capture/capture.ts).
+const FILM_WIDTH = 1280;
+
+// Used only when the subject declares no root background of its own, or
+// when the Surface layer is toggled off.
+const FRAME_FALLBACK_BACKGROUND = '#0f1608';
+
+// The beat the film holds on its last frame before looping. The final
+// commit -> first commit jump is the largest single change in the film
+// (a wholesale replacement), so restarting the instant the last frame
+// lands reads as a glitch rather than a loop. Divided by speed because a
+// fixed 1.2s at 8x — where the whole film is under six seconds — reads
+// as a stall rather than a beat.
+const LOOP_HOLD_SECONDS = 1.2;
+const LOOP_HOLD_MIN_SECONDS = 0.4;
+
+// Playback is a three-state machine, not a boolean. `holding` is the
+// end-of-film beat: the clock is running but film time is not.
+type Phase = 'idle' | 'playing' | 'holding';
+type ZoomMode = 'fit' | 'fit-width' | 'actual';
+
 interface StateInfo {
   id: string;
   label: string;
+}
+
+// out/manifest.json, written by src/delta/build.ts's writeManifest.
+// `subject` is optional so a manifest built before v1.3 still loads —
+// the header simply shows no subject line.
+interface Manifest {
+  commits: CommitMeta[];
+  states: StateInfo[];
+  subject?: { repo: string; path: string; label: string };
 }
 
 async function fetchJson<T>(url: string): Promise<T> {
@@ -68,9 +98,12 @@ function renderRegisterControl(
 }
 
 async function boot(): Promise<void> {
-  const manifest = await fetchJson<{ commits: CommitMeta[]; states: StateInfo[] }>('/manifest.json');
+  const manifest = await fetchJson<Manifest>('/manifest.json');
   const states = manifest.states;
   const stateLabels = new Map(states.map((s) => [s.id, s.label]));
+
+  const subjectLabel = document.getElementById('subject-label') as HTMLElement;
+  subjectLabel.textContent = manifest.subject?.label ?? '';
 
   const commits = applyRangeParam(manifest.commits);
   const isFullFilm = commits.length === manifest.commits.length;
@@ -78,17 +111,23 @@ async function boot(): Promise<void> {
 
   const stage = document.getElementById('stage') as HTMLElement;
   const frame = document.getElementById('frame') as HTMLElement;
-  frame.style.width = '1280px';
+  const frameWrap = document.getElementById('frame-wrap') as HTMLElement;
+  const viewport = document.getElementById('viewport') as HTMLElement;
 
   const registerWrap = document.getElementById('register-wrap') as HTMLElement;
   const detailEl = document.getElementById('detail') as HTMLElement;
-  const railEl = document.getElementById('rail') as HTMLElement;
-  const scrubEl = document.getElementById('scrub') as HTMLInputElement;
+  const timelineEl = document.getElementById('timeline') as HTMLElement;
   const playBtn = document.getElementById('play') as HTMLButtonElement;
+  const prevBtn = document.getElementById('prev-commit') as HTMLButtonElement;
+  const nextBtn = document.getElementById('next-commit') as HTMLButtonElement;
+  const loopBtn = document.getElementById('loop') as HTMLButtonElement;
+  const speedEl = document.getElementById('speed') as HTMLSelectElement;
+  const zoomEl = document.getElementById('zoom') as HTMLSelectElement;
+  const fullscreenBtn = document.getElementById('fullscreen') as HTMLButtonElement;
+  const clockNowEl = document.getElementById('clock-now') as HTMLElement;
+  const clockTotalEl = document.getElementById('clock-total') as HTMLElement;
+  const commitCountEl = document.getElementById('commit-count') as HTMLElement;
   const toggleEls = Array.from(document.querySelectorAll<HTMLInputElement>('[data-layer-toggle]'));
-
-  scrubEl.min = '0';
-  scrubEl.step = '0.01';
 
   const visibility: LayerVisibility = { ...DEFAULT_LAYER_VISIBILITY };
   for (const toggle of toggleEls) {
@@ -98,6 +137,7 @@ async function boot(): Promise<void> {
     toggle.addEventListener('change', () => {
       visibility[layer] = toggle.checked;
       updateProgress(currentLocalT, visibility);
+      frame.style.background = pageBackgroundAt(currentLocalT, visibility) ?? FRAME_FALLBACK_BACKGROUND;
     });
   }
 
@@ -105,13 +145,66 @@ async function boot(): Promise<void> {
   let snapshots = new Map<string, Snapshot>();
   let deltas: Delta[] = [];
   let timeline: TimelineEntry[] = [];
+  let timelineHandle: TimelineHandle | null = null;
   let totalSec = 0;
+  let frameHeight = 0;
 
   let currentSec = 0;
   let currentLocalT = 0;
   let currentIndex = -1;
-  let playing = false;
+  let phase: Phase = 'idle';
   let lastFrameTime: number | null = null;
+  // One rAF loop at a time. Pausing and resuming inside a single frame
+  // would otherwise leave the old callback queued alongside the new one,
+  // and two live loops advance film time twice per frame.
+  let rafId: number | null = null;
+  let holdRemaining = 0;
+  let speed = Number(speedEl.value) || 1;
+  let loop = true;
+  // Fit width by default: framing a 4000px page whole makes body text a
+  // suggestion of text. Width-fit keeps it legible and costs vertical
+  // scrolling, which Fit is one dropdown away from restoring.
+  let zoom: ZoomMode = 'fit-width';
+
+  // --- framing --------------------------------------------------------
+
+  // A CSS transform doesn't occupy layout space, so the wrapper is sized
+  // to the scaled dimensions — that's what centering and scrolling see.
+  // Scaling the container means every absolutely-positioned node inside
+  // scales with it, so render.ts's geometry math is untouched.
+  function applyZoom(): void {
+    if (frameHeight === 0) return;
+    const style = getComputedStyle(viewport);
+    const padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+    const padY = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+    const availableWidth = Math.max(1, viewport.clientWidth - padX);
+    const availableHeight = Math.max(1, viewport.clientHeight - padY);
+
+    let scale = 1;
+    if (zoom === 'fit') scale = Math.min(availableWidth / FILM_WIDTH, availableHeight / frameHeight);
+    else if (zoom === 'fit-width') scale = availableWidth / FILM_WIDTH;
+    // Never upscale past the captured size — a short artifact blown up to
+    // fill a large window is a worse frame, not a better one.
+    scale = Math.min(scale, 1);
+
+    frame.style.transform = `scale(${scale})`;
+    frameWrap.style.width = `${FILM_WIDTH * scale}px`;
+    frameWrap.style.height = `${frameHeight * scale}px`;
+  }
+
+  new ResizeObserver(() => applyZoom()).observe(viewport);
+
+  zoomEl.addEventListener('change', () => {
+    zoom = zoomEl.value as ZoomMode;
+    applyZoom();
+  });
+
+  fullscreenBtn.addEventListener('click', () => {
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else void document.documentElement.requestFullscreen();
+  });
+
+  // --- loading --------------------------------------------------------
 
   async function loadState(stateId: string): Promise<void> {
     const snapshotList = await Promise.all(commits.map((c) => fetchJson<Snapshot>(`/snapshots/${stateId}/${c.sha}.json`)));
@@ -132,12 +225,20 @@ async function boot(): Promise<void> {
     // commit (checkpoint §6, failure mode #5). Viewport width and
     // capture height are shared across every state by construction
     // (invariant 8); only the measured content height varies here.
-    frame.style.height = `${Math.max(...snapshotList.map((s) => s.docHeight))}px`;
+    frameHeight = Math.max(...snapshotList.map((s) => s.docHeight));
+    frame.style.width = `${FILM_WIDTH}px`;
+    frame.style.height = `${frameHeight}px`;
+    applyZoom();
 
-    scrubEl.max = String(totalSec);
-    renderRail(railEl, timeline, (sec) => seek(sec));
+    clockTotalEl.textContent = formatClock(totalSec);
+    timelineHandle = renderTimeline(timelineEl, timeline, commits, {
+      onSeek: (sec) => seek(sec),
+      onScrubStart: () => setPhase('idle'),
+    });
     currentIndex = -1; // force the next renderAt to rebuild the stage from this state's data
   }
+
+  // --- playhead -------------------------------------------------------
 
   // The single function that decides "which commit is the playhead on."
   // Rendering and the detail pane both read its result — invariant 6:
@@ -164,55 +265,185 @@ async function boot(): Promise<void> {
 
     currentLocalT = localT;
     updateProgress(localT, visibility);
-    updateRailPlayhead(railEl, timeline, sec, entry.sha);
-    scrubEl.value = String(sec);
+    frame.style.background = pageBackgroundAt(localT, visibility) ?? FRAME_FALLBACK_BACKGROUND;
+    timelineHandle?.update(sec, entry.sha, index);
+    clockNowEl.textContent = formatClock(sec);
+    commitCountEl.textContent = `${index + 1} / ${timeline.length}`;
   }
 
   function seek(sec: number): void {
     currentSec = Math.max(0, Math.min(sec, totalSec));
     renderAt(currentSec);
+    updatePlayButton();
   }
+
+  // --- transport ------------------------------------------------------
+
+  function atEnd(): boolean {
+    return totalSec > 0 && currentSec >= totalSec - 0.001;
+  }
+
+  function updatePlayButton(): void {
+    const state = phase === 'idle' ? (atEnd() && !loop ? 'ended' : 'idle') : phase;
+    playBtn.dataset.state = state;
+    if (state === 'ended') {
+      playBtn.textContent = '⟲';
+      playBtn.setAttribute('aria-label', 'Replay');
+      playBtn.title = 'Replay (Space)';
+    } else if (state === 'idle') {
+      playBtn.textContent = '⏵';
+      playBtn.setAttribute('aria-label', 'Play');
+      playBtn.title = 'Play (Space)';
+    } else {
+      playBtn.textContent = '⏸';
+      playBtn.setAttribute('aria-label', 'Pause');
+      playBtn.title = 'Pause (Space)';
+    }
+  }
+
+  function startLoop(): void {
+    if (rafId === null) rafId = requestAnimationFrame(tick);
+  }
+
+  function stopLoop(): void {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  function setPhase(next: Phase): void {
+    phase = next;
+    lastFrameTime = null;
+    updatePlayButton();
+    if (phase === 'idle') stopLoop();
+    else startLoop();
+  }
+
+  // Pressing play on the final frame restarts the film. Without this the
+  // button looks alive and does nothing: the clock is already at the end,
+  // so the next frame immediately re-clamps and stops.
+  function togglePlay(): void {
+    if (phase === 'idle') {
+      if (atEnd()) seek(0);
+      setPhase('playing');
+    } else {
+      setPhase('idle');
+    }
+  }
+
+  function holdDuration(): number {
+    return Math.max(LOOP_HOLD_MIN_SECONDS, LOOP_HOLD_SECONDS / speed);
+  }
+
+  function tick(now: number): void {
+    rafId = null;
+    if (phase === 'idle') return;
+
+    if (lastFrameTime !== null) {
+      const realDelta = (now - lastFrameTime) / 1000;
+
+      if (phase === 'holding') {
+        // Film time is frozen; only the beat's own clock runs.
+        holdRemaining -= realDelta;
+        if (holdRemaining <= 0) {
+          seek(0);
+          phase = 'playing';
+          updatePlayButton();
+        }
+      } else {
+        currentSec += realDelta * speed;
+        if (currentSec >= totalSec) {
+          currentSec = totalSec;
+          renderAt(currentSec);
+          if (loop) {
+            phase = 'holding';
+            holdRemaining = holdDuration();
+            updatePlayButton();
+          } else {
+            setPhase('idle');
+            return;
+          }
+        } else {
+          renderAt(currentSec);
+        }
+      }
+    }
+
+    lastFrameTime = now;
+    startLoop();
+  }
+
+  // Steps to the START of the adjacent timeline entry — the same unit
+  // the segments and the commit counter use, so all three agree on what
+  // "a commit" is.
+  function stepCommit(direction: -1 | 1): void {
+    const { index } = entryAt(currentSec);
+    const next = Math.max(0, Math.min(index + direction, timeline.length - 1));
+    setPhase('idle');
+    seek(timeline[next].startSec);
+  }
+
+  playBtn.addEventListener('click', () => togglePlay());
+  prevBtn.addEventListener('click', () => stepCommit(-1));
+  nextBtn.addEventListener('click', () => stepCommit(1));
+
+  loopBtn.addEventListener('click', () => {
+    loop = !loop;
+    loopBtn.setAttribute('aria-pressed', String(loop));
+    // Leaving the hold with loop switched off would strand the playhead
+    // mid-beat, so the beat resolves into a normal stop.
+    if (!loop && phase === 'holding') setPhase('idle');
+    updatePlayButton();
+  });
+
+  speedEl.addEventListener('change', () => {
+    speed = Number(speedEl.value) || 1;
+    lastFrameTime = null; // don't charge the new rate for time spent at the old one
+  });
+
+  // Bound to the document, not the transport, so the shortcuts work
+  // wherever focus happens to be. Arrow keys are claimed from the
+  // timeline deliberately: while watching a film, "next" means the next
+  // commit, not the next hundredth of a second.
+  document.addEventListener('keydown', (event) => {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    const target = event.target as HTMLElement | null;
+    if (target?.isContentEditable) return;
+
+    // A focused dropdown (register, speed, zoom) keeps its own arrow keys
+    // for cycling values. It does NOT keep Space. Picking a zoom or a
+    // speed with the mouse leaves focus sitting on that dropdown, and the
+    // very next thing anyone reaches for is Space to start the film —
+    // having it reopen the dropdown instead is wrong every single time.
+    // Opening a focused dropdown from the keyboard still works with Enter
+    // or Alt+Down.
+    const inDropdown = target?.tagName === 'SELECT';
+
+    if (event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault(); // otherwise the page scrolls, and a focused button double-fires
+      togglePlay();
+    } else if (event.key === 'ArrowLeft') {
+      if (inDropdown) return;
+      event.preventDefault();
+      stepCommit(-1);
+    } else if (event.key === 'ArrowRight') {
+      if (inDropdown) return;
+      event.preventDefault();
+      stepCommit(1);
+    }
+  });
 
   renderRegisterControl(registerWrap, states, currentStateId, async (nextStateId) => {
     currentStateId = nextStateId;
     const holdSec = currentSec; // switching state holds the playhead at its current film time
-    playing = false;
-    playBtn.textContent = 'Play';
+    setPhase('idle');
     await loadState(currentStateId);
     seek(Math.min(holdSec, totalSec));
   });
 
-  scrubEl.addEventListener('input', () => {
-    playing = false;
-    playBtn.textContent = 'Play';
-    seek(Number(scrubEl.value));
-  });
-
-  playBtn.addEventListener('click', () => {
-    playing = !playing;
-    playBtn.textContent = playing ? 'Pause' : 'Play';
-    lastFrameTime = null;
-    if (playing) requestAnimationFrame(tick);
-  });
-
-  function tick(now: number): void {
-    if (!playing) return;
-    if (lastFrameTime !== null) {
-      const deltaSec = (now - lastFrameTime) / 1000;
-      currentSec += deltaSec;
-      if (currentSec >= totalSec) {
-        currentSec = totalSec;
-        playing = false;
-        playBtn.textContent = 'Play';
-      }
-      renderAt(currentSec);
-    }
-    lastFrameTime = now;
-    if (playing) requestAnimationFrame(tick);
-  }
-
   await loadState(currentStateId);
-  renderAt(0);
+  seek(0);
 }
 
 boot().catch((err) => {

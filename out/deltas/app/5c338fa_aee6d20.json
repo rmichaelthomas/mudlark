@@ -43,7 +43,7 @@
     {
       "key": "/body:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "4037px",
             "3943px"
@@ -54,7 +54,7 @@
     {
       "key": "/body:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "position": [
             "static",
             "relative"
@@ -85,7 +85,7 @@
     {
       "key": "/body:0/div:0/div:1",
       "layers": {
-        "life": {
+        "behavior": {
           "animationName": [
             "none",
             "fade-up"
@@ -96,13 +96,13 @@
     {
       "key": "/body:0/div:0/header:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "213px",
             "88px"
           ]
         },
-        "life": {
+        "behavior": {
           "animationName": [
             "none",
             "fade-up"
@@ -113,7 +113,7 @@
     {
       "key": "/body:0/div:0/div:0",
       "layers": {
-        "life": {
+        "behavior": {
           "animationName": [
             "none",
             "fade-up"
@@ -124,7 +124,7 @@
     {
       "key": "/body:0/div:0/section:2",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "823px",
             "855px"
@@ -135,7 +135,7 @@
     {
       "key": "/body:0/div:0/section:0/div:0",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -162,7 +162,7 @@
     {
       "key": "/body:0/div:0/section:1/div:0",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -189,7 +189,7 @@
     {
       "key": "/body:0/div:0/section:2/div:2",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "392px",
             "424px"
@@ -200,7 +200,7 @@
     {
       "key": "/body:0/div:0/section:2/div:0",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -227,7 +227,7 @@
     {
       "key": "/body:0/div:0/section:3/div:0",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -254,7 +254,7 @@
     {
       "key": "/body:0/div:0/footer:0/div:0",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -281,7 +281,7 @@
     {
       "key": "/body:0/div:0/div:1/div:0/div:0",
       "layers": {
-        "life": {
+        "behavior": {
           "transitionProperty": [
             "transform, width",
             "all"
@@ -292,7 +292,7 @@
     {
       "key": "/body:0/div:0/section:1/div:1/div:1",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -319,7 +319,7 @@
     {
       "key": "/body:0/div:0/section:2/div:2/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "display": [
             "block",
             "grid"
@@ -342,7 +342,7 @@
     {
       "key": "/body:0/div:0/section:3/div:1/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "display": [
             "block",
             "flex"
@@ -357,7 +357,7 @@
     {
       "key": "/body:0/div:0/section:3/div:1/div:1",
       "layers": {
-        "frame": {
+        "layout": {
           "display": [
             "block",
             "flex"
@@ -372,7 +372,7 @@
     {
       "key": "/body:0/div:0/section:2/div:2/div:0/div:0",
       "layers": {
-        "frame": {
+        "layout": {
           "height": [
             "338px",
             "370px"
@@ -386,7 +386,7 @@
             "1"
           ]
         },
-        "life": {
+        "behavior": {
           "transitionProperty": [
             "all",
             "opacity"
@@ -397,7 +397,7 @@
     {
       "key": "/body:0/div:0/section:2/div:1/div:1/p:1",
       "layers": {
-        "voice": {
+        "content": {
           "text": [
             "Each wish below corresponds to a particular architectural decision already built into the paradigm. Toggle to Plain English to read the quotes without the scaffolding.",
             "Each wish below corresponds to a particular architectural decision already built into the paradigm."
@@ -408,7 +408,7 @@
     {
       "key": "/body:0/div:0/section:3/div:1/div:0/span:0",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -435,7 +435,7 @@
     {
       "key": "/body:0/div:0/section:3/div:1/div:0/a:0",
       "layers": {
-        "frame": {
+        "layout": {
           "display": [
             "inline-flex",
             "flex"
@@ -458,7 +458,7 @@
     {
       "key": "/body:0/div:0/section:3/div:1/div:1/span:0",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -485,7 +485,7 @@
     {
       "key": "/body:0/div:0/section:3/div:1/div:1/a:0",
       "layers": {
-        "frame": {
+        "layout": {
           "display": [
             "inline-flex",
             "flex"
@@ -504,7 +504,7 @@
     {
       "key": "/body:0/div:0/section:2/div:2/div:0/div:0/div:1",
       "layers": {
-        "skin": {
+        "surface": {
           "color": [
             "rgb(61, 90, 128)",
             "rgb(107, 142, 174)"
@@ -529,6 +529,6 @@
       }
     }
   ],
-  "lifeFileChanged": true,
+  "behaviorFileChanged": true,
   "otherStatesChanged": []
 }

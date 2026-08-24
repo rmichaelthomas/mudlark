@@ -11,13 +11,13 @@
     {
       "key": "/body:0/div:0/div:0/div:0/div:0/a:0",
       "layers": {
-        "frame": {
+        "layout": {
           "width": [
             "280px",
             "290px"
           ]
         },
-        "voice": {
+        "content": {
           "text": [
             " Download on the App Store",
             "Download on the App Store"
@@ -26,6 +26,6 @@
       }
     }
   ],
-  "lifeFileChanged": false,
+  "behaviorFileChanged": false,
   "otherStatesChanged": []
 }
